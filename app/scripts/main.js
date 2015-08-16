@@ -19,6 +19,12 @@ function drawGraph() {
 		coords = {},
 		point = {},
 		plot = {},
+		caseHover = {},
+		defaultCaseHoverText = '',
+		caseHoverText = {},
+		caseHoverGroup = {},
+		caseClick = {},
+		//connectionHover
 		table = [],
 		chart = {};
 
@@ -43,20 +49,6 @@ function drawGraph() {
 	legend = new Plottable.Components.Legend(colorScale).maxEntriesPerRow(5);
 
 	plot = new Plottable.Components.Group();
-
-	cases = new Plottable.Plots.Scatter()
-		.addDataset(new Plottable.Dataset(citationJSON.opinion_clusters))
-		.x(function (d) {
-			return parseDate(d.date_filed);
-		}, xScale)
-		.y(function (d) {
-			return d.citation_count;
-		}, yScale)
-		.size(function (d) {
-			return d.citation_count;
-		}, sizeScale)
-		.attr('stroke', colorScale.scale('Case'));
-	plot.append(cases);
 
 	connections = new Plottable.Plots.Line()
 		.x(function (d) {
@@ -84,6 +76,25 @@ function drawGraph() {
 		});
 	});
 
+	cases = new Plottable.Plots.Scatter()
+		.addDataset(new Plottable.Dataset(citationJSON.opinion_clusters))
+		.addClass('caseScatter')
+		.x(function (d) {
+			return parseDate(d.date_filed);
+		}, xScale)
+		.y(function (d) {
+			return d.citation_count;
+		}, yScale)
+		.size(function (d) {
+			return d.citation_count;
+		}, sizeScale)
+		.attr('stroke', colorScale.scale('Case'))
+		.attr('fill', colorScale.scale('Case'))
+		.attr('title', function (d) {
+			return d.case_name;
+		});
+	plot.append(cases);
+
 	table = [
 		[null, null, legend],
 		[yLabel, yAxis, plot],
@@ -94,6 +105,87 @@ function drawGraph() {
 	chart = new Plottable.Components.Table(table);
 
 	chart.renderTo('#coverageChart');
+
+	caseHover = new Plottable.Interactions.Pointer();
+
+	caseHoverGroup = cases
+		.foreground()
+		.append('g')
+		.attr('transform', 'translate(0,0)')
+		.style('visibility', 'hidden')
+	caseHoverGroup
+		.append('circle')
+		.attr({
+			'stroke': 'black',
+			'fill': 'none',
+			'r': 15,
+			'cx': 0,
+			'cy': 0
+		});
+	caseHoverText = caseHoverGroup
+		.append('text')
+		.attr('text-anchor', 'middle')
+		.attr('transform', 'translate(0,-17)')
+		.text(defaultCaseHoverText);
+
+	caseHover.onPointerMove(function (p) {
+		var datum,
+			position;
+
+		if (typeof cases.entityNearest === 'function') {
+			var nearestEntity = cases.entityNearest(p);
+
+			if (nearestEntity != null) {
+				datum = nearestEntity.datum;
+				position = nearestEntity.position;
+			}
+		} else {
+			var cpd = cases.getClosestPlotData(p);
+			if (cpd.data.length > 0) {
+				datum = cpd.data[0];
+				position = cpd.pixelPoints[0];
+			}
+		}
+		if (datum != null) {
+			caseHoverText.text(datum.case_name_short);
+			caseHoverGroup
+				.attr('transform', 'translate(' + position.x + ',' + position.y + ')')
+				.style('visibility', 'visible');
+		} else {
+			caseHoverText.text(defaultCaseHoverText);
+			caseHoverGroup.style('visibility', 'hidden');
+		}
+	});
+	caseHover.onPointerExit(function() {
+		caseHoverText.text(defaultCaseHoverText);
+		caseHoverGroup.style('visibility', 'hidden');
+	});
+	caseHover.attachTo(cases);
+
+	caseClick = new Plottable.Interactions.Click();
+
+	caseClick.onClick(function (c) {
+		var datum;
+
+		if (typeof cases.entityNearest === 'function') {
+			var nearestEntity = cases.entityNearest(c);
+
+			if (nearestEntity != null) {
+				datum = nearestEntity.datum;
+			}
+		} else {
+			var cpd = cases.getClosestPlotData(c);
+			if (cpd.data.length > 0) {
+				datum = cpd.data[0];
+			}
+		}
+		if (datum != null) {
+			console.log(datum.absolute_url);
+		}
+	});
+
+	caseClick.attachTo(cases);
+
 }
 
 $(document).ready(function() {
