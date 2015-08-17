@@ -1,0 +1,2184 @@
+{
+  "meta": {
+    "donate": "Please consider donating to support more projects from Free Law Project", 
+    "version": 1.0
+  }, 
+  "opinion_clusters": [
+    {
+      "absolute_url": "/scotus/x9n/united-states-v-rabinowitz/", 
+      "case_name": "United States v. Rabinowitz", 
+      "case_name_short": "United States v. Rabinowitz", 
+      "citation_count": 53, 
+      "date_filed": "1950-02-20T00:00:00", 
+      "decision_direction": "1", 
+      "id": 104769, 
+      "sub_opinions": [
+        {
+          "opinions_cited": [], 
+          "type": "combined"
+        }
+      ], 
+      "votes_majority": "5", 
+      "votes_minority": "3"
+    }, 
+    {
+      "absolute_url": "/scotus/xcb/united-states-v-jeffers/", 
+      "case_name": "United States v. Jeffers", 
+      "case_name_short": "United States v. Jeffers", 
+      "citation_count": 21, 
+      "date_filed": "1951-11-26T00:00:00", 
+      "decision_direction": "2", 
+      "id": 104932, 
+      "sub_opinions": [
+        {
+          "opinions_cited": [
+            104769
+          ], 
+          "type": "combined"
+        }
+      ], 
+      "votes_majority": "6", 
+      "votes_minority": "2"
+    }, 
+    {
+      "absolute_url": "/scotus/xgG/irvine-v-california/", 
+      "case_name": "Irvine v. California", 
+      "case_name_short": "Irvine v. California", 
+      "citation_count": 8, 
+      "date_filed": "1954-03-15T00:00:00", 
+      "decision_direction": "1", 
+      "id": 105194, 
+      "sub_opinions": [
+        {
+          "opinions_cited": [
+            104769, 
+            104932
+          ], 
+          "type": "combined"
+        }
+      ], 
+      "votes_majority": "5", 
+      "votes_minority": "4"
+    }, 
+    {
+      "absolute_url": "/scotus/xrf/giordenello-v-united-states/", 
+      "case_name": "Giordenello v. United States", 
+      "case_name_short": "Giordenello v. United States", 
+      "citation_count": 12, 
+      "date_filed": "1958-06-30T00:00:00", 
+      "decision_direction": "2", 
+      "id": 105748, 
+      "sub_opinions": [
+        {
+          "opinions_cited": [
+            104769
+          ], 
+          "type": "combined"
+        }
+      ], 
+      "votes_majority": "6", 
+      "votes_minority": "3"
+    }, 
+    {
+      "absolute_url": "/scotus/xrg/joy-jones-petitioner-v-united-states-of-america/", 
+      "case_name": "Joy Jones v. United States", 
+      "case_name_short": "Joy Jones v. United States", 
+      "citation_count": 16, 
+      "date_filed": "1958-06-30T00:00:00", 
+      "decision_direction": "2", 
+      "id": 105749, 
+      "sub_opinions": [
+        {
+          "opinions_cited": [
+            104769, 
+            104932, 
+            105748
+          ], 
+          "type": "combined"
+        }
+      ], 
+      "votes_majority": "7", 
+      "votes_minority": "2"
+    }, 
+    {
+      "absolute_url": "/scotus/xvX/abel-v-united-states/", 
+      "case_name": "Abel v. United States", 
+      "case_name_short": "Abel v. United States", 
+      "citation_count": 13, 
+      "date_filed": "1960-03-28T00:00:00", 
+      "decision_direction": "1", 
+      "id": 106021, 
+      "sub_opinions": [
+        {
+          "opinions_cited": [
+            104769
+          ], 
+          "type": "combined"
+        }
+      ], 
+      "votes_majority": "5", 
+      "votes_minority": "4"
+    }, 
+    {
+      "absolute_url": "/scotus/xxr/elkins-v-united-states/", 
+      "case_name": "Elkins v. United States", 
+      "case_name_short": "Elkins v. United States", 
+      "citation_count": 16, 
+      "date_filed": "1960-06-27T00:00:00", 
+      "decision_direction": "2", 
+      "id": 106107, 
+      "sub_opinions": [
+        {
+          "opinions_cited": [
+            104769, 
+            105194, 
+            104932, 
+            106021
+          ], 
+          "type": "combined"
+        }
+      ], 
+      "votes_majority": "5", 
+      "votes_minority": "4"
+    }, 
+    {
+      "absolute_url": "/scotus/xyZ/chapman-v-united-states/", 
+      "case_name": "Chapman v. United States", 
+      "case_name_short": "Chapman v. United States", 
+      "citation_count": 10, 
+      "date_filed": "1961-04-03T00:00:00", 
+      "decision_direction": "2", 
+      "id": 106197, 
+      "sub_opinions": [
+        {
+          "opinions_cited": [
+            104769, 
+            106107, 
+            104932, 
+            105749
+          ], 
+          "type": "combined"
+        }
+      ], 
+      "votes_majority": "8", 
+      "votes_minority": "1"
+    }, 
+    {
+      "absolute_url": "/scotus/xyG/wilson-v-schnettler/", 
+      "case_name": "Wilson v. Schnettler", 
+      "case_name_short": "Wilson v. Schnettler", 
+      "citation_count": 2, 
+      "date_filed": "1961-04-17T00:00:00", 
+      "decision_direction": "1", 
+      "id": 106180, 
+      "sub_opinions": [
+        {
+          "opinions_cited": [
+            104769, 
+            106107, 
+            105748, 
+            106021
+          ], 
+          "type": "combined"
+        }
+      ], 
+      "votes_majority": "6", 
+      "votes_minority": "3"
+    }, 
+    {
+      "absolute_url": "/scotus/6zow/mapp-v-ohio/", 
+      "case_name": "Mapp v. Ohio", 
+      "case_name_short": "Mapp v. Ohio", 
+      "citation_count": 28, 
+      "date_filed": "1961-06-19T00:00:00", 
+      "decision_direction": "2", 
+      "id": 1087878, 
+      "sub_opinions": [
+        {
+          "opinions_cited": [
+            104769, 
+            105194, 
+            106107, 
+            106180, 
+            1087878
+          ], 
+          "type": "combined"
+        }
+      ], 
+      "votes_majority": "6", 
+      "votes_minority": "3"
+    }, 
+    {
+      "absolute_url": "/scotus/xAv/dollree-mapp-etc-appellant-v-ohio/", 
+      "case_name": "Dollree Mapp, Etc. v. Ohio", 
+      "case_name_short": "Dollree Mapp, Etc. v. Ohio", 
+      "citation_count": 32, 
+      "date_filed": "1961-10-09T00:00:00", 
+      "decision_direction": "2", 
+      "id": 106285, 
+      "sub_opinions": [
+        {
+          "opinions_cited": [
+            104769, 
+            105194, 
+            106107, 
+            106180, 
+            1087878
+          ], 
+          "type": "combined"
+        }
+      ], 
+      "votes_majority": "6", 
+      "votes_minority": "3"
+    }, 
+    {
+      "absolute_url": "/scotus/xAs/paul-poe-et-al-appellants-v-abraham-ullman/", 
+      "case_name": "Paul Poe v. Abraham Ullman, State's Attorney. Jane Doe v. Abraham Ullman, State's Attorney. C. Lee Buxton v. Abraham Ullman, State's Attorney", 
+      "case_name_short": "Paul Poe v. Abraham Ullman, State's Attorney. Jane Doe v. Abraham Ullman, State's Attorney. C. Lee Buxton v. Abraham Ullman, State's Attorney", 
+      "citation_count": 2, 
+      "date_filed": "1961-10-09T00:00:00", 
+      "decision_direction": "1", 
+      "id": 106282, 
+      "sub_opinions": [
+        {
+          "opinions_cited": [
+            104769, 
+            106021, 
+            1087878, 
+            105194, 
+            106285, 
+            106197
+          ], 
+          "type": "combined"
+        }
+      ], 
+      "votes_majority": "5", 
+      "votes_minority": "4"
+    }, 
+    {
+      "absolute_url": "/scotus/xEt/wong-sun-v-united-states/", 
+      "case_name": "Wong Sun v. United States", 
+      "case_name_short": "Wong Sun v. United States", 
+      "citation_count": 14, 
+      "date_filed": "1963-01-14T00:00:00", 
+      "decision_direction": "2", 
+      "id": 106515, 
+      "sub_opinions": [
+        {
+          "opinions_cited": [
+            104769, 
+            106107, 
+            105748, 
+            106197
+          ], 
+          "type": "combined"
+        }
+      ], 
+      "votes_majority": "5", 
+      "votes_minority": "4"
+    }, 
+    {
+      "absolute_url": "/scotus/xGD/ker-v-california/", 
+      "case_name": "Ker v. California", 
+      "case_name_short": "Ker v. California", 
+      "citation_count": 15, 
+      "date_filed": "1963-06-10T00:00:00", 
+      "decision_direction": "2", 
+      "id": 106641, 
+      "sub_opinions": [
+        {
+          "opinions_cited": [
+            104769, 
+            104932, 
+            106021, 
+            1087878, 
+            106285, 
+            106515, 
+            106197, 
+            106107
+          ], 
+          "type": "combined"
+        }
+      ], 
+      "votes_majority": "9", 
+      "votes_minority": "0"
+    }, 
+    {
+      "absolute_url": "/scotus/xJT/preston-v-united-states/", 
+      "case_name": "Preston v. United States", 
+      "case_name_short": "Preston v. United States", 
+      "citation_count": 20, 
+      "date_filed": "1964-03-23T00:00:00", 
+      "decision_direction": "2", 
+      "id": 106771, 
+      "sub_opinions": [
+        {
+          "opinions_cited": [
+            104769, 
+            106107, 
+            104932, 
+            106777
+          ], 
+          "type": "combined"
+        }
+      ], 
+      "votes_majority": "9", 
+      "votes_minority": "0"
+    }, 
+    {
+      "absolute_url": "/scotus/xJZ/stoner-v-california/", 
+      "case_name": "Stoner v. California", 
+      "case_name_short": "Stoner v. California", 
+      "citation_count": 12, 
+      "date_filed": "1964-05-18T00:00:00", 
+      "decision_direction": "2", 
+      "id": 106777, 
+      "sub_opinions": [
+        {
+          "opinions_cited": [
+            104769, 
+            104932, 
+            106285, 
+            106641, 
+            105749, 
+            106197
+          ], 
+          "type": "combined"
+        }
+      ], 
+      "votes_majority": "8", 
+      "votes_minority": "1"
+    }, 
+    {
+      "absolute_url": "/scotus/xMJ/beck-v-ohio/", 
+      "case_name": "Beck v. Ohio", 
+      "case_name_short": "Beck v. Ohio", 
+      "citation_count": 16, 
+      "date_filed": "1964-11-23T00:00:00", 
+      "decision_direction": "2", 
+      "id": 106936, 
+      "sub_opinions": [
+        {
+          "opinions_cited": [
+            104769, 
+            1087878, 
+            106771, 
+            106285, 
+            106641, 
+            106515, 
+            105748
+          ], 
+          "type": "combined"
+        }
+      ], 
+      "votes_majority": "6", 
+      "votes_minority": "3"
+    }, 
+    {
+      "absolute_url": "/scotus/xNE/united-states-v-ventresca/", 
+      "case_name": "United States v. Ventresca", 
+      "case_name_short": "United States v. Ventresca", 
+      "citation_count": 7, 
+      "date_filed": "1965-03-01T00:00:00", 
+      "decision_direction": "1", 
+      "id": 106990, 
+      "sub_opinions": [
+        {
+          "opinions_cited": [
+            106936, 
+            104769, 
+            106771, 
+            105748, 
+            106197
+          ], 
+          "type": "combined"
+        }
+      ], 
+      "votes_majority": "7", 
+      "votes_minority": "2"
+    }, 
+    {
+      "absolute_url": "/scotus/xTb/miranda-v-arizona/", 
+      "case_name": "Miranda v. Arizona", 
+      "case_name_short": "Miranda v. Arizona", 
+      "citation_count": 14, 
+      "date_filed": "1966-06-13T00:00:00", 
+      "decision_direction": "2", 
+      "id": 107252, 
+      "sub_opinions": [
+        {
+          "opinions_cited": [
+            106285, 
+            1087878
+          ], 
+          "type": "combined"
+        }
+      ], 
+      "votes_majority": "5", 
+      "votes_minority": "4"
+    }, 
+    {
+      "absolute_url": "/scotus/xTm/schmerber-v-california/", 
+      "case_name": "Schmerber v. California", 
+      "case_name_short": "Schmerber v. California", 
+      "citation_count": 14, 
+      "date_filed": "1966-06-20T00:00:00", 
+      "decision_direction": "1", 
+      "id": 107262, 
+      "sub_opinions": [
+        {
+          "opinions_cited": [
+            104769, 
+            106021, 
+            1087878, 
+            106285, 
+            106771, 
+            107252
+          ], 
+          "type": "combined"
+        }
+      ], 
+      "votes_majority": "5", 
+      "votes_minority": "4"
+    }, 
+    {
+      "absolute_url": "/scotus/xUk/osborn-v-united-states/", 
+      "case_name": "Osborn v. United States", 
+      "case_name_short": "Osborn v. United States", 
+      "citation_count": 2, 
+      "date_filed": "1967-01-23T00:00:00", 
+      "decision_direction": "1", 
+      "id": 107319, 
+      "sub_opinions": [
+        {
+          "opinions_cited": [
+            104769, 
+            105194, 
+            106021
+          ], 
+          "type": "combined"
+        }
+      ], 
+      "votes_majority": "7", 
+      "votes_minority": "1"
+    }, 
+    {
+      "absolute_url": "/scotus/xV3/cooper-v-california/", 
+      "case_name": "Cooper v. California", 
+      "case_name_short": "Cooper v. California", 
+      "citation_count": 11, 
+      "date_filed": "1967-02-20T00:00:00", 
+      "decision_direction": "1", 
+      "id": 107360, 
+      "sub_opinions": [
+        {
+          "opinions_cited": [
+            104769, 
+            106771, 
+            106285
+          ], 
+          "type": "combined"
+        }
+      ], 
+      "votes_majority": "5", 
+      "votes_minority": "4"
+    }, 
+    {
+      "absolute_url": "/scotus/xWR/warden-md-penitentiary-v-hayden/", 
+      "case_name": "Warden, Md. Penitentiary v. Hayden", 
+      "case_name_short": "Warden, Md. Penitentiary v. Hayden", 
+      "citation_count": 21, 
+      "date_filed": "1967-05-29T00:00:00", 
+      "decision_direction": "1", 
+      "id": 107465, 
+      "sub_opinions": [
+        {
+          "opinions_cited": [
+            106515, 
+            104769, 
+            106021, 
+            1087878, 
+            106285, 
+            107360, 
+            106771, 
+            106936, 
+            106777, 
+            107262
+          ], 
+          "type": "combined"
+        }
+      ], 
+      "votes_majority": "6", 
+      "votes_minority": "3"
+    }, 
+    {
+      "absolute_url": "/scotus/xYy/katz-v-united-states/", 
+      "case_name": "Katz v. United States", 
+      "case_name_short": "Katz", 
+      "citation_count": 32, 
+      "date_filed": "1967-12-18T00:00:00", 
+      "decision_direction": "2", 
+      "id": 107564, 
+      "sub_opinions": [
+        {
+          "opinions_cited": [
+            107360, 
+            104769, 
+            104932, 
+            1087878, 
+            107465, 
+            106285, 
+            106641, 
+            106515, 
+            105749, 
+            107319, 
+            106936, 
+            106777, 
+            106197
+          ], 
+          "type": "combined"
+        }
+      ], 
+      "votes_majority": "7", 
+      "votes_minority": "1"
+    }, 
+    {
+      "absolute_url": "/scotus/y2q/sibron-v-new-york/", 
+      "case_name": "Sibron v. New York", 
+      "case_name_short": "Sibron v. New York", 
+      "citation_count": 13, 
+      "date_filed": "1968-06-10T00:00:00", 
+      "decision_direction": "2", 
+      "id": 107730, 
+      "sub_opinions": [
+        {
+          "opinions_cited": [
+            107360, 
+            104769, 
+            1087878, 
+            107729, 
+            106285, 
+            106641, 
+            106771, 
+            105748, 
+            106936, 
+            107252
+          ], 
+          "type": "combined"
+        }
+      ], 
+      "votes_majority": "8", 
+      "votes_minority": "1"
+    }, 
+    {
+      "absolute_url": "/scotus/y2p/terry-v-ohio/", 
+      "case_name": "Terry v. Ohio", 
+      "case_name_short": "Terry", 
+      "citation_count": 35, 
+      "date_filed": "1968-06-10T00:00:00", 
+      "decision_direction": "1", 
+      "id": 107729, 
+      "sub_opinions": [
+        {
+          "opinions_cited": [
+            1087878, 
+            106771, 
+            107465, 
+            107564, 
+            106285, 
+            106641, 
+            107730, 
+            106515, 
+            106197, 
+            106936, 
+            106107
+          ], 
+          "type": "combined"
+        }
+      ], 
+      "votes_majority": "8", 
+      "votes_minority": "1"
+    }, 
+    {
+      "absolute_url": "/scotus/y4a/spinelli-v-united-states/", 
+      "case_name": "Spinelli v. United States", 
+      "case_name_short": "Spinelli v. United States", 
+      "citation_count": 6, 
+      "date_filed": "1969-01-27T00:00:00", 
+      "decision_direction": "2", 
+      "id": 107831, 
+      "sub_opinions": [
+        {
+          "opinions_cited": [
+            104769, 
+            1087878, 
+            107465, 
+            106285, 
+            106990, 
+            105748, 
+            105749, 
+            106936
+          ], 
+          "type": "combined"
+        }
+      ], 
+      "votes_majority": "5", 
+      "votes_minority": "3"
+    }, 
+    {
+      "absolute_url": "/scotus/y5j/stanley-v-georgia/", 
+      "case_name": "Stanley v. Georgia", 
+      "case_name_short": "Stanley v. Georgia", 
+      "citation_count": 5, 
+      "date_filed": "1969-04-07T00:00:00", 
+      "decision_direction": "2", 
+      "id": 107898, 
+      "sub_opinions": [
+        {
+          "opinions_cited": [
+            104769, 
+            106285, 
+            1087878, 
+            107465
+          ], 
+          "type": "combined"
+        }
+      ], 
+      "votes_majority": "9", 
+      "votes_minority": "0"
+    }, 
+    {
+      "absolute_url": "/scotus/y6H/chimel-v-california/", 
+      "case_name": "Chimel v. California", 
+      "case_name_short": "Chimel", 
+      "citation_count": 28, 
+      "date_filed": "1969-06-23T00:00:00", 
+      "decision_direction": "2", 
+      "id": 107979, 
+      "sub_opinions": [
+        {
+          "opinions_cited": [
+            107360, 
+            104769, 
+            104932, 
+            106021, 
+            1087878, 
+            107729, 
+            107730, 
+            107465, 
+            107564, 
+            106285, 
+            107982, 
+            106641, 
+            107252, 
+            106771, 
+            105748, 
+            105749, 
+            107831, 
+            106936, 
+            106777, 
+            106107, 
+            106197
+          ], 
+          "type": "combined"
+        }
+      ], 
+      "votes_majority": "6", 
+      "votes_minority": "2"
+    }, 
+    {
+      "absolute_url": "/scotus/y6L/shipley-v-california/", 
+      "case_name": "Shipley v. California", 
+      "case_name_short": "Shipley v. California", 
+      "citation_count": 4, 
+      "date_filed": "1969-06-23T00:00:00", 
+      "decision_direction": "2", 
+      "id": 107982, 
+      "sub_opinions": [
+        {
+          "opinions_cited": [
+            104769, 
+            107979, 
+            106285, 
+            106777
+          ], 
+          "type": "combined"
+        }
+      ], 
+      "votes_majority": "6", 
+      "votes_minority": "2"
+    }, 
+    {
+      "absolute_url": "/scotus/yae/vale-v-louisiana/", 
+      "case_name": "Vale v. Louisiana", 
+      "case_name_short": "Vale", 
+      "citation_count": 8, 
+      "date_filed": "1970-06-22T00:00:00", 
+      "decision_direction": "2", 
+      "id": 108183, 
+      "sub_opinions": [
+        {
+          "opinions_cited": [
+            104769, 
+            104932, 
+            107465, 
+            107979, 
+            107564, 
+            106285, 
+            107982, 
+            106641, 
+            106771, 
+            106197, 
+            106777, 
+            107262
+          ], 
+          "type": "combined"
+        }
+      ], 
+      "votes_majority": "6", 
+      "votes_minority": "2"
+    }, 
+    {
+      "absolute_url": "/scotus/yaf/frank-chambers-petitioner-v-james-f-maroney/", 
+      "case_name": "Frank Chambers v. James F. Maroney, Superintendent, State Correctional Institution", 
+      "case_name_short": "Chambers", 
+      "citation_count": 12, 
+      "date_filed": "1970-10-12T00:00:00", 
+      "decision_direction": "1", 
+      "id": 108184, 
+      "sub_opinions": [
+        {
+          "opinions_cited": [
+            107360, 
+            104769, 
+            104932, 
+            1087878, 
+            107465, 
+            107979, 
+            107564, 
+            106285, 
+            106990, 
+            107729, 
+            106771, 
+            108183
+          ], 
+          "type": "combined"
+        }
+      ], 
+      "votes_majority": "7", 
+      "votes_minority": "1"
+    }, 
+    {
+      "absolute_url": "/scotus/ycg/williams-v-united-states/", 
+      "case_name": "Williams v. United States", 
+      "case_name_short": "Williams", 
+      "citation_count": 4, 
+      "date_filed": "1971-04-05T00:00:00", 
+      "decision_direction": "1", 
+      "id": 108301, 
+      "sub_opinions": [
+        {
+          "opinions_cited": [
+            104769, 
+            1087878, 
+            107465, 
+            107979, 
+            107564, 
+            106285, 
+            107729, 
+            106771, 
+            108184, 
+            107898
+          ], 
+          "type": "combined"
+        }
+      ], 
+      "votes_majority": "6", 
+      "votes_minority": "2"
+    }, 
+    {
+      "absolute_url": "/scotus/ydz/coolidge-v-new-hampshire/", 
+      "case_name": "Coolidge v. New Hampshire", 
+      "case_name_short": "Coolidge", 
+      "citation_count": 22, 
+      "date_filed": "1971-06-21T00:00:00", 
+      "decision_direction": "2", 
+      "id": 108377, 
+      "sub_opinions": [
+        {
+          "opinions_cited": [
+            1087878, 
+            108301, 
+            106641, 
+            106771, 
+            105748, 
+            105749, 
+            108183, 
+            108184, 
+            106777, 
+            107564, 
+            106285, 
+            107831, 
+            104769, 
+            107465, 
+            107979, 
+            107982, 
+            107729, 
+            107730, 
+            106197, 
+            107360, 
+            104932, 
+            105194, 
+            106515, 
+            107252, 
+            107898, 
+            106107, 
+            107262
+          ], 
+          "type": "combined"
+        }
+      ], 
+      "votes_majority": "5", 
+      "votes_minority": "4"
+    }, 
+    {
+      "absolute_url": "/scotus/yh6/united-states-v-united-states-dist-court-for-easte/", 
+      "case_name": "United States v. United States Dist. Court for Eastern Dist. of Mich.", 
+      "case_name_short": "U.S. Dist. Court", 
+      "citation_count": 14, 
+      "date_filed": "1972-06-19T00:00:00", 
+      "decision_direction": "2", 
+      "id": 108581, 
+      "sub_opinions": [
+        {
+          "opinions_cited": [
+            104769, 
+            104932, 
+            107979, 
+            107564, 
+            106285, 
+            107729, 
+            107252, 
+            107319, 
+            106936, 
+            108377
+          ], 
+          "type": "combined"
+        }
+      ], 
+      "votes_majority": "8", 
+      "votes_minority": "0"
+    }, 
+    {
+      "absolute_url": "/scotus/ykT/cupp-v-murphy/", 
+      "case_name": "Cupp v. Murphy", 
+      "case_name_short": "Cupp", 
+      "citation_count": 7, 
+      "date_filed": "1973-05-29T00:00:00", 
+      "decision_direction": "1", 
+      "id": 108801, 
+      "sub_opinions": [
+        {
+          "opinions_cited": [
+            107979, 
+            106285, 
+            107729, 
+            107730, 
+            105749, 
+            108377, 
+            107262
+          ], 
+          "type": "combined"
+        }
+      ], 
+      "votes_majority": "7", 
+      "votes_minority": "2"
+    }, 
+    {
+      "absolute_url": "/scotus/ynt/united-states-v-robinson/", 
+      "case_name": "United States v. Robinson", 
+      "case_name_short": "Robinson", 
+      "citation_count": 15, 
+      "date_filed": "1973-12-11T00:00:00", 
+      "decision_direction": "1", 
+      "id": 108893, 
+      "sub_opinions": [
+        {
+          "opinions_cited": [
+            104769, 
+            104932, 
+            106021, 
+            1087878, 
+            108801, 
+            106771, 
+            107465, 
+            107979, 
+            107564, 
+            106285, 
+            107729, 
+            107730, 
+            106515, 
+            105749, 
+            108377
+          ], 
+          "type": "combined"
+        }
+      ], 
+      "votes_majority": "6", 
+      "votes_minority": "3"
+    }, 
+    {
+      "absolute_url": "/scotus/ype/united-states-v-edwards/", 
+      "case_name": "United States v. Edwards", 
+      "case_name_short": "Edwards", 
+      "citation_count": 4, 
+      "date_filed": "1974-03-26T00:00:00", 
+      "decision_direction": "1", 
+      "id": 108995, 
+      "sub_opinions": [
+        {
+          "opinions_cited": [
+            107360, 
+            104769, 
+            106021, 
+            107729, 
+            107465, 
+            107979, 
+            107564, 
+            106641, 
+            106771, 
+            105749, 
+            108377, 
+            106777, 
+            108893, 
+            107262
+          ], 
+          "type": "combined"
+        }
+      ], 
+      "votes_majority": "5", 
+      "votes_minority": "4"
+    }, 
+    {
+      "absolute_url": "/scotus/ysw/gerstein-v-pugh/", 
+      "case_name": "Gerstein v. Pugh", 
+      "case_name_short": "Pugh", 
+      "citation_count": 8, 
+      "date_filed": "1975-02-18T00:00:00", 
+      "decision_direction": "2", 
+      "id": 109186, 
+      "sub_opinions": [
+        {
+          "opinions_cited": [
+            104769, 
+            108581, 
+            107729, 
+            107979, 
+            108801, 
+            106641, 
+            106515, 
+            105748, 
+            105749, 
+            106936, 
+            108377
+          ], 
+          "type": "combined"
+        }
+      ], 
+      "votes_majority": "9", 
+      "votes_minority": "0"
+    }, 
+    {
+      "absolute_url": "/scotus/yuw/united-states-v-peltier/", 
+      "case_name": "United States v. Peltier", 
+      "case_name_short": "Peltier", 
+      "citation_count": 4, 
+      "date_filed": "1975-06-25T00:00:00", 
+      "decision_direction": "1", 
+      "id": 109302, 
+      "sub_opinions": [
+        {
+          "opinions_cited": [
+            104769, 
+            1087878, 
+            105194, 
+            107979, 
+            107564, 
+            106285, 
+            108301, 
+            106641, 
+            107252, 
+            108377, 
+            106777, 
+            106107
+          ], 
+          "type": "combined"
+        }
+      ], 
+      "votes_majority": "5", 
+      "votes_minority": "4"
+    }, 
+    {
+      "absolute_url": "/scotus/yy1/united-states-v-santana/", 
+      "case_name": "United States v. Santana", 
+      "case_name_short": "United States v. Santana", 
+      "citation_count": 5, 
+      "date_filed": "1976-06-24T00:00:00", 
+      "decision_direction": "1", 
+      "id": 109504, 
+      "sub_opinions": [
+        {
+          "opinions_cited": [
+            109504, 
+            104769, 
+            109186, 
+            106021, 
+            107465, 
+            107979, 
+            107564, 
+            105749, 
+            108183, 
+            108377, 
+            108893
+          ], 
+          "type": "combined"
+        }
+      ], 
+      "votes_majority": "7", 
+      "votes_minority": "2"
+    }, 
+    {
+      "absolute_url": "/scotus/yyz/south-dakota-v-opperman/", 
+      "case_name": "South Dakota v. Opperman", 
+      "case_name_short": "South Dakota v. Opperman", 
+      "citation_count": 13, 
+      "date_filed": "1976-07-06T00:00:00", 
+      "decision_direction": "1", 
+      "id": 109537, 
+      "sub_opinions": [
+        {
+          "opinions_cited": [
+            106515, 
+            104769, 
+            104932, 
+            108581, 
+            107465, 
+            107979, 
+            107564, 
+            107360, 
+            107729, 
+            106771, 
+            108377, 
+            108184, 
+            106777, 
+            109541
+          ], 
+          "type": "combined"
+        }
+      ], 
+      "votes_majority": "5", 
+      "votes_minority": "4"
+    }, 
+    {
+      "absolute_url": "/scotus/yyD/united-states-v-martinez-fuerte/", 
+      "case_name": "United States v. Martinez-Fuerte", 
+      "case_name_short": "United States v. Martinez-Fuerte", 
+      "citation_count": 14, 
+      "date_filed": "1976-07-06T00:00:00", 
+      "decision_direction": "1", 
+      "id": 109541, 
+      "sub_opinions": [
+        {
+          "opinions_cited": [
+            106936, 
+            107729, 
+            109504, 
+            108581, 
+            109537
+          ], 
+          "type": "combined"
+        }
+      ], 
+      "votes_majority": "7", 
+      "votes_minority": "2"
+    }, 
+    {
+      "absolute_url": "/scotus/yzw/whalen-v-roe/", 
+      "case_name": "Whalen v. Roe", 
+      "case_name_short": "Whalen v. Roe", 
+      "citation_count": 2, 
+      "date_filed": "1977-02-22T00:00:00", 
+      "decision_direction": "1", 
+      "id": 109592, 
+      "sub_opinions": [
+        {
+          "opinions_cited": [
+            107729, 
+            106282, 
+            107564, 
+            107898
+          ], 
+          "type": "combined"
+        }
+      ], 
+      "votes_majority": "9", 
+      "votes_minority": "0"
+    }, 
+    {
+      "absolute_url": "/scotus/yBC/united-states-v-chadwick/", 
+      "case_name": "United States v. Chadwick", 
+      "case_name_short": "Chadwick", 
+      "citation_count": 11, 
+      "date_filed": "1977-06-21T00:00:00", 
+      "decision_direction": "2", 
+      "id": 109714, 
+      "sub_opinions": [
+        {
+          "opinions_cited": [
+            107360, 
+            104769, 
+            108995, 
+            104932, 
+            109537, 
+            107465, 
+            107979, 
+            107564, 
+            107729, 
+            106771, 
+            108184, 
+            108377, 
+            108893
+          ], 
+          "type": "combined"
+        }
+      ], 
+      "votes_majority": "7", 
+      "votes_minority": "2"
+    }, 
+    {
+      "absolute_url": "/scotus/yHR/bell-v-wolfish/", 
+      "case_name": "Bell v. Wolfish", 
+      "case_name_short": "Bell v. Wolfish", 
+      "citation_count": 5, 
+      "date_filed": "1979-05-14T00:00:00", 
+      "decision_direction": "1", 
+      "id": 110075, 
+      "sub_opinions": [
+        {
+          "opinions_cited": [
+            109186, 
+            109541, 
+            106282, 
+            107564, 
+            107729, 
+            107898, 
+            107262
+          ], 
+          "type": "combined"
+        }
+      ], 
+      "votes_majority": "6", 
+      "votes_minority": "3"
+    }, 
+    {
+      "absolute_url": "/scotus/yJB/arkansas-v-sanders/", 
+      "case_name": "Arkansas v. Sanders", 
+      "case_name_short": "Sanders", 
+      "citation_count": 7, 
+      "date_filed": "1979-06-20T00:00:00", 
+      "decision_direction": "2", 
+      "id": 110119, 
+      "sub_opinions": [
+        {
+          "opinions_cited": [
+            104769, 
+            104932, 
+            108581, 
+            1087878, 
+            109537, 
+            107979, 
+            107564, 
+            106285, 
+            109714, 
+            105749, 
+            108184, 
+            108377, 
+            108893, 
+            109541
+          ], 
+          "type": "combined"
+        }
+      ], 
+      "votes_majority": "7", 
+      "votes_minority": "2"
+    }, 
+    {
+      "absolute_url": "/scotus/yJK/michigan-v-defillippo/", 
+      "case_name": "Michigan v. DeFillippo", 
+      "case_name_short": "DeFillippo", 
+      "citation_count": 3, 
+      "date_filed": "1979-06-25T00:00:00", 
+      "decision_direction": "1", 
+      "id": 110127, 
+      "sub_opinions": [
+        {
+          "opinions_cited": [
+            107360, 
+            109186, 
+            107729, 
+            107564, 
+            106641, 
+            107730, 
+            106936, 
+            108893
+          ], 
+          "type": "combined"
+        }
+      ], 
+      "votes_majority": "6", 
+      "votes_minority": "3"
+    }, 
+    {
+      "absolute_url": "/scotus/ySc/new-york-v-belton/", 
+      "case_name": "New York v. Belton", 
+      "case_name_short": "Belton", 
+      "citation_count": 7, 
+      "date_filed": "1981-09-23T00:00:00", 
+      "decision_direction": "1", 
+      "id": 110559, 
+      "sub_opinions": [
+        {
+          "opinions_cited": [
+            108801, 
+            108995, 
+            1087878, 
+            110119, 
+            107465, 
+            109714, 
+            107979, 
+            107564, 
+            106285, 
+            107982, 
+            108377, 
+            107729, 
+            107730, 
+            106771, 
+            107252, 
+            105749, 
+            108183, 
+            108184, 
+            106777, 
+            108893
+          ], 
+          "type": "combined"
+        }
+      ], 
+      "votes_majority": "6", 
+      "votes_minority": "3"
+    }, 
+    {
+      "absolute_url": "/scotus/yVy/united-states-v-johnson/", 
+      "case_name": "United States v. Johnson", 
+      "case_name_short": "Johnson", 
+      "citation_count": 2, 
+      "date_filed": "1982-06-21T00:00:00", 
+      "decision_direction": "2", 
+      "id": 110754, 
+      "sub_opinions": [
+        {
+          "opinions_cited": [
+            104769, 
+            109186, 
+            108581, 
+            1087878, 
+            107979, 
+            107564, 
+            106285, 
+            108377, 
+            108301, 
+            106641, 
+            107252, 
+            105749, 
+            109302, 
+            107831, 
+            106777, 
+            109541
+          ], 
+          "type": "combined"
+        }
+      ], 
+      "votes_majority": "5", 
+      "votes_minority": "4"
+    }, 
+    {
+      "absolute_url": "/scotus/yY6/texas-v-brown/", 
+      "case_name": "Texas v. Brown", 
+      "case_name_short": "Brown", 
+      "citation_count": 6, 
+      "date_filed": "1983-04-19T00:00:00", 
+      "decision_direction": "1", 
+      "id": 110901, 
+      "sub_opinions": [
+        {
+          "opinions_cited": [
+            104769, 
+            104932, 
+            106021, 
+            110559, 
+            110119, 
+            107465, 
+            107979, 
+            107564, 
+            107729, 
+            109714, 
+            105749, 
+            108183, 
+            108377, 
+            109541, 
+            108893, 
+            108581
+          ], 
+          "type": "combined"
+        }
+      ], 
+      "votes_majority": "9", 
+      "votes_minority": "0"
+    }, 
+    {
+      "absolute_url": "/scotus/yZ6/illinois-v-gates/", 
+      "case_name": "Illinois v. Gates", 
+      "case_name_short": "Gates", 
+      "citation_count": 5, 
+      "date_filed": "1983-06-08T00:00:00", 
+      "decision_direction": "1", 
+      "id": 110959, 
+      "sub_opinions": [
+        {
+          "opinions_cited": [
+            1087878, 
+            108301, 
+            106641, 
+            109714, 
+            106515, 
+            105748, 
+            105749, 
+            108183, 
+            108184, 
+            110754, 
+            108581, 
+            106285, 
+            110127, 
+            107831, 
+            106936, 
+            107729, 
+            107730, 
+            108377, 
+            105194, 
+            106990, 
+            107252, 
+            109302, 
+            106107
+          ], 
+          "type": "combined"
+        }
+      ], 
+      "votes_majority": "6", 
+      "votes_minority": "3"
+    }, 
+    {
+      "absolute_url": "/scotus/yZo/illinois-v-lafayette/", 
+      "case_name": "Illinois v. Lafayette", 
+      "case_name_short": "Lafayette", 
+      "citation_count": 6, 
+      "date_filed": "1983-06-20T00:00:00", 
+      "decision_direction": "1", 
+      "id": 110976, 
+      "sub_opinions": [
+        {
+          "opinions_cited": [
+            107360, 
+            104769, 
+            108995, 
+            109541, 
+            109537, 
+            110119, 
+            107979, 
+            109714, 
+            108893, 
+            110559
+          ], 
+          "type": "combined"
+        }
+      ], 
+      "votes_majority": "9", 
+      "votes_minority": "0"
+    }, 
+    {
+      "absolute_url": "/scotus/yZr/united-states-v-place/", 
+      "case_name": "United States v. Place", 
+      "case_name_short": "Place", 
+      "citation_count": 12, 
+      "date_filed": "1983-06-20T00:00:00", 
+      "decision_direction": "2", 
+      "id": 110979, 
+      "sub_opinions": [
+        {
+          "opinions_cited": [
+            104769, 
+            110119, 
+            107465, 
+            107564, 
+            107729, 
+            109714, 
+            110901, 
+            108184, 
+            108377
+          ], 
+          "type": "combined"
+        }
+      ], 
+      "votes_majority": "9", 
+      "votes_minority": "0"
+    }, 
+    {
+      "absolute_url": "/scotus/z19/michigan-v-long/", 
+      "case_name": "Michigan v. Long", 
+      "case_name_short": "Long", 
+      "citation_count": 6, 
+      "date_filed": "1983-07-06T00:00:00", 
+      "decision_direction": "1", 
+      "id": 111020, 
+      "sub_opinions": [
+        {
+          "opinions_cited": [
+            110976, 
+            104769, 
+            110979, 
+            109537, 
+            107979, 
+            110959, 
+            107729, 
+            107730, 
+            110901, 
+            108377, 
+            108893, 
+            110559
+          ], 
+          "type": "combined"
+        }
+      ], 
+      "votes_majority": "6", 
+      "votes_minority": "3"
+    }, 
+    {
+      "absolute_url": "/scotus/z5g/segura-v-united-states/", 
+      "case_name": "Segura v. United States", 
+      "case_name_short": "Segura", 
+      "citation_count": 3, 
+      "date_filed": "1984-07-05T00:00:00", 
+      "decision_direction": "1", 
+      "id": 111259, 
+      "sub_opinions": [
+        {
+          "opinions_cited": [
+            110976, 
+            110979, 
+            1087878, 
+            109714, 
+            106515, 
+            108183, 
+            108184, 
+            111262, 
+            108581, 
+            110119, 
+            107564, 
+            106285, 
+            110901, 
+            106936, 
+            109504, 
+            104769, 
+            108995, 
+            107979, 
+            107729, 
+            108377, 
+            108893, 
+            109537, 
+            104932, 
+            107252, 
+            109302, 
+            106107
+          ], 
+          "type": "combined"
+        }
+      ], 
+      "votes_majority": "5", 
+      "votes_minority": "4"
+    }, 
+    {
+      "absolute_url": "/scotus/z5j/united-states-v-leon/", 
+      "case_name": "United States v. Leon", 
+      "case_name_short": "Leon", 
+      "citation_count": 3, 
+      "date_filed": "1984-09-18T00:00:00", 
+      "decision_direction": "1", 
+      "id": 111262, 
+      "sub_opinions": [
+        {
+          "opinions_cited": [
+            1087878, 
+            109714, 
+            106515, 
+            105748, 
+            108183, 
+            111259, 
+            110754, 
+            108581, 
+            107564, 
+            106285, 
+            110127, 
+            107831, 
+            106936, 
+            104769, 
+            107979, 
+            107729, 
+            107730, 
+            108377, 
+            106990, 
+            110959, 
+            109302, 
+            107898, 
+            106107
+          ], 
+          "type": "combined"
+        }
+      ], 
+      "votes_majority": "6", 
+      "votes_minority": "3"
+    }, 
+    {
+      "absolute_url": "/scotus/z5Z/new-jersey-v-tlo/", 
+      "case_name": "New Jersey v. TLO", 
+      "case_name_short": "TLO", 
+      "citation_count": 10, 
+      "date_filed": "1985-01-15T00:00:00", 
+      "decision_direction": "1", 
+      "id": 111301, 
+      "sub_opinions": [
+        {
+          "opinions_cited": [
+            110976, 
+            110979, 
+            1087878, 
+            111020, 
+            109714, 
+            106515, 
+            108184, 
+            111259, 
+            111262, 
+            108581, 
+            110119, 
+            107564, 
+            106285, 
+            110901, 
+            107831, 
+            106936, 
+            104769, 
+            107465, 
+            107729, 
+            107730, 
+            108377, 
+            108893, 
+            109537, 
+            109541, 
+            110959, 
+            106107
+          ], 
+          "type": "combined"
+        }
+      ], 
+      "votes_majority": "6", 
+      "votes_minority": "3"
+    }, 
+    {
+      "absolute_url": "/scotus/z7m/winston-v-lee/", 
+      "case_name": "Winston v. Lee", 
+      "case_name_short": "Lee", 
+      "citation_count": 4, 
+      "date_filed": "1985-03-20T00:00:00", 
+      "decision_direction": "2", 
+      "id": 111380, 
+      "sub_opinions": [
+        {
+          "opinions_cited": [
+            109537, 
+            1087878, 
+            107564, 
+            106285, 
+            107729, 
+            107262
+          ], 
+          "type": "combined"
+        }
+      ], 
+      "votes_majority": "9", 
+      "votes_minority": "0"
+    }, 
+    {
+      "absolute_url": "/scotus/z9z/united-states-v-montoya-de-hernandez/", 
+      "case_name": "United States v. Montoya De Hernandez", 
+      "case_name_short": "Hernandez", 
+      "citation_count": 5, 
+      "date_filed": "1985-07-01T00:00:00", 
+      "decision_direction": "1", 
+      "id": 111509, 
+      "sub_opinions": [
+        {
+          "opinions_cited": [
+            104769, 
+            109186, 
+            110979, 
+            106021, 
+            109537, 
+            107564, 
+            107729, 
+            111301, 
+            106515, 
+            111380, 
+            106936, 
+            108377, 
+            109541, 
+            107262, 
+            108581
+          ], 
+          "type": "combined"
+        }
+      ], 
+      "votes_majority": "7", 
+      "votes_minority": "2"
+    }, 
+    {
+      "absolute_url": "/scotus/zga/united-states-v-salerno/", 
+      "case_name": "United States v. Salerno", 
+      "case_name_short": "United States v. Salerno", 
+      "citation_count": 2, 
+      "date_filed": "1987-05-26T00:00:00", 
+      "decision_direction": "1", 
+      "id": 111891, 
+      "sub_opinions": [
+        {
+          "opinions_cited": [
+            111891, 
+            104769, 
+            109186, 
+            110075
+          ], 
+          "type": "combined"
+        }
+      ], 
+      "votes_majority": "6", 
+      "votes_minority": "3"
+    }, 
+    {
+      "absolute_url": "/scotus/zmP/skinner-v-railway-labor-executives-assn/", 
+      "case_name": "Skinner v. Railway Labor Executives' Assn.", 
+      "case_name_short": "Skinner", 
+      "citation_count": 8, 
+      "date_filed": "1989-03-21T00:00:00", 
+      "decision_direction": "1", 
+      "id": 112219, 
+      "sub_opinions": [
+        {
+          "opinions_cited": [
+            110976, 
+            108801, 
+            110979, 
+            108581, 
+            111301, 
+            107979, 
+            107564, 
+            107729, 
+            109714, 
+            111380, 
+            111509, 
+            109592, 
+            108184, 
+            108377, 
+            110075, 
+            112220, 
+            107262, 
+            109541
+          ], 
+          "type": "combined"
+        }
+      ], 
+      "votes_majority": "7", 
+      "votes_minority": "2"
+    }, 
+    {
+      "absolute_url": "/scotus/zmQ/treasury-employees-v-von-raab/", 
+      "case_name": "Treasury Employees v. Von Raab", 
+      "case_name_short": "Von Raab", 
+      "citation_count": 6, 
+      "date_filed": "1989-03-21T00:00:00", 
+      "decision_direction": "1", 
+      "id": 112220, 
+      "sub_opinions": [
+        {
+          "opinions_cited": [
+            109537, 
+            110075, 
+            109541, 
+            111509, 
+            112219, 
+            111301
+          ], 
+          "type": "combined"
+        }
+      ], 
+      "votes_majority": "5", 
+      "votes_minority": "4"
+    }, 
+    {
+      "absolute_url": "/scotus/zpE/maryland-v-buie/", 
+      "case_name": "Maryland v. Buie", 
+      "case_name_short": "Buie", 
+      "citation_count": 2, 
+      "date_filed": "1990-03-05T00:00:00", 
+      "decision_direction": "1", 
+      "id": 112384, 
+      "sub_opinions": [
+        {
+          "opinions_cited": [
+            110979, 
+            108581, 
+            107979, 
+            111020, 
+            107729, 
+            112219, 
+            111301
+          ], 
+          "type": "combined"
+        }
+      ], 
+      "votes_majority": "7", 
+      "votes_minority": "2"
+    }, 
+    {
+      "absolute_url": "/scotus/zr3/pennsylvania-v-muniz/", 
+      "case_name": "Pennsylvania v. Muniz", 
+      "case_name_short": "Pennsylvania v. Muniz", 
+      "citation_count": 2, 
+      "date_filed": "1990-06-18T00:00:00", 
+      "decision_direction": "1", 
+      "id": 112464, 
+      "sub_opinions": [
+        {
+          "opinions_cited": [
+            111020, 
+            107252, 
+            107262
+          ], 
+          "type": "combined"
+        }
+      ], 
+      "votes_majority": "8", 
+      "votes_minority": "1"
+    }, 
+    {
+      "absolute_url": "/scotus/zt8/countyof-riverside-v-mclaughlin/", 
+      "case_name": "Countyof Riverside v. McLaughlin", 
+      "case_name_short": "Countyof Riverside v. McLaughlin", 
+      "citation_count": 1, 
+      "date_filed": "1991-05-20T00:00:00", 
+      "decision_direction": "1", 
+      "id": 112585, 
+      "sub_opinions": [
+        {
+          "opinions_cited": [
+            109186
+          ], 
+          "type": "combined"
+        }
+      ], 
+      "votes_majority": "5", 
+      "votes_minority": "4"
+    }, 
+    {
+      "absolute_url": "/scotus/ztw/california-v-acevedo/", 
+      "case_name": "California v. Acevedo", 
+      "case_name_short": "Acevedo", 
+      "citation_count": 2, 
+      "date_filed": "1991-06-03T00:00:00", 
+      "decision_direction": "1", 
+      "id": 112608, 
+      "sub_opinions": [
+        {
+          "opinions_cited": [
+            110976, 
+            104769, 
+            110979, 
+            104932, 
+            111301, 
+            110119, 
+            111020, 
+            107979, 
+            107564, 
+            110959, 
+            109714, 
+            110901, 
+            108184, 
+            108377, 
+            112219, 
+            112220, 
+            111509, 
+            111262, 
+            110559
+          ], 
+          "type": "combined"
+        }
+      ], 
+      "votes_majority": "6", 
+      "votes_minority": "3"
+    }, 
+    {
+      "absolute_url": "/scotus/B4S/vernonia-school-dist-47j-v-acton/", 
+      "case_name": "Vernonia School Dist. 47J v. Acton", 
+      "case_name_short": "Vernonia", 
+      "citation_count": 4, 
+      "date_filed": "1995-06-26T00:00:00", 
+      "decision_direction": "1", 
+      "id": 117964, 
+      "sub_opinions": [
+        {
+          "opinions_cited": [
+            108801, 
+            112219, 
+            110075, 
+            111301, 
+            109537, 
+            111509, 
+            106107, 
+            112220, 
+            109541
+          ], 
+          "type": "combined"
+        }
+      ], 
+      "votes_majority": "6", 
+      "votes_minority": "3"
+    }, 
+    {
+      "absolute_url": "/scotus/B7d/chandler-v-miller/", 
+      "case_name": "Chandler v. Miller", 
+      "case_name_short": "Chandler", 
+      "citation_count": 3, 
+      "date_filed": "1997-04-15T00:00:00", 
+      "decision_direction": "2", 
+      "id": 118100, 
+      "sub_opinions": [
+        {
+          "opinions_cited": [
+            117964, 
+            112219, 
+            112220, 
+            109541, 
+            111301
+          ], 
+          "type": "combined"
+        }
+      ], 
+      "votes_majority": "8", 
+      "votes_minority": "1"
+    }, 
+    {
+      "absolute_url": "/scotus/Bag/wyoming-v-houghton/", 
+      "case_name": "Wyoming v. Houghton", 
+      "case_name_short": "Houghton", 
+      "citation_count": 4, 
+      "date_filed": "1999-04-05T00:00:00", 
+      "decision_direction": "1", 
+      "id": 118277, 
+      "sub_opinions": [
+        {
+          "opinions_cited": [
+            112608, 
+            109537, 
+            111301, 
+            117964, 
+            107729, 
+            107730, 
+            118100
+          ], 
+          "type": "combined"
+        }
+      ], 
+      "votes_majority": "6", 
+      "votes_minority": "3"
+    }, 
+    {
+      "absolute_url": "/scotus/Bce/indianapolis-v-edmond/", 
+      "case_name": "Indianapolis v. Edmond", 
+      "case_name_short": "Edmond", 
+      "citation_count": 1, 
+      "date_filed": "2000-11-28T00:00:00", 
+      "decision_direction": "2", 
+      "id": 118391, 
+      "sub_opinions": [
+        {
+          "opinions_cited": [
+            109537, 
+            110979, 
+            111301, 
+            117964, 
+            107729, 
+            118100, 
+            111509, 
+            112219, 
+            112220, 
+            109541
+          ], 
+          "type": "combined"
+        }
+      ], 
+      "votes_majority": "6", 
+      "votes_minority": "3"
+    }, 
+    {
+      "absolute_url": "/scotus/Bct/illinois-v-mcarthur/", 
+      "case_name": "Illinois v. McArthur", 
+      "case_name_short": "McArthur", 
+      "citation_count": 2, 
+      "date_filed": "2001-02-20T00:00:00", 
+      "decision_direction": "1", 
+      "id": 118405, 
+      "sub_opinions": [
+        {
+          "opinions_cited": [
+            109504, 
+            110979, 
+            104932, 
+            108581, 
+            107465, 
+            106990, 
+            107729, 
+            110901, 
+            111259, 
+            107262
+          ], 
+          "type": "combined"
+        }
+      ], 
+      "votes_majority": "8", 
+      "votes_minority": "1"
+    }, 
+    {
+      "absolute_url": "/scotus/G4d/thornton-v-united-states/", 
+      "case_name": "Thornton v. United States", 
+      "case_name_short": "Thornton", 
+      "citation_count": 2, 
+      "date_filed": "2004-05-24T00:00:00", 
+      "decision_direction": "1", 
+      "id": 134746, 
+      "sub_opinions": [
+        {
+          "opinions_cited": [
+            104769, 
+            118277, 
+            107465, 
+            107979, 
+            111020, 
+            107730, 
+            106771, 
+            108893, 
+            110559
+          ], 
+          "type": "combined"
+        }
+      ], 
+      "votes_majority": "7", 
+      "votes_minority": "2"
+    }, 
+    {
+      "absolute_url": "/scotus/GHU/hiibel-v-sixth-judicial-dist-court-of-nev-humboldt/", 
+      "case_name": "Hiibel v. Sixth Judicial Dist. Court of Nev., Humboldt Cty.", 
+      "case_name_short": "Hiibel", 
+      "citation_count": 1, 
+      "date_filed": "2004-06-21T00:00:00", 
+      "decision_direction": "1", 
+      "id": 136990, 
+      "sub_opinions": [
+        {
+          "opinions_cited": [
+            112464, 
+            107729, 
+            110979, 
+            107252, 
+            107262
+          ], 
+          "type": "combined"
+        }
+      ], 
+      "votes_majority": "5", 
+      "votes_minority": "4"
+    }, 
+    {
+      "absolute_url": "/scotus/Kni/arizona-v-gant/", 
+      "case_name": "Arizona v. Gant", 
+      "case_name_short": "Gant", 
+      "citation_count": 3, 
+      "date_filed": "2009-04-21T00:00:00", 
+      "decision_direction": "2", 
+      "id": 145887, 
+      "sub_opinions": [
+        {
+          "opinions_cited": [
+            112384, 
+            104769, 
+            111020, 
+            107979, 
+            107564, 
+            107729, 
+            106771, 
+            107252, 
+            134746, 
+            108893, 
+            110559
+          ], 
+          "type": "combined"
+        }
+      ], 
+      "votes_majority": "5", 
+      "votes_minority": "4"
+    }, 
+    {
+      "absolute_url": "/scotus/5ovZ/florida-v-jardines/", 
+      "case_name": "Florida v. Jardines", 
+      "case_name_short": "Jardines", 
+      "citation_count": 1, 
+      "date_filed": "2013-03-26T00:00:00", 
+      "decision_direction": "2", 
+      "id": 856195, 
+      "sub_opinions": [
+        {
+          "opinions_cited": [
+            110979, 
+            107564, 
+            118277, 
+            106990, 
+            145887
+          ], 
+          "type": "combined"
+        }
+      ], 
+      "votes_majority": "5", 
+      "votes_minority": "4"
+    }, 
+    {
+      "absolute_url": "/scotus/5oyB/florida-v-jardines/", 
+      "case_name": "Florida v. Jardines", 
+      "case_name_short": "Jardines", 
+      "citation_count": 1, 
+      "date_filed": "2013-03-26T00:00:00", 
+      "decision_direction": "2", 
+      "id": 856347, 
+      "sub_opinions": [
+        {
+          "opinions_cited": [
+            110979, 
+            107564, 
+            118277, 
+            106990, 
+            145887
+          ], 
+          "type": "combined"
+        }
+      ], 
+      "votes_majority": "5", 
+      "votes_minority": "4"
+    }, 
+    {
+      "absolute_url": "/scotus/5p95/missouri-v-mcneely/", 
+      "case_name": "Missouri v. McNeely", 
+      "case_name_short": "McNeely", 
+      "citation_count": 1, 
+      "date_filed": "2013-04-17T00:00:00", 
+      "decision_direction": "2", 
+      "id": 858288, 
+      "sub_opinions": [
+        {
+          "opinions_cited": [
+            109504, 
+            108801, 
+            112608, 
+            107729, 
+            107465, 
+            106641, 
+            106771, 
+            111380, 
+            112219, 
+            108893, 
+            107262, 
+            118405
+          ], 
+          "type": "combined"
+        }
+      ], 
+      "votes_majority": "5", 
+      "votes_minority": "4"
+    }, 
+    {
+      "absolute_url": "/scotus/5tHg/maryland-v-king/", 
+      "case_name": "Maryland v. King", 
+      "case_name_short": "King", 
+      "citation_count": 0, 
+      "date_filed": "2013-06-03T00:00:00", 
+      "decision_direction": "1", 
+      "id": 873669, 
+      "sub_opinions": [
+        {
+          "opinions_cited": [
+            110976, 
+            108801, 
+            109186, 
+            856195, 
+            118277, 
+            1087878, 
+            111891, 
+            111380, 
+            109592, 
+            856347, 
+            136990, 
+            118405, 
+            107564, 
+            106285, 
+            110127, 
+            858288, 
+            145887, 
+            112384, 
+            111301, 
+            112585, 
+            107979, 
+            117964, 
+            112464, 
+            107729, 
+            118100, 
+            134746, 
+            112219, 
+            112220, 
+            108893, 
+            110559, 
+            109541, 
+            110959, 
+            107252, 
+            118391, 
+            110075, 
+            107262
+          ], 
+          "type": "combined"
+        }
+      ], 
+      "votes_majority": "5", 
+      "votes_minority": "4"
+    }
+  ]
+}
