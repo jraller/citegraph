@@ -1,7 +1,9 @@
-/* global $, document, d3, Plottable, citationJSON*/
+/* global $, document, d3, Plottable*/
 /*eslint browser:true*/
 
 'use strict';
+
+var citationJSON = {};
 
 function drawGraph() {
 	var parseDate = {},
@@ -189,7 +191,13 @@ function drawGraph() {
 }
 
 $(document).ready(function() {
-	if (typeof citationJSON != 'undefined') {
-		drawGraph();
-	}
+	// on select JSON in the data and then call drawGraph()
+	$('#dataSourceSelect').change(function (e) {
+		var JSONpath = $('#dataSourceSelect').val();
+		d3.json('/JSON/' + JSONpath + '.json', function(error, json) {
+			if (error) return console.warn(error);
+			citationJSON = json;
+			drawGraph();
+		});
+	});
 });
