@@ -78,8 +78,8 @@ function drawGraph() {
 	plot.append(connections);
 
 	citationJSON.opinion_clusters.forEach(function (cluster) {
-		var majority = cluster.votes_majority,
-			minority = cluster.votes_minority,
+		var minority = cluster.votes_minority,
+			majority = String(9 - Number(minority)), // cluster.votes_majority,
 			decision_direction = ddlu[cluster.decision_direction],
 			prefix = (majority === '9') ? 'N' : decision_direction;
 
@@ -106,8 +106,8 @@ function drawGraph() {
 			return parseDate(d.date_filed);
 		}, xScale)
 		.y(function (d) {
-			var majority = d.votes_majority,
-				minority = d.votes_minority,
+			var minority = d.votes_minority,
+				majority = String(9 - Number(minority)), // d.votes_majority,
 				decision_direction = ddlu[d.decision_direction],
 				prefix = (majority === '9') ? 'N' : decision_direction;
 
