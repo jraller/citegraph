@@ -12,6 +12,7 @@ function drawGraph() {
 		sizeScale = {},
 		colorScale = {},
 		xAxis = {},
+		xDate = {},
 		yAxis = {},
 		xLabel = {},
 		yLabel = {},
@@ -32,14 +33,26 @@ function drawGraph() {
 		ddlu = ['N', 'C', 'L', 'U'], // from http://scdb.wustl.edu/documentation.php?var=decisionDirection
 		ddlul = ['Neutral', 'Conservative', 'Liberal', 'Unspecifiable', 'Unknown'];
 
-	d3.select('#chart')
-	.append('svg')
-	.attr('id', 'coverageChart')
-	.attr('height', '500px');
-
 	parseDate = d3.time.format('%Y-%m-%dT%H:%M:%S').parse;
+	xDate = d3.time.format('%b-%Y');
 
-	xScale = new Plottable.Scales.Time();
+	d3.select('#chart')
+		.append('svg')
+		.attr('id', 'coverageChart')
+		.attr('height', '500px');
+
+	citationJSON.opinion_clusters.sort(function (a, b) {
+		if (parseDate(a.date_filed) > parseDate(b.date_filed)) {
+			return 1;
+		}
+		if (parseDate(a.date_filed) < parseDate(b.date_filed)) {
+			return -1;
+		}
+		// a must be equal to b
+		return 0;
+	});
+
+	xScale = new Plottable.Scales.Category();
 	yScale = new Plottable.Scales.Category();
 	yScale.domain([
 		'L5-4',
@@ -54,12 +67,17 @@ function drawGraph() {
 		'Unk'
 	]);
 	sizeScale = new Plottable.Scales.ModifiedLog();
-	sizeScale.range([5,25]);
+	sizeScale.range([5,40]);
 	colorScale = new Plottable.Scales.Color();
 	colorScale.domain(ddlul);
 	colorScale.range(['purple', 'red', 'blue', 'green', 'orange']);
 
-	xAxis = new Plottable.Axes.Time(xScale, 'bottom');
+	xAxis = new Plottable.Axes.Category(xScale, 'bottom');
+	xAxis.tickLabelAngle(-90)
+		.formatter(function (d) {
+			return xDate(d);
+		});
+
 	xLabel = new Plottable.Components.AxisLabel('Time', 0);
 	yAxis = new Plottable.Axes.Category(yScale, 'left');
 	yLabel = new Plottable.Components.AxisLabel('Conservative <-- --> Liberal', -90);
@@ -67,44 +85,6 @@ function drawGraph() {
 	legend = new Plottable.Components.Legend(colorScale).maxEntriesPerRow(5);
 
 	plot = new Plottable.Components.Group();
-
-	connections = new Plottable.Plots.Line()
-		.x(function (d) {
-			return parseDate(d.x);
-		}, xScale)
-		.y(function (d) {
-			return d.y;
-		}, yScale)
-		.attr('stroke', function (d) {
-			return colorScale.scale(d.c);
-		});
-	plot.append(connections);
-
-	citationJSON.opinion_clusters.forEach(function (cluster) {
-		var minority = cluster.votes_minority,
-			majority = String(9 - Number(minority)), // cluster.votes_majority,
-			decision_direction = ddlu[cluster.decision_direction],
-			prefix = (majority === '9') ? 'N' : decision_direction;
-
-		point = {};
-		point.date_filed = cluster.date_filed;
-		point.split = prefix + majority + '-' + minority;
-		point.dec = ddlul[cluster.decision_direction];
-		if (minority === '-1') {
-			point.split = 'Unk';
-			point.dec = 'Unknown';
-		}
-		coords[cluster.id] = point;
-	});
-
-	citationJSON.opinion_clusters.forEach(function (cluster) {
-		cluster.sub_opinions[0].opinions_cited.forEach(function (id) {
-			connections.addDataset(new Plottable.Dataset([
-				{x: coords[cluster.id].date_filed, y: coords[cluster.id].split, c: coords[id].dec},
-				{x: coords[id].date_filed, y: coords[id].split, c: coords[id].dec}
-			]));
-		});
-	});
 
 	cases = new Plottable.Plots.Scatter()
 		.addDataset(new Plottable.Dataset(citationJSON.opinion_clusters))
@@ -138,16 +118,51 @@ function drawGraph() {
 		});
 	plot.append(cases);
 
+	connections = new Plottable.Plots.Line()
+		.x(function (d) {
+			return parseDate(d.x);
+		}, xScale)
+		.y(function (d) {
+			return d.y;
+		}, yScale)
+		.attr('stroke', function (d) {
+			return colorScale.scale(d.c);
+		})
+		.attr('opacity', 0.5);
+	plot.append(connections);
+
+	citationJSON.opinion_clusters.forEach(function (cluster) {
+		var minority = cluster.votes_minority,
+			majority = String(9 - Number(minority)), // cluster.votes_majority,
+			decision_direction = ddlu[cluster.decision_direction],
+			prefix = (majority === '9') ? 'N' : decision_direction;
+
+		point = {};
+		point.date_filed = cluster.date_filed;
+		point.split = prefix + majority + '-' + minority;
+		point.dec = ddlul[cluster.decision_direction];
+		if (minority === '-1') {
+			point.split = 'Unk';
+			point.dec = 'Unknown';
+		}
+		coords[cluster.id] = point;
+	});
+
+	citationJSON.opinion_clusters.forEach(function (cluster) {
+		cluster.sub_opinions[0].opinions_cited.forEach(function (id) {
+			connections.addDataset(new Plottable.Dataset([
+				{x: coords[cluster.id].date_filed, y: coords[cluster.id].split, c: coords[id].dec},
+				{x: coords[id].date_filed, y: coords[id].split, c: coords[id].dec}
+			]));
+		});
+	});
+
 	table = [
 		[null, null, legend],
 		[yLabel, yAxis, plot],
 		[null, null, xAxis],
 		[null, null, xLabel]
 	];
-
-	console.dir(colorScale);
-
-	console.dir(legend);
 
 	chart = new Plottable.Components.Table(table);
 
