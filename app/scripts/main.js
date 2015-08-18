@@ -6,38 +6,38 @@
 var citationJSON = {};
 
 function drawGraph() {
-	var parseDate = {},
-		xScale = {},
-		yScale = {},
-		sizeScale = {},
-		colorScale = {},
-		xAxis = {},
-		yAxis = {},
-		xLabel = {},
-		yLabel = {},
-		legend = {},
-		cases = {},
-		connections = {},
-		coords = {},
-		point = {},
-		plot = {},
-		caseHover = {},
+	var parseDate = {}, // to parse dates in the JSON into d3 dates
+		xScale = {}, // the scaling function for x
+		yScale = {}, // the scaling function for y
+		sizeScale = {}, // the scale used to size the case circles
+		colorScale = {}, // the scale used to keep the colors for the degrees of separation
+		xAxis = {}, // the x axis
+		yAxis = {}, // the y axis
+		xLabel = {}, // label for the x axis
+		yLabel = {}, // label for the y axis
+		legend = {}, // chart legend, in this case showing the different colors for degrees of separation
+		cases = {}, // reference to the case circles used to attach interactions
+		connections = {}, // reference to the connection lines used to attach interactions
+		coords = {}, // object to hold extracted coordinates keyed by case id
+		point = {}, // a point within coords
+		plot = {}, // the plot area of the chart
+		caseHover = {}, // interaction behavior
 		defaultCaseHoverText = '',
-		caseHoverText = {},
-		caseHoverGroup = {},
-		caseClick = {},
+		caseHoverText = {}, // reference to the text in the object shown when hovering
+		caseHoverGroup = {}, // reference to the hover show object
+		caseClick = {}, // interaction behavior
 		//connectionHover
-		table = [],
-		chart = {};
+		table = [], // holds the structure of the chart
+		chart = {}; // the chart itself
 
 	d3.select('#chart')
-	.append('svg')
-	.attr('id', 'coverageChart')
-	.attr('height', '400px');
+		.append('svg')
+		.attr('id', 'coverageChart')
+		.attr('height', '400px');
 
 	parseDate = d3.time.format('%Y-%m-%dT%H:%M:%S').parse;
 
-	xScale = new Plottable.Scales.Time();
+	xScale = new Plottable.Scales.Time(); // set switch for time or category time
 	yScale = new Plottable.Scales.Linear();
 	sizeScale = new Plottable.Scales.ModifiedLog();
 	sizeScale.range([5,25]);
@@ -195,7 +195,9 @@ $(document).ready(function() {
 	$('#dataSourceSelect').change(function (e) {
 		var JSONpath = $('#dataSourceSelect').val();
 		d3.json('/JSON/' + JSONpath + '.json', function(error, json) {
-			if (error) return console.warn(error);
+			if (error) {
+				return console.warn(error);
+			}
 			citationJSON = json;
 			d3.select('#chart').select('svg').remove();
 			drawGraph();

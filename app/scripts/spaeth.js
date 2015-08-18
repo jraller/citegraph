@@ -28,7 +28,9 @@ function drawGraph() {
 		caseClick = {},
 		//connectionHover
 		table = [],
-		chart = {};
+		chart = {},
+		ddlu = ['N', 'C', 'L', 'U'], // from http://scdb.wustl.edu/documentation.php?var=decisionDirection
+		ddlul = ['Neutral', 'Conservative', 'Liberal', 'Unspecifiable'];
 
 	d3.select('#chart')
 	.append('svg')
@@ -70,25 +72,29 @@ function drawGraph() {
 		.y(function (d) {
 			return d.y;
 		}, yScale)
-		.attr('stroke', colorScale.scale('Connector'));
+		.attr('stroke', function (d) {
+			return colorScale.scale(d.c)
+		});
 	plot.append(connections);
 
 	citationJSON.opinion_clusters.forEach(function (cluster) {
-		var majority = cluster.sub_opinions[0].votes_majority,
-			minority = cluster.sub_opinions[0].votes_minority,
-			prefix = (majority === '9') ? 'N' : 'C';
+		var majority = cluster.votes_majority,
+			minority = cluster.votes_minority,
+			decision_direction = ddlu[cluster.decision_direction],
+			prefix = (majority === '9') ? 'N' : decision_direction;
 
 		point = {};
 		point.date_filed = cluster.date_filed;
 		point.split = prefix + majority + '-' + minority;
+		point.dec = ddlul[cluster.decision_direction];
 		coords[cluster.id] = point;
 	});
 
 	citationJSON.opinion_clusters.forEach(function (cluster) {
 		cluster.sub_opinions[0].opinions_cited.forEach(function (id) {
 			connections.addDataset(new Plottable.Dataset([
-				{x: coords[cluster.id].date_filed, y: coords[cluster.id].split},
-				{x: coords[id].date_filed, y: coords[id].split}
+				{x: coords[cluster.id].date_filed, y: coords[cluster.id].split, c: coords[id].dec},
+				{x: coords[id].date_filed, y: coords[id].split, c: coords[id].dec}
 			]));
 		});
 	});
@@ -100,16 +106,22 @@ function drawGraph() {
 			return parseDate(d.date_filed);
 		}, xScale)
 		.y(function (d) {
-			var majority = d.sub_opinions[0].votes_majority,
-				minority = d.sub_opinions[0].votes_minority,
-				prefix = (majority === '9') ? 'N' : 'C';
+			var majority = d.votes_majority,
+				minority = d.votes_minority,
+				decision_direction = ddlu[d.decision_direction],
+				prefix = (majority === '9') ? 'N' : decision_direction;
+
 			return prefix + majority + '-' + minority;
 		}, yScale)
 		.size(function (d) {
 			return d.citation_count;
 		}, sizeScale)
-		.attr('stroke', colorScale.scale('Case'))
-		.attr('fill', colorScale.scale('Case'))
+		.attr('stroke', function (d) {
+			return colorScale.scale(ddlul[d.decision_direction]);
+		})
+		.attr('fill', function (d) {
+			return colorScale.scale(ddlul[d.decision_direction]);
+		})
 		.attr('title', function (d) {
 			return d.case_name;
 		});
@@ -213,7 +225,9 @@ $(document).ready(function() {
 	$('#dataSourceSelect').change(function (e) {
 		var JSONpath = $('#dataSourceSelect').val();
 		d3.json('/JSON/' + JSONpath + '.json', function(error, json) {
-			if (error) return console.warn(error);
+			if (error) {
+				return console.warn(error);
+			}
 			citationJSON = json;
 			d3.select('#chart').select('svg').remove();
 			drawGraph();
