@@ -197,6 +197,7 @@ $(document).ready(function() {
 		d3.json('/JSON/' + JSONpath + '.json', function(error, json) {
 			if (error) return console.warn(error);
 			citationJSON = json;
+			d3.select('#chart').select('svg').remove();
 			drawGraph();
 		});
 	});
