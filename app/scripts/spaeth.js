@@ -35,7 +35,7 @@ function drawGraph() {
 	d3.select('#chart')
 	.append('svg')
 	.attr('id', 'coverageChart')
-	.attr('height', '400px');
+	.attr('height', '500px');
 
 	parseDate = d3.time.format('%Y-%m-%dT%H:%M:%S').parse;
 
@@ -56,6 +56,8 @@ function drawGraph() {
 	sizeScale = new Plottable.Scales.ModifiedLog();
 	sizeScale.range([5,25]);
 	colorScale = new Plottable.Scales.Color();
+	colorScale.domain(ddlul);
+	colorScale.range(['purple', 'red', 'blue', 'green', 'orange']);
 
 	xAxis = new Plottable.Axes.Time(xScale, 'bottom');
 	xLabel = new Plottable.Components.AxisLabel('Time', 0);
@@ -74,7 +76,7 @@ function drawGraph() {
 			return d.y;
 		}, yScale)
 		.attr('stroke', function (d) {
-			return colorScale.scale(d.c)
+			return colorScale.scale(d.c);
 		});
 	plot.append(connections);
 
@@ -90,7 +92,7 @@ function drawGraph() {
 		point.dec = ddlul[cluster.decision_direction];
 		if (minority === '-1') {
 			point.split = 'Unk';
-			point.dec = 'Unknown'
+			point.dec = 'Unknown';
 		}
 		coords[cluster.id] = point;
 	});
@@ -142,6 +144,10 @@ function drawGraph() {
 		[null, null, xAxis],
 		[null, null, xLabel]
 	];
+
+	console.dir(colorScale);
+
+	console.dir(legend);
 
 	chart = new Plottable.Components.Table(table);
 
