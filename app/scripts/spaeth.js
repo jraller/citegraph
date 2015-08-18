@@ -30,7 +30,7 @@ function drawGraph() {
 		table = [],
 		chart = {},
 		ddlu = ['N', 'C', 'L', 'U'], // from http://scdb.wustl.edu/documentation.php?var=decisionDirection
-		ddlul = ['Neutral', 'Conservative', 'Liberal', 'Unspecifiable'];
+		ddlul = ['Neutral', 'Conservative', 'Liberal', 'Unspecifiable', 'Unknown'];
 
 	d3.select('#chart')
 	.append('svg')
@@ -50,7 +50,8 @@ function drawGraph() {
 		'C8-1',
 		'C7-2',
 		'C6-3',
-		'C5-4'
+		'C5-4',
+		'Unk'
 	]);
 	sizeScale = new Plottable.Scales.ModifiedLog();
 	sizeScale.range([5,25]);
@@ -87,6 +88,10 @@ function drawGraph() {
 		point.date_filed = cluster.date_filed;
 		point.split = prefix + majority + '-' + minority;
 		point.dec = ddlul[cluster.decision_direction];
+		if (minority === '-1') {
+			point.split = 'Unk';
+			point.dec = 'Unknown'
+		}
 		coords[cluster.id] = point;
 	});
 
@@ -111,7 +116,11 @@ function drawGraph() {
 				decision_direction = ddlu[d.decision_direction],
 				prefix = (majority === '9') ? 'N' : decision_direction;
 
-			return prefix + majority + '-' + minority;
+			if (minority === '-1') {
+				return 'Unk';
+			} else {
+				return prefix + majority + '-' + minority;
+			}
 		}, yScale)
 		.size(function (d) {
 			return d.citation_count;
