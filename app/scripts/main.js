@@ -1,5 +1,4 @@
 /* global $, document, d3, Plottable*/
-/*eslint browser:true*/
 
 'use strict';
 
@@ -40,7 +39,7 @@ function drawGraph() {
 	xScale = new Plottable.Scales.Time(); // set switch for time or category time
 	yScale = new Plottable.Scales.Linear();
 	sizeScale = new Plottable.Scales.ModifiedLog();
-	sizeScale.range([5,25]);
+	sizeScale.range([5, 25]);
 	colorScale = new Plottable.Scales.Color();
 
 	xAxis = new Plottable.Axes.Time(xScale, 'bottom');
@@ -114,7 +113,7 @@ function drawGraph() {
 		.foreground()
 		.append('g')
 		.attr('transform', 'translate(0,0)')
-		.style('visibility', 'hidden')
+		.style('visibility', 'hidden');
 	caseHoverGroup
 		.append('circle')
 		.attr({
@@ -131,24 +130,25 @@ function drawGraph() {
 		.text(defaultCaseHoverText);
 
 	caseHover.onPointerMove(function (p) {
-		var datum,
-			position;
+		var datum = null,
+			position = null,
+			nearestEntity = null,
+			cpd = null;
 
 		if (typeof cases.entityNearest === 'function') {
-			var nearestEntity = cases.entityNearest(p);
-
-			if (nearestEntity != null) {
+			nearestEntity = cases.entityNearest(p);
+			if (nearestEntity !== null) {
 				datum = nearestEntity.datum;
 				position = nearestEntity.position;
 			}
 		} else {
-			var cpd = cases.getClosestPlotData(p);
+			cpd = cases.getClosestPlotData(p);
 			if (cpd.data.length > 0) {
 				datum = cpd.data[0];
 				position = cpd.pixelPoints[0];
 			}
 		}
-		if (datum != null) {
+		if (datum !== null) {
 			caseHoverText.text(datum.case_name_short);
 			caseHoverGroup
 				.attr('transform', 'translate(' + position.x + ',' + position.y + ')')
@@ -158,7 +158,7 @@ function drawGraph() {
 			caseHoverGroup.style('visibility', 'hidden');
 		}
 	});
-	caseHover.onPointerExit(function() {
+	caseHover.onPointerExit(function () {
 		caseHoverText.text(defaultCaseHoverText);
 		caseHoverGroup.style('visibility', 'hidden');
 	});
@@ -167,21 +167,23 @@ function drawGraph() {
 	caseClick = new Plottable.Interactions.Click();
 
 	caseClick.onClick(function (c) {
-		var datum;
+		var datum = null,
+			nearestEntity = null,
+			cpd = null;
 
 		if (typeof cases.entityNearest === 'function') {
-			var nearestEntity = cases.entityNearest(c);
+			nearestEntity = cases.entityNearest(c);
 
-			if (nearestEntity != null) {
+			if (nearestEntity !== null) {
 				datum = nearestEntity.datum;
 			}
 		} else {
-			var cpd = cases.getClosestPlotData(c);
+			cpd = cases.getClosestPlotData(c);
 			if (cpd.data.length > 0) {
 				datum = cpd.data[0];
 			}
 		}
-		if (datum != null) {
+		if (datum !== null) {
 			console.log(datum.absolute_url);
 		}
 	});
@@ -190,11 +192,12 @@ function drawGraph() {
 
 }
 
-$(document).ready(function() {
+$(document).ready(function () {
 	// on select JSON in the data and then call drawGraph()
-	$('#dataSourceSelect').change(function (e) {
+	$('#dataSourceSelect').change(function () {
 		var JSONpath = $('#dataSourceSelect').val();
-		d3.json('/JSON/' + JSONpath + '.json', function(error, json) {
+
+		d3.json('/JSON/' + JSONpath + '.json', function (error, json) {
 			if (error) {
 				return console.warn(error);
 			}

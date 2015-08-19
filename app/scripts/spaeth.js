@@ -1,5 +1,4 @@
 /* global $, document, d3, Plottable*/
-/*eslint browser:true*/
 
 'use strict';
 
@@ -67,7 +66,7 @@ function drawGraph() {
 		'Unk'
 	]);
 	sizeScale = new Plottable.Scales.ModifiedLog();
-	sizeScale.range([5,40]);
+	sizeScale.range([5, 40]);
 	colorScale = new Plottable.Scales.Color();
 	colorScale.domain(ddlul);
 	colorScale.range(['purple', 'red', 'blue', 'green', 'orange']);
@@ -96,13 +95,15 @@ function drawGraph() {
 			var minority = d.votes_minority,
 				majority = String(9 - Number(minority)), // d.votes_majority,
 				decision_direction = ddlu[d.decision_direction],
-				prefix = (majority === '9') ? 'N' : decision_direction;
+				prefix = (majority === '9') ? 'N' : decision_direction,
+				value = '';
 
 			if (minority === '-1') {
-				return 'Unk';
+				value = 'Unk';
 			} else {
-				return prefix + majority + '-' + minority;
+				value = prefix + majority + '-' + minority;
 			}
+			return value;
 		}, yScale)
 		.size(function (d) {
 			return d.citation_count;
@@ -191,18 +192,19 @@ function drawGraph() {
 		.text(defaultCaseHoverText);
 
 	caseHover.onPointerMove(function (p) {
-		var datum,
-			position;
+		var datum = null,
+			position = null,
+			nearestEntity = null,
+			cpd = null;
 
 		if (typeof cases.entityNearest === 'function') {
-			var nearestEntity = cases.entityNearest(p);
-
+			nearestEntity = cases.entityNearest(p);
 			if (nearestEntity !== null) {
 				datum = nearestEntity.datum;
 				position = nearestEntity.position;
 			}
 		} else {
-			var cpd = cases.getClosestPlotData(p);
+			cpd = cases.getClosestPlotData(p);
 			if (cpd.data.length > 0) {
 				datum = cpd.data[0];
 				position = cpd.pixelPoints[0];
@@ -218,7 +220,7 @@ function drawGraph() {
 			caseHoverGroup.style('visibility', 'hidden');
 		}
 	});
-	caseHover.onPointerExit(function() {
+	caseHover.onPointerExit(function () {
 		caseHoverText.text(defaultCaseHoverText);
 		caseHoverGroup.style('visibility', 'hidden');
 	});
@@ -227,16 +229,18 @@ function drawGraph() {
 	caseClick = new Plottable.Interactions.Click();
 
 	caseClick.onClick(function (c) {
-		var datum;
+		var datum = null,
+			nearestEntity = null,
+			cpd = null;
 
 		if (typeof cases.entityNearest === 'function') {
-			var nearestEntity = cases.entityNearest(c);
+			nearestEntity = cases.entityNearest(c);
 
 			if (nearestEntity !== null) {
 				datum = nearestEntity.datum;
 			}
 		} else {
-			var cpd = cases.getClosestPlotData(c);
+			cpd = cases.getClosestPlotData(c);
 			if (cpd.data.length > 0) {
 				datum = cpd.data[0];
 			}
@@ -250,11 +254,12 @@ function drawGraph() {
 
 }
 
-$(document).ready(function() {
+$(document).ready(function () {
 	// on select JSON in the data and then call drawGraph()
-	$('#dataSourceSelect').change(function (e) {
+	$('#dataSourceSelect').change(function () {
 		var JSONpath = $('#dataSourceSelect').val();
-		d3.json('/JSON/' + JSONpath + '.json', function(error, json) {
+
+		d3.json('/JSON/' + JSONpath + '.json', function (error, json) {
 			if (error) {
 				return console.warn(error);
 			}
