@@ -6,16 +6,24 @@ var citationJSON = {};
 
 function drawGraph() {
 	var parseDate = {}, // to parse dates in the JSON into d3 dates
+		xDate = {},
 		xScale = {}, // the scaling function for x
 		yScale = {}, // the scaling function for y
 		sizeScale = {}, // the scale used to size the case circles
 		colorScale = {}, // the scale used to keep the colors for the degrees of separation
+		degrees = ['zeroeth', 'first', 'second', 'third', 'fourth', 'fifth', 'sixth', 'seventh', 'distant'],
+		thisDegree = 0,
+		maxDegree = 0,
 		xAxis = {}, // the x axis
 		yAxis = {}, // the y axis
 		xLabel = {}, // label for the x axis
 		yLabel = {}, // label for the y axis
 		legend = {}, // chart legend, in this case showing the different colors for degrees of separation
 		cases = {}, // reference to the case circles used to attach interactions
+		caseCount = 0,
+		flagSize = 0,
+		flagIndex = 1,
+		distribution = [0, 2, 4, 1, 3],
 		connections = {}, // reference to the connection lines used to attach interactions
 		coords = {}, // object to hold extracted coordinates keyed by case id
 		point = {}, // a point within coords
@@ -29,53 +37,74 @@ function drawGraph() {
 		table = [], // holds the structure of the chart
 		chart = {}; // the chart itself
 
+	parseDate = d3.time.format('%Y-%m-%dT%H:%M:%S').parse;
+	xDate = d3.time.format('%b-%Y');
+
+	citationJSON.opinion_clusters.sort(function (a, b) {
+		if (parseDate(a.date_filed) > parseDate(b.date_filed)) {
+			return 1;
+		}
+		if (parseDate(a.date_filed) < parseDate(b.date_filed)) {
+			return -1;
+		}
+		// a must be equal to b
+		return 0;
+	});
+
+	caseCount = citationJSON.opinion_clusters.length;
+
+	citationJSON.opinion_clusters.forEach(function (cluster) {
+		if (flagIndex === 1 || flagIndex === caseCount) {
+			cluster.order = degrees[0];
+		} else {
+			// get degrees of separation count
+			thisDegree = 1;
+			// if over 7 then 8
+			if (thisDegree > 7) {
+				thisDegree = 8;
+			}
+			// translate it
+			cluster.order = degrees[thisDegree];
+			if (thisDegree > maxDegree) {
+				maxDegree = thisDegree;
+			}
+		}
+		cluster.count = flagIndex++;
+	});
+
+	flagSize = Math.ceil(Math.sqrt(caseCount));
+
 	d3.select('#chart')
 		.append('svg')
 		.attr('id', 'coverageChart')
 		.attr('height', '400px');
 
-	parseDate = d3.time.format('%Y-%m-%dT%H:%M:%S').parse;
+	xScale = new Plottable.Scales.Category(); // set switch for time or category time
+	yScale = new Plottable.Scales.Category();
+	yScale.domain(d3.range(flagSize));
 
-	xScale = new Plottable.Scales.Time(); // set switch for time or category time
-	yScale = new Plottable.Scales.Linear();
 	sizeScale = new Plottable.Scales.ModifiedLog();
 	sizeScale.range([5, 25]);
 	colorScale = new Plottable.Scales.Color();
+	colorScale.domain(degrees.slice(0, maxDegree + 1));
 
-	xAxis = new Plottable.Axes.Time(xScale, 'bottom');
+	xAxis = new Plottable.Axes.Category(xScale, 'bottom');
+	xAxis.tickLabelAngle(-90)
+		.formatter(function (d) {
+			return xDate(d);
+		});
+
 	xLabel = new Plottable.Components.AxisLabel('Time', 0);
-	yAxis = new Plottable.Axes.Numeric(yScale, 'left');
-	yLabel = new Plottable.Components.AxisLabel('Court Leaning', -90);
+	yAxis = new Plottable.Axes.Category(yScale, 'left');
+	// yAxis.formatter(function () {
+	// 	return '';
+	// });
 
-	legend = new Plottable.Components.Legend(colorScale).maxEntriesPerRow(5);
+	yLabel = new Plottable.Components.AxisLabel('Random', -90);
+
+	legend = new Plottable.Components.Legend(colorScale).maxEntriesPerRow(4);
 
 	plot = new Plottable.Components.Group();
-
-	connections = new Plottable.Plots.Line()
-		.x(function (d) {
-			return parseDate(d.x);
-		}, xScale)
-		.y(function (d) {
-			return d.y;
-		}, yScale)
-		.attr('stroke', colorScale.scale('Connector'));
-	plot.append(connections);
-
-	citationJSON.opinion_clusters.forEach(function (cluster) {
-		point = {};
-		point.date_filed = cluster.date_filed;
-		point.citation_count = cluster.citation_count;
-		coords[cluster.id] = point;
-	});
-
-	citationJSON.opinion_clusters.forEach(function (cluster) {
-		cluster.sub_opinions[0].opinions_cited.forEach(function (id) {
-			connections.addDataset(new Plottable.Dataset([
-				{x: coords[cluster.id].date_filed, y: coords[cluster.id].citation_count},
-				{x: coords[id].date_filed, y: coords[id].citation_count}
-			]));
-		});
-	});
 
 	cases = new Plottable.Plots.Scatter()
 		.addDataset(new Plottable.Dataset(citationJSON.opinion_clusters))
@@ -84,17 +113,51 @@ function drawGraph() {
 			return parseDate(d.date_filed);
 		}, xScale)
 		.y(function (d) {
-			return d.citation_count;
+			return distribution[(d.count - 1) % flagSize];
 		}, yScale)
 		.size(function (d) {
 			return d.citation_count;
 		}, sizeScale)
-		.attr('stroke', colorScale.scale('Case'))
-		.attr('fill', colorScale.scale('Case'))
+		.attr('stroke', function (d) {
+			return colorScale.scale(d.order);
+		})
+		.attr('fill', function (d) {
+			return colorScale.scale(d.order);
+		})
 		.attr('title', function (d) {
 			return d.case_name;
 		});
 	plot.append(cases);
+
+	connections = new Plottable.Plots.Line()
+		.x(function (d) {
+			return parseDate(d.x);
+		}, xScale)
+		.y(function (d) {
+			return d.y;
+		}, yScale)
+		.attr('stroke', function (d) {
+			return colorScale.scale(d.c);
+		})
+		.attr('opacity', 0.5);
+	plot.append(connections);
+
+	citationJSON.opinion_clusters.forEach(function (cluster) {
+		point = {};
+		point.date_filed = cluster.date_filed;
+		point.count = distribution[(cluster.count - 1) % flagSize];
+		point.order = cluster.order;
+		coords[cluster.id] = point;
+	});
+
+	citationJSON.opinion_clusters.forEach(function (cluster) {
+		cluster.sub_opinions[0].opinions_cited.forEach(function (id) {
+			connections.addDataset(new Plottable.Dataset([
+				{x: coords[cluster.id].date_filed, y: coords[cluster.id].count, c: coords[cluster.id].order},
+				{x: coords[id].date_filed, y: coords[id].count, c: coords[id].order}
+			]));
+		});
+	});
 
 	table = [
 		[null, null, legend],
