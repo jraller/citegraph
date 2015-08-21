@@ -23,7 +23,14 @@ function drawGraph() {
 		caseCount = 0,
 		flagSize = 0,
 		flagIndex = 1,
-		distribution = [0, 2, 4, 1, 3],
+		inputArray = [],
+		permutations = [],
+		distribution = [], // will hold the correctly sized vertical distribution pattern
+		difference = 0,
+		pickMin = 0,
+		pickTotal = 0,
+		pickSize = 0,
+		pickMinGap = 0,
 		connections = {}, // reference to the connection lines used to attach interactions
 		coords = {}, // object to hold extracted coordinates keyed by case id
 		point = {}, // a point within coords
@@ -53,6 +60,48 @@ function drawGraph() {
 
 	caseCount = citationJSON.opinion_clusters.length;
 
+	flagSize = Math.ceil(Math.sqrt(caseCount));
+
+	inputArray = d3.range(1, flagSize + 1);
+
+	permutations = inputArray.reduce(function permute(res, item, key, arr) {
+		return res.concat(arr.length > 1 && arr.slice(0, key).concat(arr.slice(key + 1)).reduce(permute, []).map(function(perm) {
+			return [item].concat(perm);
+		}) || item);
+	}, []);
+
+	permutations.forEach(function (item) {
+		pickTotal = 0;
+		pickMin = Infinity;
+		item.forEach(function (part, partNum) {
+			if (partNum === 0) {
+				difference = Math.abs(part - item[item.length - 1]);
+			} else {
+				difference = Math.abs(part - item[partNum - 1]);
+			}
+			if (pickMin > difference) {
+				pickMin = difference;
+			}
+			pickTotal += difference;
+		});
+		console.log(item, pickSize, pickTotal, pickMinGap, pickMin);
+		if (pickTotal >= pickSize && pickMin > pickMinGap) {
+			pickSize = pickTotal;
+			pickMinGap = pickMin;
+			distribution = item;
+			console.log('***')
+		}
+	});
+
+	// d3.select('#chart')
+	// 	.append('p')
+	// 	.text(JSON.stringify(permutations));
+	d3.select('#chart')
+		.append('p')
+		.text(JSON.stringify(distribution) + ' ' + pickSize+ ' ' + pickMinGap);
+
+//
+
 	citationJSON.opinion_clusters.forEach(function (cluster) {
 		if (flagIndex === 1 || flagIndex === caseCount) {
 			cluster.order = degrees[0];
@@ -71,8 +120,6 @@ function drawGraph() {
 		}
 		cluster.count = flagIndex++;
 	});
-
-	flagSize = Math.ceil(Math.sqrt(caseCount));
 
 	d3.select('#chart')
 		.append('svg')
