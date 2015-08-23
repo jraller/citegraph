@@ -33,6 +33,8 @@ function drawGraph() {
 		pickMinGap = 0,
 		connections = {}, // reference to the connection lines used to attach interactions
 		coords = {}, // object to hold extracted coordinates keyed by case id
+		JSONIndex = {},
+		JSONCount = 0,
 		point = {}, // a point within coords
 		plot = {}, // the plot area of the chart
 		caseHover = {}, // interaction behavior
@@ -44,19 +46,93 @@ function drawGraph() {
 		table = [], // holds the structure of the chart
 		chart = {}; // the chart itself
 
+
+	function prepJSON() {
+		// sort
+		citationJSON.opinion_clusters.sort(function (a, b) {
+			if (parseDate(a.date_filed) > parseDate(b.date_filed)) {
+				return 1;
+			}
+			if (parseDate(a.date_filed) < parseDate(b.date_filed)) {
+				return -1;
+			}
+			// a must be equal to b
+			return 0;
+		});
+		// build index
+		citationJSON.opinion_clusters.forEach(function (cluster) {
+			point = {};
+			point.num = JSONCount++;
+			point.citedBy = [];
+			JSONIndex[cluster.id] = point;
+		});
+		citationJSON.opinion_clusters.forEach(function (cluster) {
+			cluster.sub_opinions[0].opinions_cited.forEach(function (item) {
+				if (JSONIndex[item].citedBy.indexOf() === -1) {
+					JSONIndex[item].citedBy.push(cluster.id);
+				}
+			});
+		});
+		// console.dir(JSONIndex);
+	}
+
+	/**
+	 * [traverse description]
+	 * @param {integer} nodeid index in JSON for current node
+	 * @param {integer} depth how far from newest case
+	 */
+	function traverse(nodeid, depth) {
+		var order = citationJSON.opinion_clusters[nodeid].travRev;
+
+		if (typeof order === 'undefined') {
+			citationJSON.opinion_clusters[nodeid].travRev = depth;
+		} else if (order > depth) {
+			order = depth;
+		}
+		citationJSON.opinion_clusters[nodeid].sub_opinions[0].opinions_cited.forEach(function (item) {
+			// console.log('t', JSONIndex[item].num, depth + 1);
+			traverse(JSONIndex[item].num, depth + 1);
+		});
+	}
+
+	/**
+	 * traverseBack
+	 * @param {integer} nodeid index in JSON for current node
+	 * @param {integer} depth how far from newest case
+	 */
+	function traverseBack(nodeid, depth) {
+		var order = citationJSON.opinion_clusters[nodeid].travFwd;
+
+		// console.log(nodeid, depth, order, citationJSON.opinion_clusters[nodeid].case_name_short);
+		if (typeof order === 'undefined') {
+			citationJSON.opinion_clusters[nodeid].travFwd = depth;
+		} else if (order > depth) {
+			citationJSON.opinion_clusters[nodeid].travFwd = depth;
+		}
+		// add to JSONIndex so reverse traverse can happen?
+		// or modify citationJSON to add opinions_cited_by?
+		JSONIndex[citationJSON.opinion_clusters[nodeid].id].citedBy.forEach(function (item) {
+			// console.log('t', JSONIndex[item].num, depth + 1);
+			traverseBack(JSONIndex[item].num, depth + 1);
+		});
+	}
+
+	function calculateDoS() {
+		traverse(citationJSON.opinion_clusters.length - 1, 0);
+		traverseBack(0, 0);
+
+		citationJSON.opinion_clusters.forEach(function (cluster) {
+			cluster.order = cluster.travFwd + cluster.travRev - 1;
+			console.log(cluster.travRev, cluster.travFwd, cluster.order, cluster.case_name_short);
+		});
+	}
+
 	parseDate = d3.time.format('%Y-%m-%dT%H:%M:%S').parse;
 	xDate = d3.time.format('%b-%Y');
 
-	citationJSON.opinion_clusters.sort(function (a, b) {
-		if (parseDate(a.date_filed) > parseDate(b.date_filed)) {
-			return 1;
-		}
-		if (parseDate(a.date_filed) < parseDate(b.date_filed)) {
-			return -1;
-		}
-		// a must be equal to b
-		return 0;
-	});
+	prepJSON();
+
+	calculateDoS();
 
 	caseCount = citationJSON.opinion_clusters.length;
 
@@ -65,7 +141,7 @@ function drawGraph() {
 	inputArray = d3.range(1, flagSize + 1);
 
 	permutations = inputArray.reduce(function permute(res, item, key, arr) {
-		return res.concat(arr.length > 1 && arr.slice(0, key).concat(arr.slice(key + 1)).reduce(permute, []).map(function(perm) {
+		return res.concat(arr.length > 1 && arr.slice(0, key).concat(arr.slice(key + 1)).reduce(permute, []).map(function (perm) {
 			return [item].concat(perm);
 		}) || item);
 	}, []);
@@ -84,30 +160,27 @@ function drawGraph() {
 			}
 			pickTotal += difference;
 		});
-		console.log(item, pickSize, pickTotal, pickMinGap, pickMin);
 		if (pickTotal >= pickSize && pickMin > pickMinGap) {
 			pickSize = pickTotal;
 			pickMinGap = pickMin;
 			distribution = item;
-			console.log('***')
 		}
 	});
 
 	// d3.select('#chart')
 	// 	.append('p')
 	// 	.text(JSON.stringify(permutations));
-	d3.select('#chart')
-		.append('p')
-		.text(JSON.stringify(distribution) + ' ' + pickSize+ ' ' + pickMinGap);
-
-//
+	// d3.select('#chart')
+	// 	.append('p')
+	// 	.text(JSON.stringify(distribution) + ' ' + pickSize + ' ' + pickMinGap);
 
 	citationJSON.opinion_clusters.forEach(function (cluster) {
+
 		if (flagIndex === 1 || flagIndex === caseCount) {
 			cluster.order = degrees[0];
 		} else {
 			// get degrees of separation count
-			thisDegree = 1;
+			thisDegree = cluster.order;
 			// if over 7 then 8
 			if (thisDegree > 7) {
 				thisDegree = 8;
@@ -128,7 +201,7 @@ function drawGraph() {
 
 	xScale = new Plottable.Scales.Category(); // set switch for time or category time
 	yScale = new Plottable.Scales.Category();
-	yScale.domain(d3.range(flagSize));
+	yScale.domain(d3.range(1, flagSize + 2).reverse());
 
 	sizeScale = new Plottable.Scales.ModifiedLog();
 	sizeScale.range([5, 25]);
@@ -141,12 +214,12 @@ function drawGraph() {
 			return xDate(d);
 		});
 
-	xLabel = new Plottable.Components.AxisLabel('Time', 0);
 	yAxis = new Plottable.Axes.Category(yScale, 'left');
 	// yAxis.formatter(function () {
 	// 	return '';
 	// });
 
+	xLabel = new Plottable.Components.AxisLabel('Time', 0);
 	yLabel = new Plottable.Components.AxisLabel('Random', -90);
 
 	legend = new Plottable.Components.Legend(colorScale).maxEntriesPerRow(4);
@@ -160,7 +233,11 @@ function drawGraph() {
 			return parseDate(d.date_filed);
 		}, xScale)
 		.y(function (d) {
-			return distribution[(d.count - 1) % flagSize];
+			if (d.count === 1 || d.count === caseCount) {
+				return flagSize + 1;
+			} else {
+				return distribution[(d.count - 2) % flagSize];
+			}
 		}, yScale)
 		.size(function (d) {
 			return d.citation_count;
@@ -192,7 +269,11 @@ function drawGraph() {
 	citationJSON.opinion_clusters.forEach(function (cluster) {
 		point = {};
 		point.date_filed = cluster.date_filed;
-		point.count = distribution[(cluster.count - 1) % flagSize];
+		if (cluster.count === 1 || cluster.count === caseCount) {
+			point.count = flagSize + 1;
+		} else {
+			point.count = distribution[(cluster.count - 2) % flagSize];
+		}
 		point.order = cluster.order;
 		coords[cluster.id] = point;
 	});
