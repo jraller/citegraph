@@ -1,9 +1,33 @@
 /* global $, document, d3, Plottable*/
 
+/*
+For drawing the degrees of separation graph.
+Given a set of citations in JSON
+sort them and pre-parse the network
+
+create a chart with:
+	an unlabeled y axis
+	a category x axis that contains times in order, but not a timeline
+	grid
+	legend
+	scatterplot
+		size by number of citations (not in graph, but total)
+		color by degrees of separation
+	a collection of line plots
+		color by degrees of separation for that segment
+below the plot add a table with:
+	case name as link to case
+	citation count
+	date filed
+ */
+
 'use strict';
 
 var citationJSON = {};
 
+/**
+ * [drawGraph description]
+ */
 function drawGraph() {
 	var parseDate = {}, // to parse dates in the JSON into d3 dates
 		xDate = {},
@@ -383,6 +407,56 @@ function drawGraph() {
 
 }
 
+function citationTable(data, columns) {
+	var table = d3.select('#chart').append('table'),
+		thead = table.append('thead'),
+		tbody = table.append('tbody'),
+		rows = {},
+		parseDate = d3.time.format('%Y-%m-%dT%H:%M:%S').parse,
+		formats = {date: d3.time.format('%b-%Y')};
+
+	table.attr('class', 'table table-bordered');
+
+	thead.append('tr')
+		.selectAll('th')
+		.data(columns)
+		.enter()
+		.append('th')
+			.text(function (c) {
+				return c.l;
+			});
+
+	rows = tbody.selectAll('tr')
+		.data(data)
+		.enter()
+		.append('tr');
+
+	rows.selectAll('td') // cells
+		.data(function (row) {
+			return columns.map(function (column) {
+				return {
+					column: column.s,
+					value: row[column.s],
+					link: column.a,
+					format: column.f
+				};
+			});
+		})
+		.enter()
+		.append('td')
+		.html(function (d) {
+			if (d.link !== '') {
+				return '<a href="' + d.link + '">' + d.value + '</a>';
+			} else if (d.format !== '') {
+				return formats[d.format](parseDate(d.value));
+			} else {
+				return d.value;
+			}
+		});
+
+	return table;
+}
+
 $(document).ready(function () {
 	// on select JSON in the data and then call drawGraph()
 	$('#dataSourceSelect').change(function () {
@@ -395,6 +469,13 @@ $(document).ready(function () {
 			citationJSON = json;
 			d3.select('#chart').select('svg').remove();
 			drawGraph();
+			citationTable(citationJSON.opinion_clusters,
+				[
+					{s: 'case_name_short', l: 'Case Name', a: 'absolute_url', f: ''},
+					{s: 'citation_count', l: 'Total Citations', a: '', f: ''},
+					{s: 'date_filed', l: 'Date Filed', a: '', f: 'date'}
+				]
+			);
 		});
 	});
 });
