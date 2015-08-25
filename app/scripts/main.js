@@ -31,6 +31,7 @@ var citationJSON = {};
 function drawGraph() {
 	var parseDate = {}, // to parse dates in the JSON into d3 dates
 		xDate = {},
+		duplicateFilingDates = false,
 		xScale = {}, // the scaling function for x
 		yScale = {}, // the scaling function for y
 		sizeScale = {}, // the scale used to size the case circles
@@ -72,7 +73,9 @@ function drawGraph() {
 
 
 	function prepJSON() {
-		// sort
+		var duplicates = false; // ask how to handle duplicate date filed
+
+		// sort by date_filed
 		citationJSON.opinion_clusters.sort(function (a, b) {
 			if (parseDate(a.date_filed) > parseDate(b.date_filed)) {
 				return 1;
@@ -81,6 +84,7 @@ function drawGraph() {
 				return -1;
 			}
 			// a must be equal to b
+			duplicates = true;
 			return 0;
 		});
 		// build index
@@ -90,6 +94,7 @@ function drawGraph() {
 			point.citedBy = [];
 			JSONIndex[cluster.id] = point;
 		});
+		// add cited by others in JSON to each
 		citationJSON.opinion_clusters.forEach(function (cluster) {
 			cluster.sub_opinions[0].opinions_cited.forEach(function (item) {
 				if (JSONIndex[item].citedBy.indexOf() === -1) {
@@ -97,7 +102,7 @@ function drawGraph() {
 				}
 			});
 		});
-		// console.dir(JSONIndex);
+		return duplicates;
 	}
 
 	/**
@@ -108,10 +113,8 @@ function drawGraph() {
 	function traverse(nodeid, depth) {
 		var order = citationJSON.opinion_clusters[nodeid].travRev;
 
-		if (typeof order === 'undefined') {
+		if (typeof order === 'undefined' || order > depth) {
 			citationJSON.opinion_clusters[nodeid].travRev = depth;
-		} else if (order > depth) {
-			order = depth;
 		}
 		citationJSON.opinion_clusters[nodeid].sub_opinions[0].opinions_cited.forEach(function (item) {
 			// console.log('t', JSONIndex[item].num, depth + 1);
@@ -128,9 +131,7 @@ function drawGraph() {
 		var order = citationJSON.opinion_clusters[nodeid].travFwd;
 
 		// console.log(nodeid, depth, order, citationJSON.opinion_clusters[nodeid].case_name_short);
-		if (typeof order === 'undefined') {
-			citationJSON.opinion_clusters[nodeid].travFwd = depth;
-		} else if (order > depth) {
+		if (typeof order === 'undefined' || order > depth) {
 			citationJSON.opinion_clusters[nodeid].travFwd = depth;
 		}
 		// add to JSONIndex so reverse traverse can happen?
@@ -146,7 +147,11 @@ function drawGraph() {
 		traverseBack(0, 0);
 
 		citationJSON.opinion_clusters.forEach(function (cluster) {
-			cluster.order = cluster.travFwd + cluster.travRev - 1;
+			if (cluster.travFwd === 0|| cluster.travRev === 0) {
+				cluster.order = 0;
+			} else {
+				cluster.order = cluster.travFwd + cluster.travRev - 1;
+			}
 			console.log(cluster.travRev, cluster.travFwd, cluster.order, cluster.case_name_short);
 		});
 	}
@@ -154,7 +159,7 @@ function drawGraph() {
 	parseDate = d3.time.format('%Y-%m-%dT%H:%M:%S').parse;
 	xDate = d3.time.format('%b-%Y');
 
-	prepJSON();
+	duplicateFilingDates = prepJSON();
 
 	calculateDoS();
 
@@ -468,11 +473,13 @@ $(document).ready(function () {
 			}
 			citationJSON = json;
 			d3.select('#chart').select('svg').remove();
+			d3.select('#chart').select('table').remove();
 			drawGraph();
 			citationTable(citationJSON.opinion_clusters,
 				[
 					{s: 'case_name_short', l: 'Case Name', a: 'absolute_url', f: ''},
 					{s: 'citation_count', l: 'Total Citations', a: '', f: ''},
+					{s: 'order', l: 'Degrees of Separation', a: '', f: ''},
 					{s: 'date_filed', l: 'Date Filed', a: '', f: 'date'}
 				]
 			);
