@@ -44,6 +44,9 @@ function drawGraph() {
 		xLabel = {}, // label for the x axis
 		yLabel = {}, // label for the y axis
 		legend = {}, // chart legend, in this case showing the different colors for degrees of separation
+		xGrid = {},
+		yGrid = {},
+		grid = {},
 		cases = {}, // reference to the case circles used to attach interactions
 		caseCount = 0,
 		flagSize = 0,
@@ -147,12 +150,12 @@ function drawGraph() {
 		traverseBack(0, 0);
 
 		citationJSON.opinion_clusters.forEach(function (cluster) {
-			if (cluster.travFwd === 0|| cluster.travRev === 0) {
+			if (cluster.travFwd === 0 || cluster.travRev === 0) {
 				cluster.order = 0;
 			} else {
 				cluster.order = cluster.travFwd + cluster.travRev - 1;
 			}
-			console.log(cluster.travRev, cluster.travFwd, cluster.order, cluster.case_name_short);
+			// console.log(cluster.travRev, cluster.travFwd, cluster.order, cluster.case_name_short);
 		});
 	}
 
@@ -229,11 +232,13 @@ function drawGraph() {
 		.attr('height', '400px');
 
 	xScale = new Plottable.Scales.Category(); // set switch for time or category time
+	xScale.outerPadding(0.9);
 	yScale = new Plottable.Scales.Category();
 	yScale.domain(d3.range(1, flagSize + 2).reverse());
+	yScale.outerPadding(0.9);
 
 	sizeScale = new Plottable.Scales.ModifiedLog();
-	sizeScale.range([5, 25]);
+	sizeScale.range([5, 50]);
 	colorScale = new Plottable.Scales.Color();
 	colorScale.domain(degrees.slice(0, maxDegree + 1));
 
@@ -253,7 +258,17 @@ function drawGraph() {
 
 	legend = new Plottable.Components.Legend(colorScale).maxEntriesPerRow(4);
 
+	xGrid = new Plottable.Scales.Linear()
+		.domain([0, citationJSON.opinion_clusters.length]);
+		// .range([0, xAxis.width()]);
+	yGrid = new Plottable.Scales.Linear()
+		.domain([0, flagSize + 2]);
+		// .range([yAxis.height(), 0]);
+
+	grid = new Plottable.Components.Gridlines(xGrid, yGrid);
+
 	plot = new Plottable.Components.Group();
+	plot.append(grid);
 
 	cases = new Plottable.Plots.Scatter()
 		.addDataset(new Plottable.Dataset(citationJSON.opinion_clusters))
@@ -262,11 +277,14 @@ function drawGraph() {
 			return parseDate(d.date_filed);
 		}, xScale)
 		.y(function (d) {
+			var value = 0;
+
 			if (d.count === 1 || d.count === caseCount) {
-				return flagSize + 1;
+				value = flagSize + 1;
 			} else {
-				return distribution[(d.count - 2) % flagSize];
+				value = distribution[(d.count - 2) % flagSize];
 			}
+			return value;
 		}, yScale)
 		.size(function (d) {
 			return d.citation_count;
