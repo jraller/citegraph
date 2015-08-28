@@ -30,8 +30,8 @@ var citationJSON = {};
  */
 function drawGraph() {
 	var parseDate = {}, // to parse dates in the JSON into d3 dates
-		xDate = {},
-		duplicateFilingDates = false,
+		xDate = {}, // to format date for display
+		// duplicateFilingDates = false,
 		xScale = {}, // the scaling function for x
 		yScale = {}, // the scaling function for y
 		sizeScale = {}, // the scale used to size the case circles
@@ -51,14 +51,28 @@ function drawGraph() {
 		caseCount = 0,
 		flagSize = 0,
 		flagIndex = 1,
-		inputArray = [],
-		permutations = [],
+
+		distributions = [
+			[1], // 1
+			[1, 2], // 4
+			[1, 2, 3], // 9
+			[1, 3, 2, 4], // 16
+			[1, 3, 5, 2, 4], // 25
+			[1, 2, 3, 4, 5, 6], // 36
+			[1, 2, 3, 4, 5, 6, 7], // 49
+			[1, 2, 3, 4, 5, 6, 7, 8], // 64
+			[1, 2, 3, 4, 5, 6, 7, 8, 9] // 81
+		],
+
+		// inputArray = [],
+		// permutations = [],
 		distribution = [], // will hold the correctly sized vertical distribution pattern
-		difference = 0,
-		pickMin = 0,
-		pickTotal = 0,
-		pickSize = 0,
-		pickMinGap = 0,
+		// difference = 0,
+		// pickMin = 0,
+		// pickTotal = 0,
+		// pickSize = 0,
+		// pickMinGap = 0,
+
 		connections = {}, // reference to the connection lines used to attach interactions
 		coords = {}, // object to hold extracted coordinates keyed by case id
 		JSONIndex = {},
@@ -118,11 +132,14 @@ function drawGraph() {
 
 		if (typeof order === 'undefined' || order > depth) {
 			citationJSON.opinion_clusters[nodeid].travRev = depth;
+			citationJSON.opinion_clusters[nodeid].sub_opinions[0].opinions_cited.forEach(function (item) {
+				// console.log('t', JSONIndex[item].num, depth + 1);
+				// check to see that recursion depth isn't greater than total number of nodes
+				if (depth + 1 < citationJSON.opinion_clusters.length) {
+					traverse(JSONIndex[item].num, depth + 1);
+				}
+			});
 		}
-		citationJSON.opinion_clusters[nodeid].sub_opinions[0].opinions_cited.forEach(function (item) {
-			// console.log('t', JSONIndex[item].num, depth + 1);
-			traverse(JSONIndex[item].num, depth + 1);
-		});
 	}
 
 	/**
@@ -136,13 +153,15 @@ function drawGraph() {
 		// console.log(nodeid, depth, order, citationJSON.opinion_clusters[nodeid].case_name_short);
 		if (typeof order === 'undefined' || order > depth) {
 			citationJSON.opinion_clusters[nodeid].travFwd = depth;
+			// add to JSONIndex so reverse traverse can happen?
+			// or modify citationJSON to add opinions_cited_by?
+			JSONIndex[citationJSON.opinion_clusters[nodeid].id].citedBy.forEach(function (item) {
+				// console.log('t', JSONIndex[item].num, depth + 1);
+				if (depth + 1 < citationJSON.opinion_clusters.length) {
+					traverseBack(JSONIndex[item].num, depth + 1);
+				}
+			});
 		}
-		// add to JSONIndex so reverse traverse can happen?
-		// or modify citationJSON to add opinions_cited_by?
-		JSONIndex[citationJSON.opinion_clusters[nodeid].id].citedBy.forEach(function (item) {
-			// console.log('t', JSONIndex[item].num, depth + 1);
-			traverseBack(JSONIndex[item].num, depth + 1);
-		});
 	}
 
 	function calculateDoS() {
@@ -162,7 +181,7 @@ function drawGraph() {
 	parseDate = d3.time.format('%Y-%m-%dT%H:%M:%S').parse;
 	xDate = d3.time.format('%b-%Y');
 
-	duplicateFilingDates = prepJSON();
+	prepJSON();
 
 	calculateDoS();
 
@@ -170,34 +189,40 @@ function drawGraph() {
 
 	flagSize = Math.ceil(Math.sqrt(caseCount));
 
-	inputArray = d3.range(1, flagSize + 1);
+	// inputArray = d3.range(1, flagSize + 1);
 
-	permutations = inputArray.reduce(function permute(res, item, key, arr) {
-		return res.concat(arr.length > 1 && arr.slice(0, key).concat(arr.slice(key + 1)).reduce(permute, []).map(function (perm) {
-			return [item].concat(perm);
-		}) || item);
-	}, []);
+	if (flagSize > 0 && flagSize < 10) {
+		distribution = distributions[flagSize - 1];
+	} else {
+		distribution = d3.range(1, flagSize + 2);
+	}
 
-	permutations.forEach(function (item) {
-		pickTotal = 0;
-		pickMin = Infinity;
-		item.forEach(function (part, partNum) {
-			if (partNum === 0) {
-				difference = Math.abs(part - item[item.length - 1]);
-			} else {
-				difference = Math.abs(part - item[partNum - 1]);
-			}
-			if (pickMin > difference) {
-				pickMin = difference;
-			}
-			pickTotal += difference;
-		});
-		if (pickTotal >= pickSize && pickMin > pickMinGap) {
-			pickSize = pickTotal;
-			pickMinGap = pickMin;
-			distribution = item;
-		}
-	});
+	// permutations = inputArray.reduce(function permute(res, item, key, arr) {
+	// 	return res.concat(arr.length > 1 && arr.slice(0, key).concat(arr.slice(key + 1)).reduce(permute, []).map(function (perm) {
+	// 		return [item].concat(perm);
+	// 	}) || item);
+	// }, []);
+
+	// permutations.forEach(function (item) {
+	// 	pickTotal = 0;
+	// 	pickMin = Infinity;
+	// 	item.forEach(function (part, partNum) {
+	// 		if (partNum === 0) {
+	// 			difference = Math.abs(part - item[item.length - 1]);
+	// 		} else {
+	// 			difference = Math.abs(part - item[partNum - 1]);
+	// 		}
+	// 		if (pickMin > difference) {
+	// 			pickMin = difference;
+	// 		}
+	// 		pickTotal += difference;
+	// 	});
+	// 	if (pickTotal >= pickSize && pickMin > pickMinGap) {
+	// 		pickSize = pickTotal;
+	// 		pickMinGap = pickMin;
+	// 		distribution = item;
+	// 	}
+	// });
 
 	// d3.select('#chart')
 	// 	.append('p')
