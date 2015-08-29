@@ -3,10 +3,11 @@
 /*
 For drawing the degrees of separation graph.
 Given a set of citations in JSON
-sort them and pre-parse the network
+sort them and pre-parse in order to build the network
 
 create a chart with:
 	an unlabeled y axis
+		vertical spacing moving from math based to table selected
 	a category x axis that contains times in order, but not a timeline
 	grid
 	legend
@@ -27,8 +28,9 @@ var citationJSON = {};
 
 /**
  * [drawGraph description]
+ * @param {string} target id of target HTML element to draw the chart in
  */
-function drawGraph() {
+function drawGraph(target) {
 	var parseDate = {}, // to parse dates in the JSON into d3 dates
 		xDate = {}, // to format date for display
 		xScale = {}, // the scaling function for x
@@ -56,11 +58,12 @@ function drawGraph() {
 			[1, 2], // 4
 			[1, 2, 3], // 9
 			[1, 3, 2, 4], // 16
-			[1, 3, 5, 2, 4], // 25
+			[2, 10, 5, 13, 16], // 25
 			[1, 2, 3, 4, 5, 6], // 36
 			[1, 2, 3, 4, 5, 6, 7], // 49
 			[1, 2, 3, 4, 5, 6, 7, 8], // 64
 			[1, 2, 3, 4, 5, 6, 7, 8, 9] // 81
+			// how far does this table go
 		],
 
 		distribution = [], // will hold the correctly sized vertical distribution pattern
@@ -208,8 +211,6 @@ function drawGraph() {
 
 	calculateDoS();
 
-	console.dir(links);
-
 	caseCount = citationJSON.opinion_clusters.length;
 
 	flagSize = Math.ceil(Math.sqrt(caseCount));
@@ -241,7 +242,7 @@ function drawGraph() {
 		cluster.count = flagIndex++;
 	});
 
-	d3.select('#chart')
+	d3.select(target)
 		.append('svg')
 		.attr('id', 'coverageChart')
 		.attr('height', '400px');
@@ -249,7 +250,7 @@ function drawGraph() {
 	xScale = new Plottable.Scales.Category(); // set switch for time or category time
 	xScale.outerPadding(0.9);
 	yScale = new Plottable.Scales.Category();
-	yScale.domain(d3.range(1, flagSize + 2).reverse());
+	yScale.domain(d3.range(1, d3.max(distribution) + 2).reverse());
 	yScale.outerPadding(0.9);
 
 	sizeScale = new Plottable.Scales.ModifiedLog();
@@ -277,7 +278,7 @@ function drawGraph() {
 		.domain([0, citationJSON.opinion_clusters.length]);
 		// .range([0, xAxis.width()]);
 	yGrid = new Plottable.Scales.Linear()
-		.domain([0, flagSize + 2]);
+		.domain([0, d3.max(distribution) + 2]);
 		// .range([yAxis.height(), 0]);
 
 	grid = new Plottable.Components.Gridlines(xGrid, yGrid);
@@ -295,7 +296,7 @@ function drawGraph() {
 			var value = 0;
 
 			if (d.count === 1 || d.count === caseCount) {
-				value = flagSize + 1;
+				value = d3.max(distribution) + 1;
 			} else {
 				value = distribution[(d.count - 2) % flagSize];
 			}
@@ -332,7 +333,7 @@ function drawGraph() {
 		point = {};
 		point.date_filed = cluster.date_filed;
 		if (cluster.count === 1 || cluster.count === caseCount) {
-			point.count = flagSize + 1;
+			point.count = d3.max(distribution) + 1;
 		} else {
 			point.count = distribution[(cluster.count - 2) % flagSize];
 		}
@@ -342,11 +343,15 @@ function drawGraph() {
 
 	citationJSON.opinion_clusters.forEach(function (cluster) {
 		cluster.sub_opinions[0].opinions_cited.forEach(function (id) {
-			var name = linkName(cluster.id, id);
+			var name = linkName(cluster.id, id),
+				color = 'unk';
 
+			if (typeof links[name].d !== 'undefined') {
+				color = links[name].d;
+			}
 			connections.addDataset(new Plottable.Dataset([
-				{x: coords[cluster.id].date_filed, y: coords[cluster.id].count, c: links[name].d},
-				{x: coords[id].date_filed, y: coords[id].count, c: links[name].d}
+				{x: coords[cluster.id].date_filed, y: coords[cluster.id].count, c: color},
+				{x: coords[id].date_filed, y: coords[id].count, c: color}
 			]));
 		});
 	});
@@ -447,8 +452,8 @@ function drawGraph() {
 
 }
 
-function citationTable(data, columns) {
-	var table = d3.select('#chart').append('table'),
+function citationTable(target, data, columns) {
+	var table = d3.select(target).append('table'),
 		thead = table.append('thead'),
 		tbody = table.append('tbody'),
 		rows = {},
@@ -498,6 +503,9 @@ function citationTable(data, columns) {
 }
 
 $(document).ready(function () {
+	var chartTarget = '#chart',
+		tableTarget = '#table';
+
 	// on select JSON in the data and then call drawGraph()
 	$('#dataSourceSelect').change(function () {
 		var JSONpath = $('#dataSourceSelect').val();
@@ -507,11 +515,12 @@ $(document).ready(function () {
 				return console.warn(error);
 			}
 			citationJSON = json;
-			d3.select('#chart').select('svg').remove();
-			d3.select('#chart').select('table').remove();
-			drawGraph();
-			citationTable(citationJSON.opinion_clusters,
+			d3.select(chartTarget).select('svg').remove();
+			d3.select(tableTarget).select('table').remove();
+			drawGraph(chartTarget); // append target identifer to call
+			citationTable(tableTarget, citationJSON.opinion_clusters,
 				[
+					{s: 'id', l: '', a: '', f: ''},
 					{s: 'case_name_short', l: 'Case Name', a: 'absolute_url', f: ''},
 					{s: 'citation_count', l: 'Total Citations', a: '', f: ''},
 					{s: 'order', l: 'Degrees of Separation', a: '', f: ''},
