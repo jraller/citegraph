@@ -1,416 +1,419 @@
 {
   "meta": {
-    "donate": "Please consider donating to support more projects from Free Law Project", 
+    "donate": "Please consider donating to support more projects from Free Law Project",
     "version": 1.0
-  }, 
+  },
   "opinion_clusters": [
     {
-      "absolute_url": "/opinion/105659/trop-v-dulles/", 
-      "case_name": "Trop v. Dulles", 
-      "case_name_short": "Trop v. Dulles", 
-      "citation_count": 8, 
-      "date_filed": "1958-03-31T00:00:00", 
-      "decision_direction": "2", 
-      "id": 105659, 
+      "absolute_url": "/opinion/105659/trop-v-dulles/",
+      "case_name": "Trop v. Dulles",
+      "case_name_short": "Trop v. Dulles",
+      "citation_count": 8,
+      "date_filed": "1958-03-31T00:00:00",
+      "decision_direction": "2",
+      "id": 105659,
       "sub_opinions": [
         {
-          "opinions_cited": [], 
+          "opinions_cited": [],
           "type": "combined"
         }
-      ], 
-      "votes_majority": "5", 
+      ],
+      "votes_majority": "5",
       "votes_minority": "4"
-    }, 
+    },
     {
-      "absolute_url": "/opinion/109561/estelle-v-gamble/", 
-      "case_name": "Estelle v. Gamble", 
-      "case_name_short": "Estelle v. Gamble", 
-      "citation_count": 4, 
-      "date_filed": "1976-11-30T00:00:00", 
-      "decision_direction": "1", 
-      "id": 109561, 
+      "absolute_url": "/opinion/109561/estelle-v-gamble/",
+      "case_name": "Estelle v. Gamble",
+      "case_name_short": "Estelle v. Gamble",
+      "citation_count": 4,
+      "date_filed": "1976-11-30T00:00:00",
+      "decision_direction": "1",
+      "id": 109561,
       "sub_opinions": [
         {
           "opinions_cited": [
             105659
-          ], 
+          ],
           "type": "combined"
         }
-      ], 
-      "votes_majority": "8", 
+      ],
+      "votes_majority": "8",
       "votes_minority": "1"
-    }, 
+    },
     {
-      "absolute_url": "/opinion/110075/bell-v-wolfish/", 
-      "case_name": "Bell v. Wolfish", 
-      "case_name_short": "Bell v. Wolfish", 
-      "citation_count": 3, 
-      "date_filed": "1979-05-14T00:00:00", 
-      "decision_direction": "1", 
-      "id": 110075, 
+      "absolute_url": "/opinion/110075/bell-v-wolfish/",
+      "case_name": "Bell v. Wolfish",
+      "case_name_short": "Bell v. Wolfish",
+      "citation_count": 3,
+      "date_filed": "1979-05-14T00:00:00",
+      "decision_direction": "1",
+      "id": 110075,
       "sub_opinions": [
         {
           "opinions_cited": [
             105659
-          ], 
+          ],
           "type": "combined"
         }
-      ], 
-      "votes_majority": "6", 
+      ],
+      "votes_majority": "6",
       "votes_minority": "3"
-    }, 
+    },
     {
-      "absolute_url": "/opinion/110223/rummel-v-estelle/", 
-      "case_name": "Rummel v. Estelle", 
-      "case_name_short": "Rummel v. Estelle", 
-      "citation_count": 8, 
-      "date_filed": "1980-03-18T00:00:00", 
-      "decision_direction": "1", 
-      "id": 110223, 
-      "sub_opinions": [
-        {
-          "opinions_cited": [], 
-          "type": "combined"
-        }
-      ], 
-      "votes_majority": "5", 
-      "votes_minority": "4"
-    }, 
-    {
-      "absolute_url": "/opinion/110518/rhodes-v-chapman/", 
-      "case_name": "Rhodes v. Chapman", 
-      "case_name_short": "Rhodes v. Chapman", 
-      "citation_count": 3, 
-      "date_filed": "1981-06-15T00:00:00", 
-      "decision_direction": "1", 
-      "id": 110518, 
+      "absolute_url": "/opinion/110223/rummel-v-estelle/",
+      "case_name": "Rummel v. Estelle",
+      "case_name_short": "Rummel v. Estelle",
+      "citation_count": 8,
+      "date_filed": "1980-03-18T00:00:00",
+      "decision_direction": "1",
+      "id": 110223,
       "sub_opinions": [
         {
           "opinions_cited": [
-            109561, 
-            105659, 
-            110223, 
+          	105659
+          ],
+          "type": "combined"
+        }
+      ],
+      "votes_majority": "5",
+      "votes_minority": "4"
+    },
+    {
+      "absolute_url": "/opinion/110518/rhodes-v-chapman/",
+      "case_name": "Rhodes v. Chapman",
+      "case_name_short": "Rhodes v. Chapman",
+      "citation_count": 3,
+      "date_filed": "1981-06-15T00:00:00",
+      "decision_direction": "1",
+      "id": 110518,
+      "sub_opinions": [
+        {
+          "opinions_cited": [
+            109561,
+            105659,
+            110223,
             110075
-          ], 
+          ],
           "type": "combined"
         }
-      ], 
-      "votes_majority": "8", 
+      ],
+      "votes_majority": "8",
       "votes_minority": "1"
-    }, 
+    },
     {
-      "absolute_url": "/opinion/110594/hutto-v-davis/", 
-      "case_name": "Hutto v. Davis", 
-      "case_name_short": "Hutto v. Davis", 
-      "citation_count": 3, 
-      "date_filed": "1982-03-22T00:00:00", 
-      "decision_direction": "1", 
-      "id": 110594, 
+      "absolute_url": "/opinion/110594/hutto-v-davis/",
+      "case_name": "Hutto v. Davis",
+      "case_name_short": "Hutto v. Davis",
+      "citation_count": 3,
+      "date_filed": "1982-03-22T00:00:00",
+      "decision_direction": "1",
+      "id": 110594,
       "sub_opinions": [
         {
           "opinions_cited": [
             110223
-          ], 
+          ],
           "type": "combined"
         }
-      ], 
-      "votes_majority": "6", 
+      ],
+      "votes_majority": "6",
       "votes_minority": "3"
-    }, 
+    },
     {
-      "absolute_url": "/opinion/111000/solem-v-helm/", 
-      "case_name": "Solem v. Helm", 
-      "case_name_short": "Solem v. Helm", 
-      "citation_count": 4, 
-      "date_filed": "1983-06-28T00:00:00", 
-      "decision_direction": "2", 
-      "id": 111000, 
+      "absolute_url": "/opinion/111000/solem-v-helm/",
+      "case_name": "Solem v. Helm",
+      "case_name_short": "Solem v. Helm",
+      "citation_count": 4,
+      "date_filed": "1983-06-28T00:00:00",
+      "decision_direction": "2",
+      "id": 111000,
       "sub_opinions": [
         {
           "opinions_cited": [
-            110594, 
+            110594,
             110223
-          ], 
+          ],
           "type": "combined"
         }
-      ], 
-      "votes_majority": "5", 
+      ],
+      "votes_majority": "5",
       "votes_minority": "4"
-    }, 
+    },
     {
-      "absolute_url": "/opinion/112205/harris-v-reed/", 
-      "case_name": "Harris v. Reed", 
-      "case_name_short": "Harris v. Reed", 
-      "citation_count": 0, 
-      "date_filed": "1989-02-22T00:00:00", 
-      "decision_direction": "2", 
-      "id": 112205, 
+      "absolute_url": "/opinion/112205/harris-v-reed/",
+      "case_name": "Harris v. Reed",
+      "case_name_short": "Harris v. Reed",
+      "citation_count": 0,
+      "date_filed": "1989-02-22T00:00:00",
+      "decision_direction": "2",
+      "id": 112205,
       "sub_opinions": [
         {
           "opinions_cited": [
             110223
-          ], 
+          ],
           "type": "combined"
         }
-      ], 
-      "votes_majority": "8", 
+      ],
+      "votes_majority": "8",
       "votes_minority": "1"
-    }, 
+    },
     {
-      "absolute_url": "/opinion/112646/harmelin-v-michigan/", 
-      "case_name": "Harmelin v. Michigan", 
-      "case_name_short": "Harmelin v. Michigan", 
-      "citation_count": 2, 
-      "date_filed": "1991-06-27T00:00:00", 
-      "decision_direction": "1", 
-      "id": 112646, 
+      "absolute_url": "/opinion/112646/harmelin-v-michigan/",
+      "case_name": "Harmelin v. Michigan",
+      "case_name_short": "Harmelin v. Michigan",
+      "citation_count": 2,
+      "date_filed": "1991-06-27T00:00:00",
+      "decision_direction": "1",
+      "id": 112646,
       "sub_opinions": [
         {
           "opinions_cited": [
-            111000, 
-            110594, 
+            111000,
+            110594,
             110223
-          ], 
+          ],
           "type": "combined"
         }
-      ], 
-      "votes_majority": "5", 
+      ],
+      "votes_majority": "5",
       "votes_minority": "4"
-    }, 
+    },
     {
-      "absolute_url": "/opinion/112888/helling-v-mckinney/", 
-      "case_name": "Helling v. McKinney", 
-      "case_name_short": "Helling v. McKinney", 
-      "citation_count": 2, 
-      "date_filed": "1993-06-18T00:00:00", 
-      "decision_direction": "2", 
-      "id": 112888, 
+      "absolute_url": "/opinion/112888/helling-v-mckinney/",
+      "case_name": "Helling v. McKinney",
+      "case_name_short": "Helling v. McKinney",
+      "citation_count": 2,
+      "date_filed": "1993-06-18T00:00:00",
+      "decision_direction": "2",
+      "id": 112888,
       "sub_opinions": [
         {
           "opinions_cited": [
-            109561, 
-            105659, 
+            109561,
+            105659,
             110518
-          ], 
+          ],
           "type": "combined"
         }
-      ], 
-      "votes_majority": "7", 
+      ],
+      "votes_majority": "7",
       "votes_minority": "2"
-    }, 
+    },
     {
-      "absolute_url": "/opinion/1087956/farmer-v-brennan/", 
-      "case_name": "Farmer v. Brennan", 
-      "case_name_short": "Farmer v. Brennan", 
-      "citation_count": 1, 
-      "date_filed": "1994-06-06T00:00:00", 
-      "decision_direction": "1", 
-      "id": 1087956, 
+      "absolute_url": "/opinion/1087956/farmer-v-brennan/",
+      "case_name": "Farmer v. Brennan",
+      "case_name_short": "Farmer v. Brennan",
+      "citation_count": 1,
+      "date_filed": "1994-06-06T00:00:00",
+      "decision_direction": "1",
+      "id": 1087956,
       "sub_opinions": [
         {
           "opinions_cited": [
-            112888, 
-            109561, 
-            105659, 
-            110518, 
+            112888,
+            109561,
+            105659,
+            110518,
             110075
-          ], 
+          ],
           "type": "combined"
         }
-      ], 
-      "votes_majority": "9", 
+      ],
+      "votes_majority": "9",
       "votes_minority": "0"
-    }, 
+    },
     {
-      "absolute_url": "/opinion/118234/united-states-v-bajakajian/", 
-      "case_name": "United States v. Bajakajian", 
-      "case_name_short": "United States v. Bajakajian", 
-      "citation_count": 1, 
-      "date_filed": "1998-06-22T00:00:00", 
-      "decision_direction": "2", 
-      "id": 118234, 
+      "absolute_url": "/opinion/118234/united-states-v-bajakajian/",
+      "case_name": "United States v. Bajakajian",
+      "case_name_short": "United States v. Bajakajian",
+      "citation_count": 1,
+      "date_filed": "1998-06-22T00:00:00",
+      "decision_direction": "2",
+      "id": 118234,
       "sub_opinions": [
         {
           "opinions_cited": [
-            111000, 
+            111000,
             110223
-          ], 
+          ],
           "type": "combined"
         }
-      ], 
-      "votes_majority": "5", 
+      ],
+      "votes_majority": "5",
       "votes_minority": "4"
-    }, 
+    },
     {
-      "absolute_url": "/opinion/121158/atkins-v-virginia/", 
-      "case_name": "Atkins v. Virginia", 
-      "case_name_short": "Atkins v. Virginia", 
-      "citation_count": 3, 
-      "date_filed": "2002-06-20T00:00:00", 
-      "decision_direction": "2", 
-      "id": 121158, 
+      "absolute_url": "/opinion/121158/atkins-v-virginia/",
+      "case_name": "Atkins v. Virginia",
+      "case_name_short": "Atkins v. Virginia",
+      "citation_count": 3,
+      "date_filed": "2002-06-20T00:00:00",
+      "decision_direction": "2",
+      "id": 121158,
       "sub_opinions": [
         {
           "opinions_cited": [
-            111000, 
-            105659, 
-            112646, 
+            111000,
+            105659,
+            112646,
             110223
-          ], 
+          ],
           "type": "combined"
         }
-      ], 
-      "votes_majority": "6", 
+      ],
+      "votes_majority": "6",
       "votes_minority": "3"
-    }, 
+    },
     {
-      "absolute_url": "/opinion/127897/ewing-v-california/", 
-      "case_name": "Ewing v. California", 
-      "case_name_short": "Ewing v. California", 
-      "citation_count": 1, 
-      "date_filed": "2003-03-05T00:00:00", 
-      "decision_direction": "1", 
-      "id": 127897, 
+      "absolute_url": "/opinion/127897/ewing-v-california/",
+      "case_name": "Ewing v. California",
+      "case_name_short": "Ewing v. California",
+      "citation_count": 1,
+      "date_filed": "2003-03-05T00:00:00",
+      "decision_direction": "1",
+      "id": 127897,
       "sub_opinions": [
         {
           "opinions_cited": [
-            110594, 
-            112646, 
-            121158, 
-            110223, 
-            111000, 
+            110594,
+            112646,
+            121158,
+            110223,
+            111000,
             118234
-          ], 
+          ],
           "type": "combined"
         }
-      ], 
-      "votes_majority": "5", 
+      ],
+      "votes_majority": "5",
       "votes_minority": "4"
-    }, 
+    },
     {
-      "absolute_url": "/opinion/127898/lockyer-v-andrade/", 
-      "case_name": "Lockyer v. Andrade", 
-      "case_name_short": "Lockyer v. Andrade", 
-      "citation_count": 2, 
-      "date_filed": "2003-03-06T00:00:00", 
-      "decision_direction": "1", 
-      "id": 127898, 
+      "absolute_url": "/opinion/127898/lockyer-v-andrade/",
+      "case_name": "Lockyer v. Andrade",
+      "case_name_short": "Lockyer v. Andrade",
+      "citation_count": 2,
+      "date_filed": "2003-03-06T00:00:00",
+      "decision_direction": "1",
+      "id": 127898,
       "sub_opinions": [
         {
           "opinions_cited": [
             127897
-          ], 
+          ],
           "type": "combined"
         }
-      ], 
-      "votes_majority": "5", 
+      ],
+      "votes_majority": "5",
       "votes_minority": "4"
-    }, 
+    },
     {
-      "absolute_url": "/opinion/137749/roper-v-simmons/", 
-      "case_name": "Roper v. Simmons", 
-      "case_name_short": "Roper v. Simmons", 
-      "citation_count": 1, 
-      "date_filed": "2005-03-01T00:00:00", 
-      "decision_direction": "2", 
-      "id": 137749, 
+      "absolute_url": "/opinion/137749/roper-v-simmons/",
+      "case_name": "Roper v. Simmons",
+      "case_name_short": "Roper v. Simmons",
+      "citation_count": 1,
+      "date_filed": "2005-03-01T00:00:00",
+      "decision_direction": "2",
+      "id": 137749,
       "sub_opinions": [
         {
           "opinions_cited": [
-            105659, 
+            105659,
             121158
-          ], 
+          ],
           "type": "combined"
         }
-      ], 
-      "votes_majority": "5", 
+      ],
+      "votes_majority": "5",
       "votes_minority": "4"
-    }, 
+    },
     {
-      "absolute_url": "/opinion/145780/kennedy-v-louisiana/", 
-      "case_name": "Kennedy v. Louisiana", 
-      "case_name_short": "Kennedy v. Louisiana", 
-      "citation_count": 3, 
-      "date_filed": "2008-06-25T00:00:00", 
-      "decision_direction": "2", 
-      "id": 145780, 
+      "absolute_url": "/opinion/145780/kennedy-v-louisiana/",
+      "case_name": "Kennedy v. Louisiana",
+      "case_name_short": "Kennedy v. Louisiana",
+      "citation_count": 3,
+      "date_filed": "2008-06-25T00:00:00",
+      "decision_direction": "2",
+      "id": 145780,
       "sub_opinions": [
         {
           "opinions_cited": [
             127898
-          ], 
+          ],
           "type": "combined"
         }
-      ], 
-      "votes_majority": "5", 
+      ],
+      "votes_majority": "5",
       "votes_minority": "4"
-    }, 
+    },
     {
-      "absolute_url": "/opinion/146553/graham-v-florida/", 
-      "case_name": "Graham v. Florida", 
-      "case_name_short": "Graham v. Florida", 
-      "citation_count": 1, 
-      "date_filed": "2010-05-17T00:00:00", 
-      "decision_direction": "2", 
-      "id": 146553, 
+      "absolute_url": "/opinion/146553/graham-v-florida/",
+      "case_name": "Graham v. Florida",
+      "case_name_short": "Graham v. Florida",
+      "citation_count": 1,
+      "date_filed": "2010-05-17T00:00:00",
+      "decision_direction": "2",
+      "id": 146553,
       "sub_opinions": [
         {
           "opinions_cited": [
-            127898, 
+            127898,
             145780
-          ], 
+          ],
           "type": "combined"
         }
-      ], 
-      "votes_majority": "6", 
+      ],
+      "votes_majority": "6",
       "votes_minority": "3"
-    }, 
+    },
     {
-      "absolute_url": "/opinion/217287/brown-v-plata/", 
-      "case_name": "Brown v. Plata", 
-      "case_name_short": "Brown v. Plata", 
-      "citation_count": 1, 
-      "date_filed": "2011-05-23T00:00:00", 
-      "decision_direction": "2", 
-      "id": 217287, 
+      "absolute_url": "/opinion/217287/brown-v-plata/",
+      "case_name": "Brown v. Plata",
+      "case_name_short": "Brown v. Plata",
+      "citation_count": 1,
+      "date_filed": "2011-05-23T00:00:00",
+      "decision_direction": "2",
+      "id": 217287,
       "sub_opinions": [
         {
           "opinions_cited": [
-            110075, 
-            121158, 
-            145780, 
-            1087956, 
-            137749, 
-            110518, 
-            146553, 
-            112888, 
-            109561, 
+            110075,
+            121158,
+            145780,
+            1087956,
+            137749,
+            110518,
+            146553,
+            112888,
+            109561,
             105659
-          ], 
+          ],
           "type": "combined"
         }
-      ], 
-      "votes_majority": "5", 
+      ],
+      "votes_majority": "5",
       "votes_minority": "4"
-    }, 
+    },
     {
-      "absolute_url": "/opinion/802973/miller-v-alabama/", 
-      "case_name": "Miller v. Alabama", 
-      "case_name_short": "Miller v. Alabama", 
-      "citation_count": 0, 
-      "date_filed": "2012-06-25T00:00:00", 
-      "decision_direction": "2", 
-      "id": 802973, 
+      "absolute_url": "/opinion/802973/miller-v-alabama/",
+      "case_name": "Miller v. Alabama",
+      "case_name_short": "Miller v. Alabama",
+      "citation_count": 0,
+      "date_filed": "2012-06-25T00:00:00",
+      "decision_direction": "2",
+      "id": 802973,
       "sub_opinions": [
         {
           "opinions_cited": [
-            145780, 
-            217287
-          ], 
+            145780,
+            217287,
+            112205
+          ],
           "type": "combined"
         }
-      ], 
-      "votes_majority": "5", 
+      ],
+      "votes_majority": "5",
       "votes_minority": "4"
     }
   ]
