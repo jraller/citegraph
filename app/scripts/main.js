@@ -464,7 +464,7 @@ function citationTable(target, data, columns) {
 		tbody = table.append('tbody'),
 		rows = {};
 
-	table.attr('class', 'table table-bordered');
+	table.attr('class', 'table table-bordered table-hover');
 
 	thead.append('tr')
 		.selectAll('th')
@@ -473,7 +473,8 @@ function citationTable(target, data, columns) {
 		.append('th')
 			.text(function (c) {
 				return c.l;
-			});
+			})
+			.attr('class', 'info');
 
 	rows = tbody.selectAll('tr')
 		.data(data)
@@ -521,6 +522,15 @@ $(document).ready(function () {
 		return format(parseDate(s));
 	}
 
+	/**
+	 * demonstrating additional formatting options
+	 * @param  {string} s value to format
+	 * @return {string} html formatted string
+	 */
+	function bold(s) {
+		return '<strong>' + s + '</strong>';
+	}
+
 	// on select JSON in the data and then call drawGraph()
 	$('#dataSourceSelect').change(function () {
 		var JSONpath = $('#dataSourceSelect').val();
@@ -535,11 +545,11 @@ $(document).ready(function () {
 			drawGraph(chartTarget); // append target identifer to call
 			citationTable(tableTarget, citationJSON.opinion_clusters,
 				[
-					{s: 'id'},
+					{s: 'id', f: bold},
 					{s: 'case_name_short', l: 'Case Name', a: 'absolute_url'},
 					{s: 'citation_count', l: 'Total Citations'},
 					{s: 'order', l: 'Degrees of Separation'},
-					{s: 'date_filed', l: 'Date Filed', a: '', f: dateFormat}
+					{s: 'date_filed', l: 'Date Filed', f: dateFormat}
 				]
 			);
 		});
