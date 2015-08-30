@@ -3,7 +3,11 @@
 /*
 For drawing the degrees of separation graph.
 Given a set of citations in JSON
+	and a DoS for the chart, as in don't show fourth for a third degree chart
 sort them and pre-parse in order to build the network
+	Degree of Separation starts at 1 not zero.
+	opinions have a degree of separation ranging from endpoint
+	connections have a degree of separation that is independant of the DoS of their endpoints
 
 create a chart with:
 	an unlabeled y axis
@@ -37,8 +41,7 @@ function drawGraph(target) {
 		yScale = {}, // the scaling function for y
 		sizeScale = {}, // the scale used to size the case circles
 		colorScale = {}, // the scale used to keep the colors for the degrees of separation
-		degrees = ['zeroeth', 'first', 'second', 'third', 'fourth', 'fifth', 'sixth', 'seventh', 'distant'],
-		thisDegree = 0,
+		degrees = ['first', 'second', 'third', 'fourth', 'fifth', 'sixth', 'seventh', 'eighth', 'ninth', 'distant'],
 		maxDegree = 0,
 		xAxis = {}, // the x axis
 		yAxis = {}, // the y axis
@@ -49,9 +52,11 @@ function drawGraph(target) {
 		yGrid = {},
 		grid = {},
 		cases = {}, // reference to the case circles used to attach interactions
-		caseCount = 0,
-		flagSize = 0,
-		flagIndex = 1,
+		connections = {}, // reference to the connection lines used to attach interactions
+		plot = {}, // the plot area of the chart
+
+		caseCount = 0, // number of opinions
+		flagSize = 0, // square root of 2 less than the number of opinions
 
 		distributions = [
 			[1], // 1
@@ -63,19 +68,19 @@ function drawGraph(target) {
 			[1, 2, 3, 4, 5, 6, 7], // 49
 			[1, 2, 3, 4, 5, 6, 7, 8], // 64
 			[1, 2, 3, 4, 5, 6, 7, 8, 9] // 81
-			// how far does this table go
+			// how far does this table go?
 		],
 
 		distribution = [], // will hold the correctly sized vertical distribution pattern
 
 		links = {}, // used to hold DoS for connectors
 
-		connections = {}, // reference to the connection lines used to attach interactions
 		coords = {}, // object to hold extracted coordinates keyed by case id
+		point = {}, // a point within coords
+
 		JSONIndex = {},
 		JSONCount = 0,
-		point = {}, // a point within coords
-		plot = {}, // the plot area of the chart
+
 		caseHover = {}, // interaction behavior
 		defaultCaseHoverText = '',
 		caseHoverText = {}, // reference to the text in the object shown when hovering
@@ -86,9 +91,10 @@ function drawGraph(target) {
 		chart = {}; // the chart itself
 
 
+	/**
+	 * [prepJSON description]
+	 */
 	function prepJSON() {
-		var duplicates = false; // ask how to handle duplicate date filed
-
 		// sort by date_filed
 		citationJSON.opinion_clusters.sort(function (a, b) {
 			if (parseDate(a.date_filed) > parseDate(b.date_filed)) {
@@ -98,7 +104,6 @@ function drawGraph(target) {
 				return -1;
 			}
 			// a must be equal to b
-			duplicates = true;
 			return 0;
 		});
 		// build index
@@ -116,7 +121,6 @@ function drawGraph(target) {
 				}
 			});
 		});
-		return duplicates;
 	}
 
 	function linkName(a, b) {
@@ -184,10 +188,15 @@ function drawGraph(target) {
 		}
 	}
 
+	/**
+	 * [calculateDoS description]
+	 */
 	function calculateDoS() {
-		var link = {};
+		var link = {},
+			index = 1,
+			thisDegree = 0;
 
-		traverse(citationJSON.opinion_clusters.length - 1, citationJSON.opinion_clusters.length - 1, 0);
+		traverse(caseCount - 1, caseCount - 1, 0);
 		traverseBack(0, 0, 0);
 
 		citationJSON.opinion_clusters.forEach(function (cluster) {
@@ -196,10 +205,27 @@ function drawGraph(target) {
 			} else {
 				cluster.order = cluster.travFwd + cluster.travRev - 1;
 			}
+			if (index === 1 || index === caseCount) {
+				cluster.order = degrees[0];
+			} else {
+				thisDegree = cluster.order;
+				if (thisDegree > degrees.length - 1) {
+					thisDegree = degrees.length;
+				}
+				if (thisDegree > maxDegree) {
+					maxDegree = thisDegree;
+				}
+				cluster.order = degrees[thisDegree];
+			}
+			cluster.count = index++;
 		});
 		for (link in links) {
 			if (links.hasOwnProperty(link)) {
-				links[link].d = degrees[links[link].dr + links[link].df - 2]; // plus some math add bounds check refactor degree assign to function
+				thisDegree = links[link].dr + links[link].df - 2;
+				if (thisDegree > maxDegree) {
+					maxDegree = thisDegree;
+				}
+				links[link].d = degrees[thisDegree]; // plus some math add bounds check refactor degree assign to function
 			}
 		}
 	}
@@ -209,38 +235,17 @@ function drawGraph(target) {
 
 	prepJSON();
 
-	calculateDoS();
-
 	caseCount = citationJSON.opinion_clusters.length;
 
 	flagSize = Math.ceil(Math.sqrt(caseCount));
 
-	// inputArray = d3.range(1, flagSize + 1);
+	calculateDoS();
 
-	if (flagSize > 0 && flagSize < 10) {
+	if (flagSize > 0 && flagSize < distributions.length) {
 		distribution = distributions[flagSize - 1];
 	} else {
 		distribution = d3.range(1, flagSize + 2);
 	}
-
-	citationJSON.opinion_clusters.forEach(function (cluster) {
-		if (flagIndex === 1 || flagIndex === caseCount) {
-			cluster.order = degrees[0];
-		} else {
-			// get degrees of separation count
-			thisDegree = cluster.order;
-			// if over 7 then 8
-			if (thisDegree > 7) {
-				thisDegree = 8;
-			}
-			// translate it
-			cluster.order = degrees[thisDegree];
-			if (thisDegree > maxDegree) {
-				maxDegree = thisDegree;
-			}
-		}
-		cluster.count = flagIndex++;
-	});
 
 	d3.select(target)
 		.append('svg')
@@ -275,7 +280,7 @@ function drawGraph(target) {
 	legend = new Plottable.Components.Legend(colorScale).maxEntriesPerRow(4);
 
 	xGrid = new Plottable.Scales.Linear()
-		.domain([0, citationJSON.opinion_clusters.length]);
+		.domain([0, caseCount]);
 		// .range([0, xAxis.width()]);
 	yGrid = new Plottable.Scales.Linear()
 		.domain([0, d3.max(distribution) + 2]);
@@ -346,6 +351,7 @@ function drawGraph(target) {
 			var name = linkName(cluster.id, id),
 				color = 'unk';
 
+			// replace the following if with the limiter to control greatest DoS connector shown
 			if (typeof links[name].d !== 'undefined') {
 				color = links[name].d;
 			}
