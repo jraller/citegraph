@@ -462,9 +462,7 @@ function citationTable(target, data, columns) {
 	var table = d3.select(target).append('table'),
 		thead = table.append('thead'),
 		tbody = table.append('tbody'),
-		rows = {},
-		parseDate = d3.time.format('%Y-%m-%dT%H:%M:%S').parse,
-		formats = {date: d3.time.format('%b-%Y')};
+		rows = {};
 
 	table.attr('class', 'table table-bordered');
 
@@ -496,13 +494,17 @@ function citationTable(target, data, columns) {
 		.enter()
 		.append('td')
 		.html(function (d) {
-			if (d.link !== '') {
-				return '<a href="' + d.link + '">' + d.value + '</a>';
-			} else if (d.format !== '') {
-				return formats[d.format](parseDate(d.value));
+			var html = '';
+
+			if (typeof d.format === 'function') {
+				html = d.format(d.value);
 			} else {
-				return d.value;
+				html = d.value;
 			}
+			if (typeof d.link !== 'undefined') {
+				html = '<a href="' + d.link + '">' + html + '</a>';
+			}
+			return html;
 		});
 
 	return table;
@@ -511,6 +513,13 @@ function citationTable(target, data, columns) {
 $(document).ready(function () {
 	var chartTarget = '#chart',
 		tableTarget = '#table';
+
+	function dateFormat(s) {
+		var parseDate = d3.time.format('%Y-%m-%dT%H:%M:%S').parse,
+			format = d3.time.format('%b-%d-%Y');
+
+		return format(parseDate(s));
+	}
 
 	// on select JSON in the data and then call drawGraph()
 	$('#dataSourceSelect').change(function () {
@@ -526,11 +535,11 @@ $(document).ready(function () {
 			drawGraph(chartTarget); // append target identifer to call
 			citationTable(tableTarget, citationJSON.opinion_clusters,
 				[
-					{s: 'id', l: '', a: '', f: ''},
-					{s: 'case_name_short', l: 'Case Name', a: 'absolute_url', f: ''},
-					{s: 'citation_count', l: 'Total Citations', a: '', f: ''},
-					{s: 'order', l: 'Degrees of Separation', a: '', f: ''},
-					{s: 'date_filed', l: 'Date Filed', a: '', f: 'date'}
+					{s: 'id'},
+					{s: 'case_name_short', l: 'Case Name', a: 'absolute_url'},
+					{s: 'citation_count', l: 'Total Citations'},
+					{s: 'order', l: 'Degrees of Separation'},
+					{s: 'date_filed', l: 'Date Filed', a: '', f: dateFormat}
 				]
 			);
 		});
