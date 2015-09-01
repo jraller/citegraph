@@ -10,6 +10,8 @@ sort them and pre-parse in order to build the network
 	connections have a degree of separation that is independant of the DoS of their endpoints
 
 create a chart with:
+	aspect ratio, and have aspect ratio tied to vertical offset patterns
+	max displayed Degrees of Separation
 	an unlabeled y axis
 		vertical spacing moving from math based to table selected
 	a category x axis that contains times in order, but not a timeline
@@ -34,7 +36,7 @@ var citationJSON = {};
  * [drawGraph description]
  * @param {string} target id of target HTML element to draw the chart in
  */
-function drawGraph(target) {
+function drawGraph(target, maxDoS, aspect) {
 	var parseDate = {}, // to parse dates in the JSON into d3 dates
 		xDate = {}, // to format date for display
 		xScale = {}, // the scaling function for x
@@ -90,6 +92,7 @@ function drawGraph(target) {
 		table = [], // holds the structure of the chart
 		chart = {}; // the chart itself
 
+	console.log(target, maxDoS, aspect);
 
 	/**
 	 * [prepJSON description]
@@ -531,9 +534,10 @@ $(document).ready(function () {
 		return '<strong>' + s + '</strong>';
 	}
 
-	// on select JSON in the data and then call drawGraph()
-	$('#dataSourceSelect').change(function () {
-		var JSONpath = $('#dataSourceSelect').val();
+	function trigger() {
+		var JSONpath = $('#dataSourceSelect').val(),
+			maxDoS = $('#degreesOfSeparationSelect').val(),
+			aspect = $('#aspectRatioSelect').val();
 
 		d3.json('/JSON/' + JSONpath + '.json', function (error, json) {
 			if (error) {
@@ -542,7 +546,7 @@ $(document).ready(function () {
 			citationJSON = json;
 			d3.select(chartTarget).select('svg').remove();
 			d3.select(tableTarget).select('table').remove();
-			drawGraph(chartTarget); // append target identifer to call
+			drawGraph(chartTarget, maxDoS, aspect); // append target identifer to call
 			citationTable(tableTarget, citationJSON.opinion_clusters,
 				[
 					{s: 'id', f: bold},
@@ -553,5 +557,16 @@ $(document).ready(function () {
 				]
 			);
 		});
+	}
+
+	// on select JSON in the data and then call drawGraph()
+	$('#dataSourceSelect').change(function () {
+		$('#degreesOfSeparationSelect').change(function () {
+			trigger();
+		});
+		$('#aspectRatioSelect').change(function () {
+			trigger();
+		});
+		trigger();
 	});
 });
