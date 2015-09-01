@@ -9,6 +9,9 @@ sort them and pre-parse in order to build the network
 	opinions have a degree of separation ranging from endpoint
 	connections have a degree of separation that is independant of the DoS of their endpoints
 
+Look at using d3 maps and sets instead of some of the other datatypes:
+	https://github.com/mbostock/d3/wiki/Arrays
+
 create a chart with:
 	aspect ratio, and have aspect ratio tied to vertical offset patterns
 	max displayed Degrees of Separation
