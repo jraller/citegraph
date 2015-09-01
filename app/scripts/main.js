@@ -14,6 +14,7 @@ create a chart with:
 	max displayed Degrees of Separation
 	an unlabeled y axis
 		vertical spacing moving from math based to table selected
+		oldest case low, newest case high to show building on foundation?
 	a category x axis that contains times in order, but not a timeline
 	grid
 	legend
@@ -35,9 +36,12 @@ var citationJSON = {};
 /**
  * [drawGraph description]
  * @param {string} target id of target HTML element to draw the chart in
+ * @param {integer} maxDoS [description]
+ * @param {string} aspect [description]
  */
 function drawGraph(target, maxDoS, aspect) {
-	var parseDate = {}, // to parse dates in the JSON into d3 dates
+	var workingJSON = [],
+		parseDate = {}, // to parse dates in the JSON into d3 dates
 		xDate = {}, // to format date for display
 		xScale = {}, // the scaling function for x
 		yScale = {}, // the scaling function for y
@@ -91,8 +95,6 @@ function drawGraph(target, maxDoS, aspect) {
 		//connectionHover
 		table = [], // holds the structure of the chart
 		chart = {}; // the chart itself
-
-	console.log(target, maxDoS, aspect);
 
 	/**
 	 * [prepJSON description]
@@ -233,6 +235,23 @@ function drawGraph(target, maxDoS, aspect) {
 		}
 	}
 
+	function trimJSON(limit) {
+		var max = parseInt(limit, 10),
+			link = {};
+
+		workingJSON = citationJSON.opinion_clusters.filter(function (cluster) {
+			return degrees.indexOf(cluster.order) < max;
+		});
+		caseCount = workingJSON.length;
+		for (link in links) {
+			if (links.hasOwnProperty(link)) {
+				if (degrees.indexOf(links[link].d) >= max) {
+					delete links[link];
+				}
+			}
+		}
+	}
+
 	parseDate = d3.time.format('%Y-%m-%dT%H:%M:%S').parse;
 	xDate = d3.time.format('%b-%Y');
 
@@ -240,9 +259,11 @@ function drawGraph(target, maxDoS, aspect) {
 
 	caseCount = citationJSON.opinion_clusters.length;
 
-	flagSize = Math.ceil(Math.sqrt(caseCount));
-
 	calculateDoS();
+
+	trimJSON(maxDoS);
+
+	flagSize = Math.ceil(Math.sqrt(caseCount));
 
 	if (flagSize > 0 && flagSize < distributions.length) {
 		distribution = distributions[flagSize - 1];
@@ -295,7 +316,7 @@ function drawGraph(target, maxDoS, aspect) {
 	plot.append(grid);
 
 	cases = new Plottable.Plots.Scatter()
-		.addDataset(new Plottable.Dataset(citationJSON.opinion_clusters))
+		.addDataset(new Plottable.Dataset(workingJSON))
 		.addClass('caseScatter')
 		.x(function (d) {
 			return parseDate(d.date_filed);
@@ -337,7 +358,7 @@ function drawGraph(target, maxDoS, aspect) {
 		.attr('opacity', 0.5);
 	plot.append(connections);
 
-	citationJSON.opinion_clusters.forEach(function (cluster) {
+	workingJSON.forEach(function (cluster) {
 		point = {};
 		point.date_filed = cluster.date_filed;
 		if (cluster.count === 1 || cluster.count === caseCount) {
@@ -349,19 +370,21 @@ function drawGraph(target, maxDoS, aspect) {
 		coords[cluster.id] = point;
 	});
 
-	citationJSON.opinion_clusters.forEach(function (cluster) {
+	workingJSON.forEach(function (cluster) {
 		cluster.sub_opinions[0].opinions_cited.forEach(function (id) {
 			var name = linkName(cluster.id, id),
 				color = 'unk';
 
-			// replace the following if with the limiter to control greatest DoS connector shown
-			if (typeof links[name].d !== 'undefined') {
-				color = links[name].d;
+			if (typeof links[name] !== 'undefined') {
+				// replace the following if with the limiter to control greatest DoS connector shown
+				if (typeof links[name].d !== 'undefined') {
+					color = links[name].d;
+				}
+				connections.addDataset(new Plottable.Dataset([
+					{x: coords[cluster.id].date_filed, y: coords[cluster.id].count, c: color},
+					{x: coords[id].date_filed, y: coords[id].count, c: color}
+				]));
 			}
-			connections.addDataset(new Plottable.Dataset([
-				{x: coords[cluster.id].date_filed, y: coords[cluster.id].count, c: color},
-				{x: coords[id].date_filed, y: coords[id].count, c: color}
-			]));
 		});
 	});
 
