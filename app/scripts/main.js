@@ -41,6 +41,7 @@ var citationJSON = {};
  * @param {string} target id of target HTML element to draw the chart in
  * @param {integer} maxDoS [description]
  * @param {string} aspect [description]
+ * @return {object} [description]
  */
 function drawGraph(target, maxDoS, aspect) {
 	var workingJSON = [],
@@ -274,6 +275,10 @@ function drawGraph(target, maxDoS, aspect) {
 		distribution = d3.range(1, flagSize + 2);
 	}
 
+	// hard code distributions for Friday
+	// rewrite to use modulus and take aspect ratio into account
+	distribution = [2, 10, 5, 13, 16];
+
 	d3.select(target)
 		.append('svg')
 		.attr('id', 'coverageChart')
@@ -485,6 +490,8 @@ function drawGraph(target, maxDoS, aspect) {
 
 	caseClick.attachTo(cases);
 
+	return workingJSON;
+
 }
 
 function citationTable(target, data, columns) {
@@ -566,14 +573,16 @@ $(document).ready(function () {
 			aspect = $('#aspectRatioSelect').val();
 
 		d3.json('/JSON/' + JSONpath + '.json', function (error, json) {
+			var used = {};
+
 			if (error) {
 				return console.warn(error);
 			}
 			citationJSON = json;
 			d3.select(chartTarget).select('svg').remove();
 			d3.select(tableTarget).select('table').remove();
-			drawGraph(chartTarget, maxDoS, aspect); // append target identifer to call
-			citationTable(tableTarget, citationJSON.opinion_clusters,
+			used = drawGraph(chartTarget, maxDoS, aspect); // append target identifer to call
+			citationTable(tableTarget, used,
 				[
 					{s: 'id', f: bold},
 					{s: 'case_name_short', l: 'Case Name', a: 'absolute_url'},
