@@ -581,7 +581,16 @@ $(document).ready(function () {
 			citationJSON = json;
 			d3.select(chartTarget).select('svg').remove();
 			d3.select(tableTarget).select('table').remove();
-			used = drawGraph(chartTarget, maxDoS, aspect); // append target identifer to call
+
+				// drawGraph (
+				// 	target -- where to draw it
+				// 	type -- which type or default to DoS
+				// 	height -- how tall to make it instead of aspect ratio
+				// 	maxDoS -- maximum degree of separation to show, is this only DoS
+				// 	xAxis type -- timeline or time category
+				// )
+
+			used = drawGraph(chartTarget, maxDoS, aspect);
 			citationTable(tableTarget, used,
 				[
 					{s: 'id', f: bold},
