@@ -24,9 +24,9 @@ Integrate all visualizations
 	separate out preparsing of JSON
 		handle links set to not visible in JSON? just don't process if invisible, or process and allow to be edited back to visible?
 
-	pass prepared JSON out to table generation
+	pass prepared (displayed) JSON out to table generation
 
-chronological v categorical toggle
+chronological v categorical toggle (toggle or setting? toggle implies interactive, setting is a redraw)
 
 click opens case, in view mode - keep edit mode different
 	what mode are we in view or edit

@@ -39,11 +39,14 @@ var citationJSON = {};
 /**
  * [drawGraph description]
  * @param {string} target id of target HTML element to draw the chart in
+ * @param {string} chartType [description]
+ * @param {string} axisType [description]
+ * @param {string} height [description]
  * @param {integer} maxDoS [description]
- * @param {string} aspect [description]
+
  * @return {object} [description]
  */
-function drawGraph(target, maxDoS, aspect) {
+function drawGraph(target, chartType, axisType, height, maxDoS) {
 	var workingJSON = [],
 		parseDate = {}, // to parse dates in the JSON into d3 dates
 		xDate = {}, // to format date for display
@@ -510,7 +513,41 @@ function citationTable(target, data, columns) {
 			.text(function (c) {
 				return c.l;
 			})
-			.attr('class', 'info');
+			.attr('class', 'info')
+			.style('cursor', 'pointer')
+			.on('click', function (d) {
+				if (typeof d.d === 'undefined') {
+					d.d = 'a';
+				}
+				table.selectAll('tbody tr')
+					.sort(function (a, b) {
+						var direction = '';
+
+						if (d.d === 'a') {
+							direction = d3.ascending(a[d.s], b[d.s]);
+						} else {
+							direction = d3.descending(a[d.s], b[d.s]);
+						}
+						return direction;
+					});
+				table.selectAll('thead th')
+					.html(function (c) {
+						var label = c.l;
+
+						console.log(c.s, d.s, d.d);
+
+						if (c.s === d.s) {
+							if (d.d === 'a') {
+								label += ' <span class="glyphicon glyphicon-triangle-top" aria-hidden="true"></span>';
+								d.d = 'd';
+							} else {
+								label += ' <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>';
+								d.d = 'a';
+							}
+						}
+						return label;
+					});
+			});
 
 	rows = tbody.selectAll('tr')
 		.data(data)
@@ -523,7 +560,7 @@ function citationTable(target, data, columns) {
 				return {
 					column: column.s,
 					value: row[column.s],
-					link: column.a,
+					link: row[column.a],
 					format: column.f
 				};
 			});
@@ -568,9 +605,11 @@ $(document).ready(function () {
 	}
 
 	function trigger() {
-		var JSONpath = $('#dataSourceSelect').val(),
+		var chartType = $('#chartTypeSelect').val(),
+			axisType = $('#axisTypeSelect').val(),
+			heightType = $('#heightTypeSelect').val(),
 			maxDoS = $('#degreesOfSeparationSelect').val(),
-			aspect = $('#aspectRatioSelect').val();
+			JSONpath = $('#dataSourceSelect').val();
 
 		d3.json('/JSON/' + JSONpath + '.json', function (error, json) {
 			var used = {};
@@ -579,18 +618,19 @@ $(document).ready(function () {
 				return console.warn(error);
 			}
 			citationJSON = json;
+			// citationJSON = JSON.parse(JSON.stringify(opinions));
 			d3.select(chartTarget).select('svg').remove();
 			d3.select(tableTarget).select('table').remove();
 
 				// drawGraph (
 				// 	target -- where to draw it
-				// 	type -- which type or default to DoS
+				// 	type -- which type or default to DoS 'dos', 'spaeth', 'genealogy'
+				// 	xAxis type -- timeline or time category 'time' or 'cat'
 				// 	height -- how tall to make it instead of aspect ratio
 				// 	maxDoS -- maximum degree of separation to show, is this only DoS
-				// 	xAxis type -- timeline or time category
 				// )
 
-			used = drawGraph(chartTarget, maxDoS, aspect);
+			used = drawGraph(chartTarget, chartType, axisType, heightType, maxDoS);
 			citationTable(tableTarget, used,
 				[
 					{s: 'id', f: bold},
