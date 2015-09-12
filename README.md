@@ -17,31 +17,28 @@ grunt eslint
 
 #To Do
 
-fix y distribution to be adaptive again
+ [] fix y distribution to be adaptive again
 
-Integrate all visualizations
+ [] Integrate all visualizations
 	keep original page JSON
 	separate out preparsing of JSON
 		handle links set to not visible in JSON? just don't process if invisible, or process and allow to be edited back to visible?
 
 	pass prepared (displayed) JSON out to table generation
 
-chronological v categorical toggle (toggle or setting? toggle implies interactive, setting is a redraw)
+ [x] chronological v categorical toggle (toggle or setting? toggle implies interactive, setting is a redraw)
 
-click opens case, in view mode - keep edit mode different
+ [] click opens case, in view mode - keep edit mode different - fixed so right url is present in table
 	what mode are we in view or edit
 
-table sortable
+ [x] table sortable
 	hide id
-	sort on case name
-	sort on degree of separation
-	sort on all
 
-toggle case names shown
+ [] toggle case names shown
 
-make date format on x axis more dynamic
+ [x] make date format on x axis more dynamic
 
-curved lines
+ [] curved lines
 	look into subclassing line graph?
 
 store toggle states and integrate with # chart selection
