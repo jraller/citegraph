@@ -492,7 +492,7 @@ function drawGraph(target, chartType, axisType, height, maxDoS) {
 			}
 			coords[cluster.id] = point;
 		});
-		citationJSON.opinion_clusters.forEach(function (cluster) {
+		workingJSON.forEach(function (cluster) {
 			cluster.sub_opinions[0].opinions_cited.forEach(function (id) {
 				connections.addDataset(new Plottable.Dataset([
 					{x: coords[cluster.id].date_filed, y: coords[cluster.id].split, c: coords[id].dec},
