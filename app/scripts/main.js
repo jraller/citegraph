@@ -63,6 +63,7 @@ function drawGraph(target, chartType, axisType, height, maxDoS) {
 		xAxisTime = {}, // the x axis
 		xAxisMode = (typeof axisType !== 'undefined') ? axisType : 'cat',
 		yAxis = {}, // the y axis
+		label = '',
 		xLabel = {}, // label for the x axis
 		yLabel = {}, // label for the y axis
 		legend = {}, // chart legend, in this case showing the different colors for degrees of separation
@@ -335,7 +336,10 @@ function drawGraph(target, chartType, axisType, height, maxDoS) {
 	// 	return '';
 	// });
 
-	xLabel = new Plottable.Components.AxisLabel('Time' + (axisType === 'cat') ? ' as Category' : 'line', 0);
+	label = 'Time';
+	label += (xAxisMode === 'cat') ? ' as Category' : 'line';
+
+	xLabel = new Plottable.Components.AxisLabel(label, 0);
 	yLabel = new Plottable.Components.AxisLabel('Random', -90);
 
 	legend = new Plottable.Components.Legend(colorScale).maxEntriesPerRow(4);
@@ -357,7 +361,7 @@ function drawGraph(target, chartType, axisType, height, maxDoS) {
 		.addClass('caseScatter')
 		.x(function (d) {
 			return parseDate(d.date_filed);
-		}, (axisType === 'cat') ? xScaleCat : xScaleTime)
+		}, (xAxisMode === 'cat') ? xScaleCat : xScaleTime)
 		.y(function (d) {
 			var value = 0;
 
@@ -385,7 +389,7 @@ function drawGraph(target, chartType, axisType, height, maxDoS) {
 	connections = new Plottable.Plots.Line()
 		.x(function (d) {
 			return parseDate(d.x);
-		}, (axisType === 'cat') ? xScaleCat : xScaleTime)
+		}, (xAxisMode === 'cat') ? xScaleCat : xScaleTime)
 		.y(function (d) {
 			return d.y;
 		}, yScale)
@@ -428,7 +432,7 @@ function drawGraph(target, chartType, axisType, height, maxDoS) {
 	table = [
 		[null, null, legend],
 		[yLabel, yAxis, plot],
-		[null, null, (axisType === 'cat') ? xAxisCat : xAxisTime],
+		[null, null, (xAxisMode === 'cat') ? xAxisCat : xAxisTime],
 		[null, null, xLabel]
 	];
 
