@@ -49,14 +49,19 @@ var citationJSON = {};
 function drawGraph(target, chartType, axisType, height, maxDoS) {
 	var workingJSON = [],
 		parseDate = {}, // to parse dates in the JSON into d3 dates
+		heightValue = '400px',
+		chartWidth = 0,
 		xDate = {}, // to format date for display
-		xScale = {}, // the scaling function for x
+		xScaleCat = {}, // the scaling function for x in category mode
+		xScaleTime = {}, // the scaling function for x in timeline mode
 		yScale = {}, // the scaling function for y
 		sizeScale = {}, // the scale used to size the case circles
 		colorScale = {}, // the scale used to keep the colors for the degrees of separation
 		degrees = ['first', 'second', 'third', 'fourth', 'fifth', 'sixth', 'seventh', 'eighth', 'ninth', 'distant'],
 		maxDegree = 0,
-		xAxis = {}, // the x axis
+		xAxisCat = {}, // the x axis
+		xAxisTime = {}, // the x axis
+		xAxisMode = (typeof axisType !== 'undefined') ? axisType : 'cat',
 		yAxis = {}, // the y axis
 		xLabel = {}, // label for the x axis
 		yLabel = {}, // label for the y axis
@@ -282,13 +287,22 @@ function drawGraph(target, chartType, axisType, height, maxDoS) {
 	// rewrite to use modulus and take aspect ratio into account
 	distribution = [2, 10, 5, 13, 16];
 
+	if (typeof height !== 'undefined') {
+		if (height === 'screen') {
+			heightValue = $(window).height();
+		} else {
+			heightValue = height + 'px';
+		}
+	}
+
 	d3.select(target)
 		.append('svg')
 		.attr('id', 'coverageChart')
-		.attr('height', '400px');
+		.attr('height', heightValue);
 
-	xScale = new Plottable.Scales.Category(); // set switch for time or category time
-	xScale.outerPadding(0.9);
+	xScaleCat = new Plottable.Scales.Category(); // set switch for time or category time
+	xScaleCat.outerPadding(0.9);
+	xScaleTime = new Plottable.Scales.Time();
 	yScale = new Plottable.Scales.Category();
 	yScale.domain(d3.range(1, d3.max(distribution) + 2).reverse());
 	yScale.outerPadding(0.9);
@@ -298,18 +312,30 @@ function drawGraph(target, chartType, axisType, height, maxDoS) {
 	colorScale = new Plottable.Scales.Color();
 	colorScale.domain(degrees.slice(0, maxDegree + 1));
 
-	xAxis = new Plottable.Axes.Category(xScale, 'bottom');
-	xAxis.tickLabelAngle(-90)
-		.formatter(function (d) {
+	xAxisCat = new Plottable.Axes.Category(xScaleCat, 'bottom');
+	xAxisCat.formatter(function (d) {
 			return xDate(d);
 		});
+	xAxisTime = new Plottable.Axes.Time(xScaleTime, 'bottom');
+	xAxisTime.formatter(function (d) {
+			return xDate(d);
+		});
+
+	chartWidth = $(target).width();
+
+	if (chartWidth / caseCount > 50) {
+		xAxisCat.tickLabelAngle(0);
+	} else {
+		xAxisCat.tickLabelAngle(-90);
+	}
+
 
 	yAxis = new Plottable.Axes.Category(yScale, 'left');
 	// yAxis.formatter(function () {
 	// 	return '';
 	// });
 
-	xLabel = new Plottable.Components.AxisLabel('Time', 0);
+	xLabel = new Plottable.Components.AxisLabel('Time' + (axisType === 'cat') ? ' as Category' : 'line', 0);
 	yLabel = new Plottable.Components.AxisLabel('Random', -90);
 
 	legend = new Plottable.Components.Legend(colorScale).maxEntriesPerRow(4);
@@ -331,7 +357,7 @@ function drawGraph(target, chartType, axisType, height, maxDoS) {
 		.addClass('caseScatter')
 		.x(function (d) {
 			return parseDate(d.date_filed);
-		}, xScale)
+		}, (axisType === 'cat') ? xScaleCat : xScaleTime)
 		.y(function (d) {
 			var value = 0;
 
@@ -359,7 +385,7 @@ function drawGraph(target, chartType, axisType, height, maxDoS) {
 	connections = new Plottable.Plots.Line()
 		.x(function (d) {
 			return parseDate(d.x);
-		}, xScale)
+		}, (axisType === 'cat') ? xScaleCat : xScaleTime)
 		.y(function (d) {
 			return d.y;
 		}, yScale)
@@ -402,7 +428,7 @@ function drawGraph(target, chartType, axisType, height, maxDoS) {
 	table = [
 		[null, null, legend],
 		[yLabel, yAxis, plot],
-		[null, null, xAxis],
+		[null, null, (axisType === 'cat') ? xAxisCat : xAxisTime],
 		[null, null, xLabel]
 	];
 
@@ -534,8 +560,6 @@ function citationTable(target, data, columns) {
 					.html(function (c) {
 						var label = c.l;
 
-						console.log(c.s, d.s, d.d);
-
 						if (c.s === d.s) {
 							if (d.d === 'a') {
 								label += ' <span class="glyphicon glyphicon-triangle-top" aria-hidden="true"></span>';
@@ -645,10 +669,16 @@ $(document).ready(function () {
 
 	// on select JSON in the data and then call drawGraph()
 	$('#dataSourceSelect').change(function () {
-		$('#degreesOfSeparationSelect').change(function () {
+		$('#chartTypeSelect').change(function () {
 			trigger();
 		});
-		$('#aspectRatioSelect').change(function () {
+		$('#axisTypeSelect').change(function () {
+			trigger();
+		});
+		$('#heightTypeSelect').change(function () {
+			trigger();
+		});
+		$('#degreesOfSeparationSelect').change(function () {
 			trigger();
 		});
 		trigger();
