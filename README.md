@@ -19,7 +19,7 @@ grunt eslint
 
  [] fix y distribution to be adaptive again
 
- [] Integrate all visualizations
+ [x] Integrate all visualizations
 	keep original page JSON
 	separate out preparsing of JSON
 		handle links set to not visible in JSON? just don't process if invisible, or process and allow to be edited back to visible?

@@ -49,6 +49,7 @@ var citationJSON = {};
 function drawGraph(target, chartType, axisType, height, maxDoS) {
 	var workingJSON = [],
 		parseDate = {}, // to parse dates in the JSON into d3 dates
+		chartMode = (typeof chartType !== 'undefined') ? chartType : 'dos',
 		heightValue = '400px',
 		chartWidth = 0,
 		xDate = {}, // to format date for display
@@ -91,6 +92,9 @@ function drawGraph(target, chartType, axisType, height, maxDoS) {
 		],
 
 		distribution = [], // will hold the correctly sized vertical distribution pattern
+
+		ddlu = ['N', 'C', 'L', 'U'], // from http://scdb.wustl.edu/documentation.php?var=decisionDirection
+		ddlul = ['Neutral', 'Conservative', 'Liberal', 'Unspecifiable', 'Unknown'],
 
 		links = {}, // used to hold DoS for connectors
 
@@ -305,13 +309,34 @@ function drawGraph(target, chartType, axisType, height, maxDoS) {
 	xScaleCat.outerPadding(0.9);
 	xScaleTime = new Plottable.Scales.Time();
 	yScale = new Plottable.Scales.Category();
-	yScale.domain(d3.range(1, d3.max(distribution) + 2).reverse());
+	if (chartMode === 'dos') {
+		yScale.domain(d3.range(1, d3.max(distribution) + 2).reverse());
+	} else {
+		yScale.domain([
+			'L5-4',
+			'L6-3',
+			'L7-2',
+			'L8-1',
+			'N9-0',
+			'C8-1',
+			'C7-2',
+			'C6-3',
+			'C5-4',
+			'Unk'
+		]);
+	}
 	yScale.outerPadding(0.9);
 
 	sizeScale = new Plottable.Scales.ModifiedLog();
 	sizeScale.range([5, 50]);
 	colorScale = new Plottable.Scales.Color();
-	colorScale.domain(degrees.slice(0, maxDegree + 1));
+
+	if (chartMode === 'dos') {
+		colorScale.domain(degrees.slice(0, maxDegree + 1));
+	} else {
+		colorScale.domain(ddlul);
+		colorScale.range(['purple', 'red', 'blue', 'green', 'orange']);
+	}
 
 	xAxisCat = new Plottable.Axes.Category(xScaleCat, 'bottom');
 	xAxisCat.formatter(function (d) {
@@ -340,9 +365,12 @@ function drawGraph(target, chartType, axisType, height, maxDoS) {
 	label += (xAxisMode === 'cat') ? ' as Category' : 'line';
 
 	xLabel = new Plottable.Components.AxisLabel(label, 0);
-	yLabel = new Plottable.Components.AxisLabel('Random', -90);
 
-	legend = new Plottable.Components.Legend(colorScale).maxEntriesPerRow(4);
+	label = (chartMode === 'dos') ? 'Random' : 'Conservative <-- --> Liberal';
+
+	yLabel = new Plottable.Components.AxisLabel(label, -90);
+
+	legend = new Plottable.Components.Legend(colorScale).maxEntriesPerRow(5);
 
 	xGrid = new Plottable.Scales.Linear()
 		.domain([0, caseCount]);
@@ -356,6 +384,32 @@ function drawGraph(target, chartType, axisType, height, maxDoS) {
 	plot = new Plottable.Components.Group();
 	plot.append(grid);
 
+	function dosYSpread(d) {
+		var value = 0;
+
+		if (d.count === 1 || d.count === caseCount) {
+			value = d3.max(distribution) + 1;
+		} else {
+			value = distribution[(d.count - 2) % flagSize];
+		}
+		return value;
+	}
+
+	function spaethYSpread(d) {
+		var minority = d.votes_minority,
+			majority = String(9 - Number(minority)), // d.votes_majority,
+			decision_direction = ddlu[d.decision_direction],
+			prefix = (majority === '9') ? 'N' : decision_direction,
+			value = '';
+
+		if (minority === '-1') {
+			value = 'Unk';
+		} else {
+			value = prefix + majority + '-' + minority;
+		}
+		return value;
+	}
+
 	cases = new Plottable.Plots.Scatter()
 		.addDataset(new Plottable.Dataset(workingJSON))
 		.addClass('caseScatter')
@@ -363,14 +417,7 @@ function drawGraph(target, chartType, axisType, height, maxDoS) {
 			return parseDate(d.date_filed);
 		}, (xAxisMode === 'cat') ? xScaleCat : xScaleTime)
 		.y(function (d) {
-			var value = 0;
-
-			if (d.count === 1 || d.count === caseCount) {
-				value = d3.max(distribution) + 1;
-			} else {
-				value = distribution[(d.count - 2) % flagSize];
-			}
-			return value;
+			return (chartMode === 'dos') ? dosYSpread(d) : spaethYSpread(d);
 		}, yScale)
 		.size(function (d) {
 			return d.citation_count;
@@ -399,35 +446,61 @@ function drawGraph(target, chartType, axisType, height, maxDoS) {
 		.attr('opacity', 0.5);
 	plot.append(connections);
 
-	workingJSON.forEach(function (cluster) {
-		point = {};
-		point.date_filed = cluster.date_filed;
-		if (cluster.count === 1 || cluster.count === caseCount) {
-			point.count = d3.max(distribution) + 1;
-		} else {
-			point.count = distribution[(cluster.count - 2) % flagSize];
-		}
-		point.order = cluster.order;
-		coords[cluster.id] = point;
-	});
-
-	workingJSON.forEach(function (cluster) {
-		cluster.sub_opinions[0].opinions_cited.forEach(function (id) {
-			var name = linkName(cluster.id, id),
-				color = 'unk';
-
-			if (typeof links[name] !== 'undefined') {
-				// replace the following if with the limiter to control greatest DoS connector shown
-				if (typeof links[name].d !== 'undefined') {
-					color = links[name].d;
-				}
-				connections.addDataset(new Plottable.Dataset([
-					{x: coords[cluster.id].date_filed, y: coords[cluster.id].count, c: color},
-					{x: coords[id].date_filed, y: coords[id].count, c: color}
-				]));
+	if (chartMode === 'dos') {
+		workingJSON.forEach(function (cluster) {
+			point = {};
+			point.date_filed = cluster.date_filed;
+			if (cluster.count === 1 || cluster.count === caseCount) {
+				point.count = d3.max(distribution) + 1;
+			} else {
+				point.count = distribution[(cluster.count - 2) % flagSize];
 			}
+			point.order = cluster.order;
+			coords[cluster.id] = point;
 		});
-	});
+		workingJSON.forEach(function (cluster) {
+			cluster.sub_opinions[0].opinions_cited.forEach(function (id) {
+				var name = linkName(cluster.id, id),
+					color = 'unk';
+
+				if (typeof links[name] !== 'undefined') {
+					// replace the following if with the limiter to control greatest DoS connector shown
+					if (typeof links[name].d !== 'undefined') {
+						color = links[name].d;
+					}
+					connections.addDataset(new Plottable.Dataset([
+						{x: coords[cluster.id].date_filed, y: coords[cluster.id].count, c: color},
+						{x: coords[id].date_filed, y: coords[id].count, c: color}
+					]));
+				}
+			});
+		});
+	} else {
+		workingJSON.forEach(function (cluster) {
+			var minority = cluster.votes_minority,
+				majority = String(9 - Number(minority)), // cluster.votes_majority,
+				decision_direction = ddlu[cluster.decision_direction],
+				prefix = (majority === '9') ? 'N' : decision_direction;
+
+			point = {};
+			point.date_filed = cluster.date_filed;
+			point.split = prefix + majority + '-' + minority;
+			point.dec = ddlul[cluster.decision_direction];
+			if (minority === '-1') {
+				point.split = 'Unk';
+				point.dec = 'Unknown';
+			}
+			coords[cluster.id] = point;
+		});
+		citationJSON.opinion_clusters.forEach(function (cluster) {
+			cluster.sub_opinions[0].opinions_cited.forEach(function (id) {
+				connections.addDataset(new Plottable.Dataset([
+					{x: coords[cluster.id].date_filed, y: coords[cluster.id].split, c: coords[id].dec},
+					{x: coords[id].date_filed, y: coords[id].split, c: coords[id].dec}
+				]));
+			});
+		});
+	}
 
 	table = [
 		[null, null, legend],
