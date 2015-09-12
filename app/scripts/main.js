@@ -269,7 +269,7 @@ function drawGraph(target, chartType, axisType, height, maxDoS) {
 		}
 	}
 
-	parseDate = d3.time.format('%Y-%m-%dT%H:%M:%S').parse;
+	parseDate = d3.time.format('%Y-%m-%d').parse;
 	xDate = d3.time.format('%b-%Y');
 
 	prepJSON();
@@ -690,7 +690,7 @@ $(document).ready(function () {
 		tableTarget = '#table';
 
 	function dateFormat(s) {
-		var parseDate = d3.time.format('%Y-%m-%dT%H:%M:%S').parse,
+		var parseDate = d3.time.format('%Y-%m-%d').parse,
 			format = d3.time.format('%b-%d-%Y');
 
 		return format(parseDate(s));
