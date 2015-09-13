@@ -17,7 +17,7 @@ grunt eslint
 
 #To Do
 
- [] use short format data in JSON
+ [x] use short format data in JSON
 
  [] fix y distribution to be adaptive again
 

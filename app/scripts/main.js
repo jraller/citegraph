@@ -280,6 +280,8 @@ function drawGraph(target, chartType, axisType, height, maxDoS) {
 
 	trimJSON(maxDoS);
 
+	caseCount = workingJSON.length;
+
 	flagSize = Math.ceil(Math.sqrt(caseCount));
 
 	if (flagSize > 0 && flagSize < distributions.length) {
@@ -372,9 +374,12 @@ function drawGraph(target, chartType, axisType, height, maxDoS) {
 
 	legend = new Plottable.Components.Legend(colorScale).maxEntriesPerRow(5);
 
-	xGrid = new Plottable.Scales.Linear()
-		.domain([0, caseCount]);
-		// .range([0, xAxis.width()]);
+	if (xAxisMode === 'cat') {
+		xGrid = new Plottable.Scales.Linear()
+			.domain([0, caseCount]);
+	} else {
+		xGrid = xScaleTime;
+	}
 	yGrid = new Plottable.Scales.Linear()
 		.domain([0, d3.max(distribution) + 2]);
 		// .range([yAxis.height(), 0]);
