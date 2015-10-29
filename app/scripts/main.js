@@ -105,8 +105,8 @@ function drawGraph(target, chartType, axisType, height, maxDoS) {
 		JSONCount = 0,
 
 		caseHover = {}, // interaction behavior
-		defaultCaseHoverText = '',
-		caseHoverText = {}, // reference to the text in the object shown when hovering
+		// defaultCaseHoverText = '',
+		// caseHoverText = {}, // reference to the text in the object shown when hovering
 		caseHoverGroup = {}, // reference to the hover show object
 		caseClick = {}, // interaction behavior
 		//connectionHover
@@ -424,8 +424,17 @@ function drawGraph(target, chartType, axisType, height, maxDoS) {
 		.y(function (d) {
 			return (chartMode === 'dos') ? dosYSpread(d) : spaethYSpread(d);
 		}, yScale)
-		.size(function (d) {
-			return d.citation_count;
+		.size(function (d, i) {
+			var value = 0,
+				domain = [];
+
+			if (i === caseCount - 1) {
+				domain = sizeScale.domain();
+				value = (domain[0] + domain[1]) / 2; // set the most recent case size to half
+			} else {
+				value = d.citation_count;
+			}
+			return value;
 		}, sizeScale)
 		.attr('stroke', function (d) {
 			return colorScale.scale(d.order);
@@ -534,11 +543,11 @@ function drawGraph(target, chartType, axisType, height, maxDoS) {
 			'cx': 0,
 			'cy': 0
 		});
-	caseHoverText = caseHoverGroup
-		.append('text')
-		.attr('text-anchor', 'middle')
-		.attr('transform', 'translate(0,-17)')
-		.text(defaultCaseHoverText);
+	// caseHoverText = caseHoverGroup
+	// 	.append('text')
+	// 	.attr('text-anchor', 'middle')
+	// 	.attr('transform', 'translate(0,-17)')
+	// 	.text(defaultCaseHoverText);
 
 	caseHover.onPointerMove(function (p) {
 		var datum = null,
@@ -560,17 +569,19 @@ function drawGraph(target, chartType, axisType, height, maxDoS) {
 			}
 		}
 		if (datum !== null) {
-			caseHoverText.text(datum.case_name_short);
+			// caseHoverText.text(datum.case_name_short);
 			caseHoverGroup
 				.attr('transform', 'translate(' + position.x + ',' + position.y + ')')
-				.style('visibility', 'visible');
+				.style('visibility', 'visible')
+				.select('circle')
+				.attr('r', d3.max([5, sizeScale.scale(datum.citation_count) / 2]));
 		} else {
-			caseHoverText.text(defaultCaseHoverText);
+			// caseHoverText.text(defaultCaseHoverText);
 			caseHoverGroup.style('visibility', 'hidden');
 		}
 	});
 	caseHover.onPointerExit(function () {
-		caseHoverText.text(defaultCaseHoverText);
+		// caseHoverText.text(defaultCaseHoverText);
 		caseHoverGroup.style('visibility', 'hidden');
 	});
 	caseHover.attachTo(cases);
@@ -595,7 +606,8 @@ function drawGraph(target, chartType, axisType, height, maxDoS) {
 			}
 		}
 		if (datum !== null) {
-			console.log(datum.absolute_url);
+//			console.log(datum.absolute_url);
+			window.location.assign(datum.absolute_url);
 		}
 	});
 
