@@ -74,6 +74,7 @@ function drawGraph(target, chartType, axisType, height, maxDoS) {
 		cases = {}, // reference to the case circles used to attach interactions
 		connections = {}, // reference to the connection lines used to attach interactions
 		plot = {}, // the plot area of the chart
+		labels = {},
 
 		caseCount = 0, // number of opinions
 		flagSize = 0, // square root of 2 less than the number of opinions
@@ -105,8 +106,8 @@ function drawGraph(target, chartType, axisType, height, maxDoS) {
 		JSONCount = 0,
 
 		caseHover = {}, // interaction behavior
-		defaultCaseHoverText = '',
-		caseHoverText = {}, // reference to the text in the object shown when hovering
+		// defaultCaseHoverText = '',
+		// caseHoverText = {}, // reference to the text in the object shown when hovering
 		caseHoverGroup = {}, // reference to the hover show object
 		caseClick = {}, // interaction behavior
 		//connectionHover
@@ -458,6 +459,24 @@ function drawGraph(target, chartType, axisType, height, maxDoS) {
 		.attr('opacity', 0.5);
 	plot.append(connections);
 
+	labels = new Plottable.Plots.Rectangle()
+		.addDataset(new Plottable.Dataset(workingJSON))
+		.x(function (d) {
+			return parseDate(d.date_filed);
+		}, (xAxisMode === 'cat') ? xScaleCat : xScaleTime)
+		.y(function (d) {
+			return (chartMode === 'dos') ? dosYSpread(d) : spaethYSpread(d);
+		}, yScale)
+		.attr('fill', 'rgba(0, 0, 0, 0)')
+		.attr('stroke-width', 0)
+		.labelsEnabled(function () {
+			return true;
+		})
+		.label(function (d) {
+			return d.case_name_short;
+		});
+	plot.append(labels);
+
 	if (chartMode === 'dos') {
 		workingJSON.forEach(function (cluster) {
 			point = {};
@@ -541,11 +560,11 @@ function drawGraph(target, chartType, axisType, height, maxDoS) {
 			'cx': 0,
 			'cy': 0
 		});
-	caseHoverText = caseHoverGroup
-		.append('text')
-		.attr('text-anchor', 'middle')
-		.attr('transform', 'translate(0,0)')
-		.text(defaultCaseHoverText);
+	// caseHoverText = caseHoverGroup
+	// 	.append('text')
+	// 	.attr('text-anchor', 'middle')
+	// 	.attr('transform', 'translate(0,0)')
+	// 	.text(defaultCaseHoverText);
 
 	caseHover.onPointerMove(function (p) {
 		var datum = null,
@@ -567,19 +586,19 @@ function drawGraph(target, chartType, axisType, height, maxDoS) {
 			}
 		}
 		if (datum !== null) {
-			caseHoverText.text(datum.case_name_short);
+			// caseHoverText.text(datum.case_name_short);
 			caseHoverGroup
 				.attr('transform', 'translate(' + position.x + ',' + position.y + ')')
 				.style('visibility', 'visible')
 				.select('circle')
 				.attr('r', d3.max([5, sizeScale.scale(datum.citation_count) / 2]));
 		} else {
-			caseHoverText.text(defaultCaseHoverText);
+			// caseHoverText.text(defaultCaseHoverText);
 			caseHoverGroup.style('visibility', 'hidden');
 		}
 	});
 	caseHover.onPointerExit(function () {
-		caseHoverText.text(defaultCaseHoverText);
+		// caseHoverText.text(defaultCaseHoverText);
 		caseHoverGroup.style('visibility', 'hidden');
 	});
 	caseHover.attachTo(cases);

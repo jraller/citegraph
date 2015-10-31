@@ -5,7 +5,7 @@
     "bootstrap-sass": "~3.3.5",
     "modernizr": "~2.8.3",
     "d3": "~3.5.6",
-    "plottable": "~1.7.0"
+    "plottable": "~1.16.1"
   },
   "overrides": {
     "bootstrap-sass": {

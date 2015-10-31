@@ -4,6 +4,10 @@ $icon-font-path: "../bower_components/bootstrap-sass/assets/fonts/bootstrap/";
 @import "bower_components/bootstrap-sass/assets/stylesheets/_bootstrap.scss";
 // endbower
 
+.plottable .light-label .text-line {
+	fill: #000;
+}
+
 .browsehappy {
   margin: 0.2em 0;
   background: #ccc;
