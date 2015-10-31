@@ -280,8 +280,6 @@ function drawGraph(target, chartType, axisType, height, maxDoS) {
 
 	trimJSON(maxDoS);
 
-	caseCount = workingJSON.length;
-
 	flagSize = Math.ceil(Math.sqrt(caseCount));
 
 	if (flagSize > 0 && flagSize < distributions.length) {
