@@ -48,7 +48,7 @@ var citationJSON = {};
  */
 function drawGraph(target, chartType, axisType, height, maxDoS) {
 	var workingJSON = [],
-		parseDate = {}, // to parse dates in the JSON into d3 dates
+		parseDate = d3.time.format('%Y-%m-%d').parse, // to parse dates in the JSON into d3 dates
 		chartMode = (typeof chartType !== 'undefined') ? chartType : 'dos',
 		heightValue = '400px',
 		chartWidth = 0,
@@ -114,6 +114,19 @@ function drawGraph(target, chartType, axisType, height, maxDoS) {
 		table = [], // holds the structure of the chart
 		chart = {}; // the chart itself
 
+	function getFirstKey(object) {
+		var index = 0,
+			result = 0;
+
+		for (index in object) {
+			if (object.hasOwnProperty(index)) {
+				result = index;
+				break;
+			}
+		}
+		return result;
+	}
+
 	/**
 	 * [prepJSON description]
 	 */
@@ -139,8 +152,10 @@ function drawGraph(target, chartType, axisType, height, maxDoS) {
 		// add cited by others in JSON to each
 		citationJSON.opinion_clusters.forEach(function (cluster) {
 			cluster.sub_opinions[0].opinions_cited.forEach(function (item) {
-				if (JSONIndex[item].citedBy.indexOf() === -1) {
-					JSONIndex[item].citedBy.push(cluster.id);
+				var key = getFirstKey(item);
+
+				if (JSONIndex[key] && JSONIndex[key].citedBy.indexOf() === -1) {
+					JSONIndex[key].citedBy.push(cluster.id);
 				}
 			});
 		});
@@ -180,7 +195,9 @@ function drawGraph(target, chartType, axisType, height, maxDoS) {
 		if (typeof order === 'undefined' || order > depth) {
 			citationJSON.opinion_clusters[nodeid].travRev = depth;
 			citationJSON.opinion_clusters[nodeid].sub_opinions[0].opinions_cited.forEach(function (item) {
-				traverse(JSONIndex[item].num, nodeid, depth + 1);
+				if (JSONIndex[getFirstKey(item)]) {
+					traverse(JSONIndex[getFirstKey(item)].num, nodeid, depth + 1);
+				}
 			});
 		}
 	}
@@ -270,7 +287,6 @@ function drawGraph(target, chartType, axisType, height, maxDoS) {
 		}
 	}
 
-	parseDate = d3.time.format('%Y-%m-%d').parse;
 	xDate = d3.time.format('%b-%Y');
 
 	prepJSON();
@@ -335,18 +351,21 @@ function drawGraph(target, chartType, axisType, height, maxDoS) {
 	if (chartMode === 'dos') {
 		colorScale.domain(degrees.slice(0, maxDegree + 1));
 	} else {
+
+//Todo slice these to size
+
 		colorScale.domain(ddlul);
 		colorScale.range(['purple', 'red', 'blue', 'green', 'orange']);
 	}
 
 	xAxisCat = new Plottable.Axes.Category(xScaleCat, 'bottom');
 	xAxisCat.formatter(function (d) {
-			return xDate(d);
-		});
+		return xDate(d);
+	});
 	xAxisTime = new Plottable.Axes.Time(xScaleTime, 'bottom');
 	xAxisTime.formatter(function (d) {
-			return xDate(d);
-		});
+		return xDate(d);
+	});
 
 	chartWidth = $(target).width();
 
@@ -491,7 +510,7 @@ function drawGraph(target, chartType, axisType, height, maxDoS) {
 		});
 		workingJSON.forEach(function (cluster) {
 			cluster.sub_opinions[0].opinions_cited.forEach(function (id) {
-				var name = linkName(cluster.id, id),
+				var name = linkName(cluster.id, getFirstKey(id)),
 					color = 'unk';
 
 				if (typeof links[name] !== 'undefined') {
@@ -501,7 +520,7 @@ function drawGraph(target, chartType, axisType, height, maxDoS) {
 					}
 					connections.addDataset(new Plottable.Dataset([
 						{x: coords[cluster.id].date_filed, y: coords[cluster.id].count, c: color},
-						{x: coords[id].date_filed, y: coords[id].count, c: color}
+						{x: coords[getFirstKey(id)].date_filed, y: coords[getFirstKey(id)].count, c: color}
 					]));
 				}
 			});
@@ -525,9 +544,11 @@ function drawGraph(target, chartType, axisType, height, maxDoS) {
 		});
 		workingJSON.forEach(function (cluster) {
 			cluster.sub_opinions[0].opinions_cited.forEach(function (id) {
+				var key = getFirstKey(id);
+
 				connections.addDataset(new Plottable.Dataset([
-					{x: coords[cluster.id].date_filed, y: coords[cluster.id].split, c: coords[id].dec},
-					{x: coords[id].date_filed, y: coords[id].split, c: coords[id].dec}
+					{x: coords[cluster.id].date_filed, y: coords[cluster.id].split, c: coords[key].dec},
+					{x: coords[key].date_filed, y: coords[key].split, c: coords[key].dec}
 				]));
 			});
 		});
@@ -543,6 +564,11 @@ function drawGraph(target, chartType, axisType, height, maxDoS) {
 	chart = new Plottable.Components.Table(table);
 
 	chart.renderTo('#coverageChart');
+
+	window.addEventListener('resize', function() {
+		chart.redraw();
+	});
+
 
 	caseHover = new Plottable.Interactions.Pointer();
 
@@ -635,7 +661,7 @@ function drawGraph(target, chartType, axisType, height, maxDoS) {
 }
 
 function citationTable(target, data, columns) {
-	var table = d3.select(target).append('table'),
+	var table = d3.select(target).append('div').attr('class', 'table-responsive').append('table'),
 		thead = table.append('thead'),
 		tbody = table.append('tbody'),
 		rows = {};
@@ -739,6 +765,20 @@ $(document).ready(function () {
 		return '<strong>' + s + '</strong>';
 	}
 
+	// opinions_cited array of number or
+	// array of object of name by cite number with dictionary of values
+	// {"112331": {"opacity": 1}}
+
+	// redraw on screen resize - chart only, not table?
+
+	// dos legend build order
+
+	// switch to hash and move vars outside
+	// type = chartType [spread, spaeth, gene]
+	// xaxis = axisType [cat, time]
+	// dos = maxDos [integer 1->]
+	//
+	// controls update url without adding to history
 	function trigger() {
 		var chartType = $('#chartTypeSelect').val(),
 			axisType = $('#axisTypeSelect').val(),
@@ -746,6 +786,7 @@ $(document).ready(function () {
 			maxDoS = $('#degreesOfSeparationSelect').val(),
 			JSONpath = $('#dataSourceSelect').val();
 
+		// for courtlistener unwrap this json call
 		d3.json('/JSON/' + JSONpath + '.json', function (error, json) {
 			var used = {};
 
@@ -778,6 +819,7 @@ $(document).ready(function () {
 		});
 	}
 
+	// unwrap dataSourceSelect for courtlistener
 	// on select JSON in the data and then call drawGraph()
 	$('#dataSourceSelect').change(function () {
 		$('#chartTypeSelect').change(function () {
@@ -794,4 +836,5 @@ $(document).ready(function () {
 		});
 		trigger();
 	});
+
 });

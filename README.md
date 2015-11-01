@@ -30,7 +30,7 @@ grunt eslint
 
  [x] chronological v categorical toggle (toggle or setting? toggle implies interactive, setting is a redraw)
 
- [] click opens case, in view mode - keep edit mode different - fixed so right url is present in table
+ [x] click opens case, in view mode - keep edit mode different - fixed so right url is present in table
 	what mode are we in view or edit
 
  [x] table sortable
