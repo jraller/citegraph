@@ -1,4 +1,4 @@
-/* global $, document, d3, Plottable*/
+/* global $, document, d3, Plottable, embedUrl*/
 
 /*
 For drawing the degrees of separation graph.
@@ -783,19 +783,23 @@ $(document).ready(function () {
 
 	function updateUrl(payload) {
 		var newUrl = window.location.href.split('?')[0],
+			params = '',
 			key = '',
-			count = 0;
+			count = 0,
+			embedPre = '<iframe height="500" width="560" src="',
+			embedPost = '" frameborder="0" allowfullscreen></iframe>';
 
 		for (key in payload) {
 			if (payload.hasOwnProperty(key)) {
-				newUrl += ((count === 0) ? '?' : '&') + key + '=' + payload[key];
+				params += ((count === 0) ? '?' : '&') + key + '=' + payload[key];
 				count++;
 			}
 		}
-		// console.log('newUrl', newUrl, count, payload);
-		window.history.replaceState({}, '', newUrl);
-	}
 
+		$('#embed-input').val(embedPre + embedUrl + params + embedPost);
+		// console.log('newUrl', newUrl, count, payload);
+		window.history.replaceState({}, '', newUrl + params);
+	}
 
 	function dateFormat(s) {
 		var parseDate = d3.time.format('%Y-%m-%d').parse,
