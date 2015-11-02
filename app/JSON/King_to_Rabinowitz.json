@@ -14,7 +14,7 @@
       "id": 104769,
       "sub_opinions": [
         {
-          "opinions_cited": [],
+          "opinions_cited": {},
           "type": "combined"
         }
       ],
@@ -31,9 +31,11 @@
       "id": 104932,
       "sub_opinions": [
         {
-          "opinions_cited": [
-            {"": {"opacity": 1}}
-          ],
+          "opinions_cited": {
+            "104769": {
+              "opacity": 1
+            }
+          },
           "type": "combined"
         }
       ],
@@ -50,10 +52,14 @@
       "id": 105194,
       "sub_opinions": [
         {
-          "opinions_cited": [
-            {"": {"opacity": 1}},
-            {"104932": {"opacity": 1}}
-          ],
+          "opinions_cited": {
+            "104769": {
+              "opacity": 1
+            },
+            "104932": {
+              "opacity": 1
+            }
+          },
           "type": "combined"
         }
       ],
@@ -70,9 +76,11 @@
       "id": 105748,
       "sub_opinions": [
         {
-          "opinions_cited": [
-            {"": {"opacity": 1}}
-          ],
+          "opinions_cited": {
+            "104769": {
+              "opacity": 1
+            }
+          },
           "type": "combined"
         }
       ],
@@ -89,11 +97,17 @@
       "id": 105749,
       "sub_opinions": [
         {
-          "opinions_cited": [
-            {"": {"opacity": 1}},
-            {"104932": {"opacity": 1}},
-            {"105748": {"opacity": 1}}
-          ],
+          "opinions_cited": {
+            "104769": {
+              "opacity": 1
+            },
+            "104932": {
+              "opacity": 1
+            },
+            "105748": {
+              "opacity": 1
+            }
+          },
           "type": "combined"
         }
       ],
@@ -110,9 +124,11 @@
       "id": 106021,
       "sub_opinions": [
         {
-          "opinions_cited": [
-            {"": {"opacity": 1}}
-          ],
+          "opinions_cited": {
+            "104769": {
+              "opacity": 1
+            }
+          },
           "type": "combined"
         }
       ],
@@ -129,12 +145,20 @@
       "id": 106107,
       "sub_opinions": [
         {
-          "opinions_cited": [
-            {"": {"opacity": 1}},
-            {"105194": {"opacity": 1}},
-            {"104932": {"opacity": 1}},
-            {"106021": {"opacity": 1}}
-          ],
+          "opinions_cited": {
+            "104769": {
+              "opacity": 1
+            },
+            "104932": {
+              "opacity": 1
+            },
+            "105194": {
+              "opacity": 1
+            },
+            "106021": {
+              "opacity": 1
+            }
+          },
           "type": "combined"
         }
       ],
@@ -151,12 +175,20 @@
       "id": 106197,
       "sub_opinions": [
         {
-          "opinions_cited": [
-            {"": {"opacity": 1}},
-            {"106107": {"opacity": 1}},
-            {"104932": {"opacity": 1}},
-            {"105749": {"opacity": 1}}
-          ],
+          "opinions_cited": {
+            "104769": {
+              "opacity": 1
+            },
+            "104932": {
+              "opacity": 1
+            },
+            "105749": {
+              "opacity": 1
+            },
+            "106107": {
+              "opacity": 1
+            }
+          },
           "type": "combined"
         }
       ],
@@ -173,12 +205,20 @@
       "id": 106180,
       "sub_opinions": [
         {
-          "opinions_cited": [
-            {"": {"opacity": 1}},
-            {"106107": {"opacity": 1}},
-            {"105748": {"opacity": 1}},
-            {"106021": {"opacity": 1}}
-          ],
+          "opinions_cited": {
+            "104769": {
+              "opacity": 1
+            },
+            "105748": {
+              "opacity": 1
+            },
+            "106021": {
+              "opacity": 1
+            },
+            "106107": {
+              "opacity": 1
+            }
+          },
           "type": "combined"
         }
       ],
@@ -195,12 +235,23 @@
       "id": 1087878,
       "sub_opinions": [
         {
-          "opinions_cited": [
-            {"": {"opacity": 1}},
-            {"105194": {"opacity": 1}},
-            {"106107": {"opacity": 1}},
-            {"106180": {"opacity": 1}}
-          ],
+          "opinions_cited": {
+            "104769": {
+              "opacity": 1
+            },
+            "105194": {
+              "opacity": 1
+            },
+            "106107": {
+              "opacity": 1
+            },
+            "106180": {
+              "opacity": 1
+            },
+            "1087878": {
+              "opacity": 1
+            }
+          },
           "type": "combined"
         }
       ],
@@ -217,13 +268,23 @@
       "id": 106285,
       "sub_opinions": [
         {
-          "opinions_cited": [
-            {"": {"opacity": 1}},
-            {"105194": {"opacity": 1}},
-            {"106107": {"opacity": 1}},
-            {"106180": {"opacity": 1}},
-            {"1087878": {"opacity": 1}}
-          ],
+          "opinions_cited": {
+            "104769": {
+              "opacity": 1
+            },
+            "105194": {
+              "opacity": 1
+            },
+            "106107": {
+              "opacity": 1
+            },
+            "106180": {
+              "opacity": 1
+            },
+            "1087878": {
+              "opacity": 1
+            }
+          },
           "type": "combined"
         }
       ],
@@ -240,14 +301,26 @@
       "id": 106282,
       "sub_opinions": [
         {
-          "opinions_cited": [
-            {"": {"opacity": 1}},
-            {"106021": {"opacity": 1}},
-            {"1087878": {"opacity": 1}},
-            {"105194": {"opacity": 1}},
-            {"106285": {"opacity": 1}},
-            {"106197": {"opacity": 1}}
-          ],
+          "opinions_cited": {
+            "104769": {
+              "opacity": 1
+            },
+            "105194": {
+              "opacity": 1
+            },
+            "106021": {
+              "opacity": 1
+            },
+            "106197": {
+              "opacity": 1
+            },
+            "106285": {
+              "opacity": 1
+            },
+            "1087878": {
+              "opacity": 1
+            }
+          },
           "type": "combined"
         }
       ],
@@ -264,12 +337,20 @@
       "id": 106515,
       "sub_opinions": [
         {
-          "opinions_cited": [
-            {"": {"opacity": 1}},
-            {"106107": {"opacity": 1}},
-            {"105748": {"opacity": 1}},
-            {"106197": {"opacity": 1}}
-          ],
+          "opinions_cited": {
+            "104769": {
+              "opacity": 1
+            },
+            "105748": {
+              "opacity": 1
+            },
+            "106107": {
+              "opacity": 1
+            },
+            "106197": {
+              "opacity": 1
+            }
+          },
           "type": "combined"
         }
       ],
@@ -286,16 +367,32 @@
       "id": 106641,
       "sub_opinions": [
         {
-          "opinions_cited": [
-            {"": {"opacity": 1}},
-            {"104932": {"opacity": 1}},
-            {"106021": {"opacity": 1}},
-            {"1087878": {"opacity": 1}},
-            {"106285": {"opacity": 1}},
-            {"106515": {"opacity": 1}},
-            {"106197": {"opacity": 1}},
-            {"106107": {"opacity": 1}}
-          ],
+          "opinions_cited": {
+            "104769": {
+              "opacity": 1
+            },
+            "104932": {
+              "opacity": 1
+            },
+            "106021": {
+              "opacity": 1
+            },
+            "106107": {
+              "opacity": 1
+            },
+            "106197": {
+              "opacity": 1
+            },
+            "106285": {
+              "opacity": 1
+            },
+            "106515": {
+              "opacity": 1
+            },
+            "1087878": {
+              "opacity": 1
+            }
+          },
           "type": "combined"
         }
       ],
@@ -312,12 +409,20 @@
       "id": 106771,
       "sub_opinions": [
         {
-          "opinions_cited": [
-            {"": {"opacity": 1}},
-            {"106107": {"opacity": 1}},
-            {"104932": {"opacity": 1}},
-            {"106777": {"opacity": 1}}
-          ],
+          "opinions_cited": {
+            "104769": {
+              "opacity": 1
+            },
+            "104932": {
+              "opacity": 1
+            },
+            "106107": {
+              "opacity": 1
+            },
+            "106777": {
+              "opacity": 1
+            }
+          },
           "type": "combined"
         }
       ],
@@ -334,14 +439,26 @@
       "id": 106777,
       "sub_opinions": [
         {
-          "opinions_cited": [
-            {"": {"opacity": 1}},
-            {"104932": {"opacity": 1}},
-            {"106285": {"opacity": 1}},
-            {"106641": {"opacity": 1}},
-            {"105749": {"opacity": 1}},
-            {"106197": {"opacity": 1}}
-          ],
+          "opinions_cited": {
+            "104769": {
+              "opacity": 1
+            },
+            "104932": {
+              "opacity": 1
+            },
+            "105749": {
+              "opacity": 1
+            },
+            "106197": {
+              "opacity": 1
+            },
+            "106285": {
+              "opacity": 1
+            },
+            "106641": {
+              "opacity": 1
+            }
+          },
           "type": "combined"
         }
       ],
@@ -358,15 +475,29 @@
       "id": 106936,
       "sub_opinions": [
         {
-          "opinions_cited": [
-            {"": {"opacity": 1}},
-            {"1087878": {"opacity": 1}},
-            {"106771": {"opacity": 1}},
-            {"106285": {"opacity": 1}},
-            {"106641": {"opacity": 1}},
-            {"106515": {"opacity": 1}},
-            {"105748": {"opacity": 1}}
-          ],
+          "opinions_cited": {
+            "104769": {
+              "opacity": 1
+            },
+            "105748": {
+              "opacity": 1
+            },
+            "106285": {
+              "opacity": 1
+            },
+            "106515": {
+              "opacity": 1
+            },
+            "106641": {
+              "opacity": 1
+            },
+            "106771": {
+              "opacity": 1
+            },
+            "1087878": {
+              "opacity": 1
+            }
+          },
           "type": "combined"
         }
       ],
@@ -383,13 +514,23 @@
       "id": 106990,
       "sub_opinions": [
         {
-          "opinions_cited": [
-            {"106936": {"opacity": 1}},
-            {"": {"opacity": 1}},
-            {"106771": {"opacity": 1}},
-            {"105748": {"opacity": 1}},
-            {"106197": {"opacity": 1}}
-          ],
+          "opinions_cited": {
+            "104769": {
+              "opacity": 1
+            },
+            "105748": {
+              "opacity": 1
+            },
+            "106197": {
+              "opacity": 1
+            },
+            "106771": {
+              "opacity": 1
+            },
+            "106936": {
+              "opacity": 1
+            }
+          },
           "type": "combined"
         }
       ],
@@ -406,10 +547,14 @@
       "id": 107252,
       "sub_opinions": [
         {
-          "opinions_cited": [
-            {"106285": {"opacity": 1}},
-            {"1087878": {"opacity": 1}}
-          ],
+          "opinions_cited": {
+            "106285": {
+              "opacity": 1
+            },
+            "1087878": {
+              "opacity": 1
+            }
+          },
           "type": "combined"
         }
       ],
@@ -426,14 +571,26 @@
       "id": 107262,
       "sub_opinions": [
         {
-          "opinions_cited": [
-            {"": {"opacity": 1}},
-            {"106021": {"opacity": 1}},
-            {"1087878": {"opacity": 1}},
-            {"106285": {"opacity": 1}},
-            {"106771": {"opacity": 1}},
-            {"107252": {"opacity": 1}}
-          ],
+          "opinions_cited": {
+            "104769": {
+              "opacity": 1
+            },
+            "106021": {
+              "opacity": 1
+            },
+            "106285": {
+              "opacity": 1
+            },
+            "106771": {
+              "opacity": 1
+            },
+            "107252": {
+              "opacity": 1
+            },
+            "1087878": {
+              "opacity": 1
+            }
+          },
           "type": "combined"
         }
       ],
@@ -450,11 +607,17 @@
       "id": 107319,
       "sub_opinions": [
         {
-          "opinions_cited": [
-            {"": {"opacity": 1}},
-            {"105194": {"opacity": 1}},
-            {"106021": {"opacity": 1}}
-          ],
+          "opinions_cited": {
+            "104769": {
+              "opacity": 1
+            },
+            "105194": {
+              "opacity": 1
+            },
+            "106021": {
+              "opacity": 1
+            }
+          },
           "type": "combined"
         }
       ],
@@ -471,11 +634,17 @@
       "id": 107360,
       "sub_opinions": [
         {
-          "opinions_cited": [
-            {"": {"opacity": 1}},
-            {"106771": {"opacity": 1}},
-            {"106285": {"opacity": 1}}
-          ],
+          "opinions_cited": {
+            "104769": {
+              "opacity": 1
+            },
+            "106285": {
+              "opacity": 1
+            },
+            "106771": {
+              "opacity": 1
+            }
+          },
           "type": "combined"
         }
       ],
@@ -492,18 +661,38 @@
       "id": 107465,
       "sub_opinions": [
         {
-          "opinions_cited": [
-            {"106515": {"opacity": 1}},
-            {"": {"opacity": 1}},
-            {"106021": {"opacity": 1}},
-            {"1087878": {"opacity": 1}},
-            {"106285": {"opacity": 1}},
-            {"107360": {"opacity": 1}},
-            {"106771": {"opacity": 1}},
-            {"106936": {"opacity": 1}},
-            {"106777": {"opacity": 1}},
-            {"107262": {"opacity": 1}}
-          ],
+          "opinions_cited": {
+            "104769": {
+              "opacity": 1
+            },
+            "106021": {
+              "opacity": 1
+            },
+            "106285": {
+              "opacity": 1
+            },
+            "106515": {
+              "opacity": 1
+            },
+            "106771": {
+              "opacity": 1
+            },
+            "106777": {
+              "opacity": 1
+            },
+            "106936": {
+              "opacity": 1
+            },
+            "107262": {
+              "opacity": 1
+            },
+            "107360": {
+              "opacity": 1
+            },
+            "1087878": {
+              "opacity": 1
+            }
+          },
           "type": "combined"
         }
       ],
@@ -520,21 +709,47 @@
       "id": 107564,
       "sub_opinions": [
         {
-          "opinions_cited": [
-            {"107360": {"opacity": 1}},
-            {"": {"opacity": 1}},
-            {"104932": {"opacity": 1}},
-            {"1087878": {"opacity": 1}},
-            {"107465": {"opacity": 1}},
-            {"106285": {"opacity": 1}},
-            {"106641": {"opacity": 1}},
-            {"106515": {"opacity": 1}},
-            {"105749": {"opacity": 1}},
-            {"107319": {"opacity": 1}},
-            {"106936": {"opacity": 1}},
-            {"106777": {"opacity": 1}},
-            {"106197": {"opacity": 1}}
-          ],
+          "opinions_cited": {
+            "104769": {
+              "opacity": 1
+            },
+            "104932": {
+              "opacity": 1
+            },
+            "105749": {
+              "opacity": 1
+            },
+            "106197": {
+              "opacity": 1
+            },
+            "106285": {
+              "opacity": 1
+            },
+            "106515": {
+              "opacity": 1
+            },
+            "106641": {
+              "opacity": 1
+            },
+            "106777": {
+              "opacity": 1
+            },
+            "106936": {
+              "opacity": 1
+            },
+            "107319": {
+              "opacity": 1
+            },
+            "107360": {
+              "opacity": 1
+            },
+            "107465": {
+              "opacity": 1
+            },
+            "1087878": {
+              "opacity": 1
+            }
+          },
           "type": "combined"
         }
       ],
@@ -551,18 +766,38 @@
       "id": 107730,
       "sub_opinions": [
         {
-          "opinions_cited": [
-            {"107360": {"opacity": 1}},
-            {"": {"opacity": 1}},
-            {"1087878": {"opacity": 1}},
-            {"107729": {"opacity": 1}},
-            {"106285": {"opacity": 1}},
-            {"106641": {"opacity": 1}},
-            {"106771": {"opacity": 1}},
-            {"105748": {"opacity": 1}},
-            {"106936": {"opacity": 1}},
-            {"107252": {"opacity": 1}}
-          ],
+          "opinions_cited": {
+            "104769": {
+              "opacity": 1
+            },
+            "105748": {
+              "opacity": 1
+            },
+            "106285": {
+              "opacity": 1
+            },
+            "106641": {
+              "opacity": 1
+            },
+            "106771": {
+              "opacity": 1
+            },
+            "106936": {
+              "opacity": 1
+            },
+            "107252": {
+              "opacity": 1
+            },
+            "107360": {
+              "opacity": 1
+            },
+            "107729": {
+              "opacity": 1
+            },
+            "1087878": {
+              "opacity": 1
+            }
+          },
           "type": "combined"
         }
       ],
@@ -579,19 +814,41 @@
       "id": 107729,
       "sub_opinions": [
         {
-          "opinions_cited": [
-            {"1087878": {"opacity": 1}},
-            {"106771": {"opacity": 1}},
-            {"107465": {"opacity": 1}},
-            {"107564": {"opacity": 1}},
-            {"106285": {"opacity": 1}},
-            {"106641": {"opacity": 1}},
-            {"107730": {"opacity": 1}},
-            {"106515": {"opacity": 1}},
-            {"106197": {"opacity": 1}},
-            {"106936": {"opacity": 1}},
-            {"106107": {"opacity": 1}}
-          ],
+          "opinions_cited": {
+            "106107": {
+              "opacity": 1
+            },
+            "106197": {
+              "opacity": 1
+            },
+            "106285": {
+              "opacity": 1
+            },
+            "106515": {
+              "opacity": 1
+            },
+            "106641": {
+              "opacity": 1
+            },
+            "106771": {
+              "opacity": 1
+            },
+            "106936": {
+              "opacity": 1
+            },
+            "107465": {
+              "opacity": 1
+            },
+            "107564": {
+              "opacity": 1
+            },
+            "107730": {
+              "opacity": 1
+            },
+            "1087878": {
+              "opacity": 1
+            }
+          },
           "type": "combined"
         }
       ],
@@ -608,16 +865,32 @@
       "id": 107831,
       "sub_opinions": [
         {
-          "opinions_cited": [
-            {"": {"opacity": 1}},
-            {"1087878": {"opacity": 1}},
-            {"107465": {"opacity": 1}},
-            {"106285": {"opacity": 1}},
-            {"106990": {"opacity": 1}},
-            {"105748": {"opacity": 1}},
-            {"105749": {"opacity": 1}},
-            {"106936": {"opacity": 1}}
-          ],
+          "opinions_cited": {
+            "104769": {
+              "opacity": 1
+            },
+            "105748": {
+              "opacity": 1
+            },
+            "105749": {
+              "opacity": 1
+            },
+            "106285": {
+              "opacity": 1
+            },
+            "106936": {
+              "opacity": 1
+            },
+            "106990": {
+              "opacity": 1
+            },
+            "107465": {
+              "opacity": 1
+            },
+            "1087878": {
+              "opacity": 1
+            }
+          },
           "type": "combined"
         }
       ],
@@ -634,12 +907,20 @@
       "id": 107898,
       "sub_opinions": [
         {
-          "opinions_cited": [
-            {"": {"opacity": 1}},
-            {"106285": {"opacity": 1}},
-            {"1087878": {"opacity": 1}},
-            {"107465": {"opacity": 1}}
-          ],
+          "opinions_cited": {
+            "104769": {
+              "opacity": 1
+            },
+            "106285": {
+              "opacity": 1
+            },
+            "107465": {
+              "opacity": 1
+            },
+            "1087878": {
+              "opacity": 1
+            }
+          },
           "type": "combined"
         }
       ],
@@ -656,29 +937,71 @@
       "id": 107979,
       "sub_opinions": [
         {
-          "opinions_cited": [
-            {"107360": {"opacity": 1}},
-            {"": {"opacity": 1}},
-            {"104932": {"opacity": 1}},
-            {"106021": {"opacity": 1}},
-            {"1087878": {"opacity": 1}},
-            {"107729": {"opacity": 1}},
-            {"107730": {"opacity": 1}},
-            {"107465": {"opacity": 1}},
-            {"107564": {"opacity": 1}},
-            {"106285": {"opacity": 1}},
-            {"107982": {"opacity": 1}},
-            {"106641": {"opacity": 1}},
-            {"107252": {"opacity": 1}},
-            {"106771": {"opacity": 1}},
-            {"105748": {"opacity": 1}},
-            {"105749": {"opacity": 1}},
-            {"107831": {"opacity": 1}},
-            {"106936": {"opacity": 1}},
-            {"106777": {"opacity": 1}},
-            {"106107": {"opacity": 1}},
-            {"106197": {"opacity": 1}}
-          ],
+          "opinions_cited": {
+            "104769": {
+              "opacity": 1
+            },
+            "104932": {
+              "opacity": 1
+            },
+            "105748": {
+              "opacity": 1
+            },
+            "105749": {
+              "opacity": 1
+            },
+            "106021": {
+              "opacity": 1
+            },
+            "106107": {
+              "opacity": 1
+            },
+            "106197": {
+              "opacity": 1
+            },
+            "106285": {
+              "opacity": 1
+            },
+            "106641": {
+              "opacity": 1
+            },
+            "106771": {
+              "opacity": 1
+            },
+            "106777": {
+              "opacity": 1
+            },
+            "106936": {
+              "opacity": 1
+            },
+            "107252": {
+              "opacity": 1
+            },
+            "107360": {
+              "opacity": 1
+            },
+            "107465": {
+              "opacity": 1
+            },
+            "107564": {
+              "opacity": 1
+            },
+            "107729": {
+              "opacity": 1
+            },
+            "107730": {
+              "opacity": 1
+            },
+            "107831": {
+              "opacity": 1
+            },
+            "107982": {
+              "opacity": 1
+            },
+            "1087878": {
+              "opacity": 1
+            }
+          },
           "type": "combined"
         }
       ],
@@ -695,12 +1018,20 @@
       "id": 107982,
       "sub_opinions": [
         {
-          "opinions_cited": [
-            {"": {"opacity": 1}},
-            {"107979": {"opacity": 1}},
-            {"106285": {"opacity": 1}},
-            {"106777": {"opacity": 1}}
-          ],
+          "opinions_cited": {
+            "104769": {
+              "opacity": 1
+            },
+            "106285": {
+              "opacity": 1
+            },
+            "106777": {
+              "opacity": 1
+            },
+            "107979": {
+              "opacity": 1
+            }
+          },
           "type": "combined"
         }
       ],
@@ -717,20 +1048,44 @@
       "id": 108183,
       "sub_opinions": [
         {
-          "opinions_cited": [
-            {"": {"opacity": 1}},
-            {"104932": {"opacity": 1}},
-            {"107465": {"opacity": 1}},
-            {"107979": {"opacity": 1}},
-            {"107564": {"opacity": 1}},
-            {"106285": {"opacity": 1}},
-            {"107982": {"opacity": 1}},
-            {"106641": {"opacity": 1}},
-            {"106771": {"opacity": 1}},
-            {"106197": {"opacity": 1}},
-            {"106777": {"opacity": 1}},
-            {"107262": {"opacity": 1}}
-          ],
+          "opinions_cited": {
+            "104769": {
+              "opacity": 1
+            },
+            "104932": {
+              "opacity": 1
+            },
+            "106197": {
+              "opacity": 1
+            },
+            "106285": {
+              "opacity": 1
+            },
+            "106641": {
+              "opacity": 1
+            },
+            "106771": {
+              "opacity": 1
+            },
+            "106777": {
+              "opacity": 1
+            },
+            "107262": {
+              "opacity": 1
+            },
+            "107465": {
+              "opacity": 1
+            },
+            "107564": {
+              "opacity": 1
+            },
+            "107979": {
+              "opacity": 1
+            },
+            "107982": {
+              "opacity": 1
+            }
+          },
           "type": "combined"
         }
       ],
@@ -747,20 +1102,44 @@
       "id": 108184,
       "sub_opinions": [
         {
-          "opinions_cited": [
-            {"107360": {"opacity": 1}},
-            {"": {"opacity": 1}},
-            {"104932": {"opacity": 1}},
-            {"1087878": {"opacity": 1}},
-            {"107465": {"opacity": 1}},
-            {"107979": {"opacity": 1}},
-            {"107564": {"opacity": 1}},
-            {"106285": {"opacity": 1}},
-            {"106990": {"opacity": 1}},
-            {"107729": {"opacity": 1}},
-            {"106771": {"opacity": 1}},
-            {"108183": {"opacity": 1}}
-          ],
+          "opinions_cited": {
+            "104769": {
+              "opacity": 1
+            },
+            "104932": {
+              "opacity": 1
+            },
+            "106285": {
+              "opacity": 1
+            },
+            "106771": {
+              "opacity": 1
+            },
+            "106990": {
+              "opacity": 1
+            },
+            "107360": {
+              "opacity": 1
+            },
+            "107465": {
+              "opacity": 1
+            },
+            "107564": {
+              "opacity": 1
+            },
+            "107729": {
+              "opacity": 1
+            },
+            "107979": {
+              "opacity": 1
+            },
+            "108183": {
+              "opacity": 1
+            },
+            "1087878": {
+              "opacity": 1
+            }
+          },
           "type": "combined"
         }
       ],
@@ -777,18 +1156,38 @@
       "id": 108301,
       "sub_opinions": [
         {
-          "opinions_cited": [
-            {"": {"opacity": 1}},
-            {"1087878": {"opacity": 1}},
-            {"107465": {"opacity": 1}},
-            {"107979": {"opacity": 1}},
-            {"107564": {"opacity": 1}},
-            {"106285": {"opacity": 1}},
-            {"107729": {"opacity": 1}},
-            {"106771": {"opacity": 1}},
-            {"108184": {"opacity": 1}},
-            {"107898": {"opacity": 1}}
-          ],
+          "opinions_cited": {
+            "104769": {
+              "opacity": 1
+            },
+            "106285": {
+              "opacity": 1
+            },
+            "106771": {
+              "opacity": 1
+            },
+            "107465": {
+              "opacity": 1
+            },
+            "107564": {
+              "opacity": 1
+            },
+            "107729": {
+              "opacity": 1
+            },
+            "107898": {
+              "opacity": 1
+            },
+            "107979": {
+              "opacity": 1
+            },
+            "108184": {
+              "opacity": 1
+            },
+            "1087878": {
+              "opacity": 1
+            }
+          },
           "type": "combined"
         }
       ],
@@ -805,35 +1204,89 @@
       "id": 108377,
       "sub_opinions": [
         {
-          "opinions_cited": [
-            {"1087878": {"opacity": 1}},
-            {"108301": {"opacity": 1}},
-            {"106641": {"opacity": 1}},
-            {"106771": {"opacity": 1}},
-            {"105748": {"opacity": 1}},
-            {"105749": {"opacity": 1}},
-            {"108183": {"opacity": 1}},
-            {"108184": {"opacity": 1}},
-            {"106777": {"opacity": 1}},
-            {"107564": {"opacity": 1}},
-            {"106285": {"opacity": 1}},
-            {"107831": {"opacity": 1}},
-            {"": {"opacity": 1}},
-            {"107465": {"opacity": 1}},
-            {"107979": {"opacity": 1}},
-            {"107982": {"opacity": 1}},
-            {"107729": {"opacity": 1}},
-            {"107730": {"opacity": 1}},
-            {"106197": {"opacity": 1}},
-            {"107360": {"opacity": 1}},
-            {"104932": {"opacity": 1}},
-            {"105194": {"opacity": 1}},
-            {"106515": {"opacity": 1}},
-            {"107252": {"opacity": 1}},
-            {"107898": {"opacity": 1}},
-            {"106107": {"opacity": 1}},
-            {"107262": {"opacity": 1}}
-          ],
+          "opinions_cited": {
+            "104769": {
+              "opacity": 1
+            },
+            "104932": {
+              "opacity": 1
+            },
+            "105194": {
+              "opacity": 1
+            },
+            "105748": {
+              "opacity": 1
+            },
+            "105749": {
+              "opacity": 1
+            },
+            "106107": {
+              "opacity": 1
+            },
+            "106197": {
+              "opacity": 1
+            },
+            "106285": {
+              "opacity": 1
+            },
+            "106515": {
+              "opacity": 1
+            },
+            "106641": {
+              "opacity": 1
+            },
+            "106771": {
+              "opacity": 1
+            },
+            "106777": {
+              "opacity": 1
+            },
+            "107252": {
+              "opacity": 1
+            },
+            "107262": {
+              "opacity": 1
+            },
+            "107360": {
+              "opacity": 1
+            },
+            "107465": {
+              "opacity": 1
+            },
+            "107564": {
+              "opacity": 1
+            },
+            "107729": {
+              "opacity": 1
+            },
+            "107730": {
+              "opacity": 1
+            },
+            "107831": {
+              "opacity": 1
+            },
+            "107898": {
+              "opacity": 1
+            },
+            "107979": {
+              "opacity": 1
+            },
+            "107982": {
+              "opacity": 1
+            },
+            "108183": {
+              "opacity": 1
+            },
+            "108184": {
+              "opacity": 1
+            },
+            "108301": {
+              "opacity": 1
+            },
+            "1087878": {
+              "opacity": 1
+            }
+          },
           "type": "combined"
         }
       ],
@@ -850,18 +1303,38 @@
       "id": 108581,
       "sub_opinions": [
         {
-          "opinions_cited": [
-            {"": {"opacity": 1}},
-            {"104932": {"opacity": 1}},
-            {"107979": {"opacity": 1}},
-            {"107564": {"opacity": 1}},
-            {"106285": {"opacity": 1}},
-            {"107729": {"opacity": 1}},
-            {"107252": {"opacity": 1}},
-            {"107319": {"opacity": 1}},
-            {"106936": {"opacity": 1}},
-            {"108377": {"opacity": 1}}
-          ],
+          "opinions_cited": {
+            "104769": {
+              "opacity": 1
+            },
+            "104932": {
+              "opacity": 1
+            },
+            "106285": {
+              "opacity": 1
+            },
+            "106936": {
+              "opacity": 1
+            },
+            "107252": {
+              "opacity": 1
+            },
+            "107319": {
+              "opacity": 1
+            },
+            "107564": {
+              "opacity": 1
+            },
+            "107729": {
+              "opacity": 1
+            },
+            "107979": {
+              "opacity": 1
+            },
+            "108377": {
+              "opacity": 1
+            }
+          },
           "type": "combined"
         }
       ],
@@ -878,15 +1351,29 @@
       "id": 108801,
       "sub_opinions": [
         {
-          "opinions_cited": [
-            {"107979": {"opacity": 1}},
-            {"106285": {"opacity": 1}},
-            {"107729": {"opacity": 1}},
-            {"107730": {"opacity": 1}},
-            {"105749": {"opacity": 1}},
-            {"108377": {"opacity": 1}},
-            {"107262": {"opacity": 1}}
-          ],
+          "opinions_cited": {
+            "105749": {
+              "opacity": 1
+            },
+            "106285": {
+              "opacity": 1
+            },
+            "107262": {
+              "opacity": 1
+            },
+            "107729": {
+              "opacity": 1
+            },
+            "107730": {
+              "opacity": 1
+            },
+            "107979": {
+              "opacity": 1
+            },
+            "108377": {
+              "opacity": 1
+            }
+          },
           "type": "combined"
         }
       ],
@@ -903,23 +1390,53 @@
       "id": 108893,
       "sub_opinions": [
         {
-          "opinions_cited": [
-            {"": {"opacity": 1}},
-            {"104932": {"opacity": 1}},
-            {"106021": {"opacity": 1}},
-            {"1087878": {"opacity": 1}},
-            {"108801": {"opacity": 1}},
-            {"106771": {"opacity": 1}},
-            {"107465": {"opacity": 1}},
-            {"107979": {"opacity": 1}},
-            {"107564": {"opacity": 1}},
-            {"106285": {"opacity": 1}},
-            {"107729": {"opacity": 1}},
-            {"107730": {"opacity": 1}},
-            {"106515": {"opacity": 1}},
-            {"105749": {"opacity": 1}},
-            {"108377": {"opacity": 1}}
-          ],
+          "opinions_cited": {
+            "104769": {
+              "opacity": 1
+            },
+            "104932": {
+              "opacity": 1
+            },
+            "105749": {
+              "opacity": 1
+            },
+            "106021": {
+              "opacity": 1
+            },
+            "106285": {
+              "opacity": 1
+            },
+            "106515": {
+              "opacity": 1
+            },
+            "106771": {
+              "opacity": 1
+            },
+            "107465": {
+              "opacity": 1
+            },
+            "107564": {
+              "opacity": 1
+            },
+            "107729": {
+              "opacity": 1
+            },
+            "107730": {
+              "opacity": 1
+            },
+            "107979": {
+              "opacity": 1
+            },
+            "108377": {
+              "opacity": 1
+            },
+            "108801": {
+              "opacity": 1
+            },
+            "1087878": {
+              "opacity": 1
+            }
+          },
           "type": "combined"
         }
       ],
@@ -936,22 +1453,50 @@
       "id": 108995,
       "sub_opinions": [
         {
-          "opinions_cited": [
-            {"107360": {"opacity": 1}},
-            {"": {"opacity": 1}},
-            {"106021": {"opacity": 1}},
-            {"107729": {"opacity": 1}},
-            {"107465": {"opacity": 1}},
-            {"107979": {"opacity": 1}},
-            {"107564": {"opacity": 1}},
-            {"106641": {"opacity": 1}},
-            {"106771": {"opacity": 1}},
-            {"105749": {"opacity": 1}},
-            {"108377": {"opacity": 1}},
-            {"106777": {"opacity": 1}},
-            {"108893": {"opacity": 1}},
-            {"107262": {"opacity": 1}}
-          ],
+          "opinions_cited": {
+            "104769": {
+              "opacity": 1
+            },
+            "105749": {
+              "opacity": 1
+            },
+            "106021": {
+              "opacity": 1
+            },
+            "106641": {
+              "opacity": 1
+            },
+            "106771": {
+              "opacity": 1
+            },
+            "106777": {
+              "opacity": 1
+            },
+            "107262": {
+              "opacity": 1
+            },
+            "107360": {
+              "opacity": 1
+            },
+            "107465": {
+              "opacity": 1
+            },
+            "107564": {
+              "opacity": 1
+            },
+            "107729": {
+              "opacity": 1
+            },
+            "107979": {
+              "opacity": 1
+            },
+            "108377": {
+              "opacity": 1
+            },
+            "108893": {
+              "opacity": 1
+            }
+          },
           "type": "combined"
         }
       ],
@@ -968,19 +1513,41 @@
       "id": 109186,
       "sub_opinions": [
         {
-          "opinions_cited": [
-            {"": {"opacity": 1}},
-            {"108581": {"opacity": 1}},
-            {"107729": {"opacity": 1}},
-            {"107979": {"opacity": 1}},
-            {"108801": {"opacity": 1}},
-            {"106641": {"opacity": 1}},
-            {"106515": {"opacity": 1}},
-            {"105748": {"opacity": 1}},
-            {"105749": {"opacity": 1}},
-            {"106936": {"opacity": 1}},
-            {"108377": {"opacity": 1}}
-          ],
+          "opinions_cited": {
+            "104769": {
+              "opacity": 1
+            },
+            "105748": {
+              "opacity": 1
+            },
+            "105749": {
+              "opacity": 1
+            },
+            "106515": {
+              "opacity": 1
+            },
+            "106641": {
+              "opacity": 1
+            },
+            "106936": {
+              "opacity": 1
+            },
+            "107729": {
+              "opacity": 1
+            },
+            "107979": {
+              "opacity": 1
+            },
+            "108377": {
+              "opacity": 1
+            },
+            "108581": {
+              "opacity": 1
+            },
+            "108801": {
+              "opacity": 1
+            }
+          },
           "type": "combined"
         }
       ],
@@ -997,20 +1564,44 @@
       "id": 109302,
       "sub_opinions": [
         {
-          "opinions_cited": [
-            {"": {"opacity": 1}},
-            {"1087878": {"opacity": 1}},
-            {"105194": {"opacity": 1}},
-            {"107979": {"opacity": 1}},
-            {"107564": {"opacity": 1}},
-            {"106285": {"opacity": 1}},
-            {"108301": {"opacity": 1}},
-            {"106641": {"opacity": 1}},
-            {"107252": {"opacity": 1}},
-            {"108377": {"opacity": 1}},
-            {"106777": {"opacity": 1}},
-            {"106107": {"opacity": 1}}
-          ],
+          "opinions_cited": {
+            "104769": {
+              "opacity": 1
+            },
+            "105194": {
+              "opacity": 1
+            },
+            "106107": {
+              "opacity": 1
+            },
+            "106285": {
+              "opacity": 1
+            },
+            "106641": {
+              "opacity": 1
+            },
+            "106777": {
+              "opacity": 1
+            },
+            "107252": {
+              "opacity": 1
+            },
+            "107564": {
+              "opacity": 1
+            },
+            "107979": {
+              "opacity": 1
+            },
+            "108301": {
+              "opacity": 1
+            },
+            "108377": {
+              "opacity": 1
+            },
+            "1087878": {
+              "opacity": 1
+            }
+          },
           "type": "combined"
         }
       ],
@@ -1027,18 +1618,41 @@
       "id": 109504,
       "sub_opinions": [
         {
-          "opinions_cited": [
-            {"": {"opacity": 1}},
-            {"109186": {"opacity": 1}},
-            {"106021": {"opacity": 1}},
-            {"107465": {"opacity": 1}},
-            {"107979": {"opacity": 1}},
-            {"107564": {"opacity": 1}},
-            {"105749": {"opacity": 1}},
-            {"108183": {"opacity": 1}},
-            {"108377": {"opacity": 1}},
-            {"108893": {"opacity": 1}}
-          ],
+          "opinions_cited": {
+            "104769": {
+              "opacity": 1
+            },
+            "105749": {
+              "opacity": 1
+            },
+            "106021": {
+              "opacity": 1
+            },
+            "107465": {
+              "opacity": 1
+            },
+            "107564": {
+              "opacity": 1
+            },
+            "107979": {
+              "opacity": 1
+            },
+            "108183": {
+              "opacity": 1
+            },
+            "108377": {
+              "opacity": 1
+            },
+            "108893": {
+              "opacity": 1
+            },
+            "109186": {
+              "opacity": 1
+            },
+            "109504": {
+              "opacity": 1
+            }
+          },
           "type": "combined"
         }
       ],
@@ -1055,22 +1669,50 @@
       "id": 109537,
       "sub_opinions": [
         {
-          "opinions_cited": [
-            {"106515": {"opacity": 1}},
-            {"": {"opacity": 1}},
-            {"104932": {"opacity": 1}},
-            {"108581": {"opacity": 1}},
-            {"107465": {"opacity": 1}},
-            {"107979": {"opacity": 1}},
-            {"107564": {"opacity": 1}},
-            {"107360": {"opacity": 1}},
-            {"107729": {"opacity": 1}},
-            {"106771": {"opacity": 1}},
-            {"108377": {"opacity": 1}},
-            {"108184": {"opacity": 1}},
-            {"106777": {"opacity": 1}},
-            {"109541": {"opacity": 1}}
-          ],
+          "opinions_cited": {
+            "104769": {
+              "opacity": 1
+            },
+            "104932": {
+              "opacity": 1
+            },
+            "106515": {
+              "opacity": 1
+            },
+            "106771": {
+              "opacity": 1
+            },
+            "106777": {
+              "opacity": 1
+            },
+            "107360": {
+              "opacity": 1
+            },
+            "107465": {
+              "opacity": 1
+            },
+            "107564": {
+              "opacity": 1
+            },
+            "107729": {
+              "opacity": 1
+            },
+            "107979": {
+              "opacity": 1
+            },
+            "108184": {
+              "opacity": 1
+            },
+            "108377": {
+              "opacity": 1
+            },
+            "108581": {
+              "opacity": 1
+            },
+            "109541": {
+              "opacity": 1
+            }
+          },
           "type": "combined"
         }
       ],
@@ -1087,13 +1729,23 @@
       "id": 109541,
       "sub_opinions": [
         {
-          "opinions_cited": [
-            {"106936": {"opacity": 1}},
-            {"107729": {"opacity": 1}},
-            {"109504": {"opacity": 1}},
-            {"108581": {"opacity": 1}},
-            {"109537": {"opacity": 1}}
-          ],
+          "opinions_cited": {
+            "106936": {
+              "opacity": 1
+            },
+            "107729": {
+              "opacity": 1
+            },
+            "108581": {
+              "opacity": 1
+            },
+            "109504": {
+              "opacity": 1
+            },
+            "109537": {
+              "opacity": 1
+            }
+          },
           "type": "combined"
         }
       ],
@@ -1110,12 +1762,20 @@
       "id": 109592,
       "sub_opinions": [
         {
-          "opinions_cited": [
-            {"107729": {"opacity": 1}},
-            {"106282": {"opacity": 1}},
-            {"107564": {"opacity": 1}},
-            {"107898": {"opacity": 1}}
-          ],
+          "opinions_cited": {
+            "106282": {
+              "opacity": 1
+            },
+            "107564": {
+              "opacity": 1
+            },
+            "107729": {
+              "opacity": 1
+            },
+            "107898": {
+              "opacity": 1
+            }
+          },
           "type": "combined"
         }
       ],
@@ -1132,21 +1792,47 @@
       "id": 109714,
       "sub_opinions": [
         {
-          "opinions_cited": [
-            {"107360": {"opacity": 1}},
-            {"": {"opacity": 1}},
-            {"108995": {"opacity": 1}},
-            {"104932": {"opacity": 1}},
-            {"109537": {"opacity": 1}},
-            {"107465": {"opacity": 1}},
-            {"107979": {"opacity": 1}},
-            {"107564": {"opacity": 1}},
-            {"107729": {"opacity": 1}},
-            {"106771": {"opacity": 1}},
-            {"108184": {"opacity": 1}},
-            {"108377": {"opacity": 1}},
-            {"108893": {"opacity": 1}}
-          ],
+          "opinions_cited": {
+            "104769": {
+              "opacity": 1
+            },
+            "104932": {
+              "opacity": 1
+            },
+            "106771": {
+              "opacity": 1
+            },
+            "107360": {
+              "opacity": 1
+            },
+            "107465": {
+              "opacity": 1
+            },
+            "107564": {
+              "opacity": 1
+            },
+            "107729": {
+              "opacity": 1
+            },
+            "107979": {
+              "opacity": 1
+            },
+            "108184": {
+              "opacity": 1
+            },
+            "108377": {
+              "opacity": 1
+            },
+            "108893": {
+              "opacity": 1
+            },
+            "108995": {
+              "opacity": 1
+            },
+            "109537": {
+              "opacity": 1
+            }
+          },
           "type": "combined"
         }
       ],
@@ -1163,15 +1849,29 @@
       "id": 110075,
       "sub_opinions": [
         {
-          "opinions_cited": [
-            {"109186": {"opacity": 1}},
-            {"109541": {"opacity": 1}},
-            {"106282": {"opacity": 1}},
-            {"107564": {"opacity": 1}},
-            {"107729": {"opacity": 1}},
-            {"107898": {"opacity": 1}},
-            {"107262": {"opacity": 1}}
-          ],
+          "opinions_cited": {
+            "106282": {
+              "opacity": 1
+            },
+            "107262": {
+              "opacity": 1
+            },
+            "107564": {
+              "opacity": 1
+            },
+            "107729": {
+              "opacity": 1
+            },
+            "107898": {
+              "opacity": 1
+            },
+            "109186": {
+              "opacity": 1
+            },
+            "109541": {
+              "opacity": 1
+            }
+          },
           "type": "combined"
         }
       ],
@@ -1188,22 +1888,50 @@
       "id": 110119,
       "sub_opinions": [
         {
-          "opinions_cited": [
-            {"": {"opacity": 1}},
-            {"104932": {"opacity": 1}},
-            {"108581": {"opacity": 1}},
-            {"1087878": {"opacity": 1}},
-            {"109537": {"opacity": 1}},
-            {"107979": {"opacity": 1}},
-            {"107564": {"opacity": 1}},
-            {"106285": {"opacity": 1}},
-            {"109714": {"opacity": 1}},
-            {"105749": {"opacity": 1}},
-            {"108184": {"opacity": 1}},
-            {"108377": {"opacity": 1}},
-            {"108893": {"opacity": 1}},
-            {"109541": {"opacity": 1}}
-          ],
+          "opinions_cited": {
+            "104769": {
+              "opacity": 1
+            },
+            "104932": {
+              "opacity": 1
+            },
+            "105749": {
+              "opacity": 1
+            },
+            "106285": {
+              "opacity": 1
+            },
+            "107564": {
+              "opacity": 1
+            },
+            "107979": {
+              "opacity": 1
+            },
+            "108184": {
+              "opacity": 1
+            },
+            "108377": {
+              "opacity": 1
+            },
+            "108581": {
+              "opacity": 1
+            },
+            "108893": {
+              "opacity": 1
+            },
+            "109537": {
+              "opacity": 1
+            },
+            "109541": {
+              "opacity": 1
+            },
+            "109714": {
+              "opacity": 1
+            },
+            "1087878": {
+              "opacity": 1
+            }
+          },
           "type": "combined"
         }
       ],
@@ -1220,16 +1948,32 @@
       "id": 110127,
       "sub_opinions": [
         {
-          "opinions_cited": [
-            {"107360": {"opacity": 1}},
-            {"109186": {"opacity": 1}},
-            {"107729": {"opacity": 1}},
-            {"107564": {"opacity": 1}},
-            {"106641": {"opacity": 1}},
-            {"107730": {"opacity": 1}},
-            {"106936": {"opacity": 1}},
-            {"108893": {"opacity": 1}}
-          ],
+          "opinions_cited": {
+            "106641": {
+              "opacity": 1
+            },
+            "106936": {
+              "opacity": 1
+            },
+            "107360": {
+              "opacity": 1
+            },
+            "107564": {
+              "opacity": 1
+            },
+            "107729": {
+              "opacity": 1
+            },
+            "107730": {
+              "opacity": 1
+            },
+            "108893": {
+              "opacity": 1
+            },
+            "109186": {
+              "opacity": 1
+            }
+          },
           "type": "combined"
         }
       ],
@@ -1246,28 +1990,68 @@
       "id": 110559,
       "sub_opinions": [
         {
-          "opinions_cited": [
-            {"108801": {"opacity": 1}},
-            {"108995": {"opacity": 1}},
-            {"1087878": {"opacity": 1}},
-            {"110119": {"opacity": 1}},
-            {"107465": {"opacity": 1}},
-            {"109714": {"opacity": 1}},
-            {"107979": {"opacity": 1}},
-            {"107564": {"opacity": 1}},
-            {"106285": {"opacity": 1}},
-            {"107982": {"opacity": 1}},
-            {"108377": {"opacity": 1}},
-            {"107729": {"opacity": 1}},
-            {"107730": {"opacity": 1}},
-            {"106771": {"opacity": 1}},
-            {"107252": {"opacity": 1}},
-            {"105749": {"opacity": 1}},
-            {"108183": {"opacity": 1}},
-            {"108184": {"opacity": 1}},
-            {"106777": {"opacity": 1}},
-            {"108893": {"opacity": 1}}
-          ],
+          "opinions_cited": {
+            "105749": {
+              "opacity": 1
+            },
+            "106285": {
+              "opacity": 1
+            },
+            "106771": {
+              "opacity": 1
+            },
+            "106777": {
+              "opacity": 1
+            },
+            "107252": {
+              "opacity": 1
+            },
+            "107465": {
+              "opacity": 1
+            },
+            "107564": {
+              "opacity": 1
+            },
+            "107729": {
+              "opacity": 1
+            },
+            "107730": {
+              "opacity": 1
+            },
+            "107979": {
+              "opacity": 1
+            },
+            "107982": {
+              "opacity": 1
+            },
+            "108183": {
+              "opacity": 1
+            },
+            "108184": {
+              "opacity": 1
+            },
+            "108377": {
+              "opacity": 1
+            },
+            "108801": {
+              "opacity": 1
+            },
+            "108893": {
+              "opacity": 1
+            },
+            "108995": {
+              "opacity": 1
+            },
+            "109714": {
+              "opacity": 1
+            },
+            "110119": {
+              "opacity": 1
+            },
+            "1087878": {
+              "opacity": 1
+            }
+          },
           "type": "combined"
         }
       ],
@@ -1284,24 +2068,56 @@
       "id": 110754,
       "sub_opinions": [
         {
-          "opinions_cited": [
-            {"": {"opacity": 1}},
-            {"109186": {"opacity": 1}},
-            {"108581": {"opacity": 1}},
-            {"1087878": {"opacity": 1}},
-            {"107979": {"opacity": 1}},
-            {"107564": {"opacity": 1}},
-            {"106285": {"opacity": 1}},
-            {"108377": {"opacity": 1}},
-            {"108301": {"opacity": 1}},
-            {"106641": {"opacity": 1}},
-            {"107252": {"opacity": 1}},
-            {"105749": {"opacity": 1}},
-            {"109302": {"opacity": 1}},
-            {"107831": {"opacity": 1}},
-            {"106777": {"opacity": 1}},
-            {"109541": {"opacity": 1}}
-          ],
+          "opinions_cited": {
+            "104769": {
+              "opacity": 1
+            },
+            "105749": {
+              "opacity": 1
+            },
+            "106285": {
+              "opacity": 1
+            },
+            "106641": {
+              "opacity": 1
+            },
+            "106777": {
+              "opacity": 1
+            },
+            "107252": {
+              "opacity": 1
+            },
+            "107564": {
+              "opacity": 1
+            },
+            "107831": {
+              "opacity": 1
+            },
+            "107979": {
+              "opacity": 1
+            },
+            "108301": {
+              "opacity": 1
+            },
+            "108377": {
+              "opacity": 1
+            },
+            "108581": {
+              "opacity": 1
+            },
+            "109186": {
+              "opacity": 1
+            },
+            "109302": {
+              "opacity": 1
+            },
+            "109541": {
+              "opacity": 1
+            },
+            "1087878": {
+              "opacity": 1
+            }
+          },
           "type": "combined"
         }
       ],
@@ -1318,24 +2134,56 @@
       "id": 110901,
       "sub_opinions": [
         {
-          "opinions_cited": [
-            {"": {"opacity": 1}},
-            {"104932": {"opacity": 1}},
-            {"106021": {"opacity": 1}},
-            {"110559": {"opacity": 1}},
-            {"110119": {"opacity": 1}},
-            {"107465": {"opacity": 1}},
-            {"107979": {"opacity": 1}},
-            {"107564": {"opacity": 1}},
-            {"107729": {"opacity": 1}},
-            {"109714": {"opacity": 1}},
-            {"105749": {"opacity": 1}},
-            {"108183": {"opacity": 1}},
-            {"108377": {"opacity": 1}},
-            {"109541": {"opacity": 1}},
-            {"108893": {"opacity": 1}},
-            {"108581": {"opacity": 1}}
-          ],
+          "opinions_cited": {
+            "104769": {
+              "opacity": 1
+            },
+            "104932": {
+              "opacity": 1
+            },
+            "105749": {
+              "opacity": 1
+            },
+            "106021": {
+              "opacity": 1
+            },
+            "107465": {
+              "opacity": 1
+            },
+            "107564": {
+              "opacity": 1
+            },
+            "107729": {
+              "opacity": 1
+            },
+            "107979": {
+              "opacity": 1
+            },
+            "108183": {
+              "opacity": 1
+            },
+            "108377": {
+              "opacity": 1
+            },
+            "108581": {
+              "opacity": 1
+            },
+            "108893": {
+              "opacity": 1
+            },
+            "109541": {
+              "opacity": 1
+            },
+            "109714": {
+              "opacity": 1
+            },
+            "110119": {
+              "opacity": 1
+            },
+            "110559": {
+              "opacity": 1
+            }
+          },
           "type": "combined"
         }
       ],
@@ -1352,31 +2200,77 @@
       "id": 110959,
       "sub_opinions": [
         {
-          "opinions_cited": [
-            {"1087878": {"opacity": 1}},
-            {"108301": {"opacity": 1}},
-            {"106641": {"opacity": 1}},
-            {"109714": {"opacity": 1}},
-            {"106515": {"opacity": 1}},
-            {"105748": {"opacity": 1}},
-            {"105749": {"opacity": 1}},
-            {"108183": {"opacity": 1}},
-            {"108184": {"opacity": 1}},
-            {"110754": {"opacity": 1}},
-            {"108581": {"opacity": 1}},
-            {"106285": {"opacity": 1}},
-            {"110127": {"opacity": 1}},
-            {"107831": {"opacity": 1}},
-            {"106936": {"opacity": 1}},
-            {"107729": {"opacity": 1}},
-            {"107730": {"opacity": 1}},
-            {"108377": {"opacity": 1}},
-            {"105194": {"opacity": 1}},
-            {"106990": {"opacity": 1}},
-            {"107252": {"opacity": 1}},
-            {"109302": {"opacity": 1}},
-            {"106107": {"opacity": 1}}
-          ],
+          "opinions_cited": {
+            "105194": {
+              "opacity": 1
+            },
+            "105748": {
+              "opacity": 1
+            },
+            "105749": {
+              "opacity": 1
+            },
+            "106107": {
+              "opacity": 1
+            },
+            "106285": {
+              "opacity": 1
+            },
+            "106515": {
+              "opacity": 1
+            },
+            "106641": {
+              "opacity": 1
+            },
+            "106936": {
+              "opacity": 1
+            },
+            "106990": {
+              "opacity": 1
+            },
+            "107252": {
+              "opacity": 1
+            },
+            "107729": {
+              "opacity": 1
+            },
+            "107730": {
+              "opacity": 1
+            },
+            "107831": {
+              "opacity": 1
+            },
+            "108183": {
+              "opacity": 1
+            },
+            "108184": {
+              "opacity": 1
+            },
+            "108301": {
+              "opacity": 1
+            },
+            "108377": {
+              "opacity": 1
+            },
+            "108581": {
+              "opacity": 1
+            },
+            "109302": {
+              "opacity": 1
+            },
+            "109714": {
+              "opacity": 1
+            },
+            "110127": {
+              "opacity": 1
+            },
+            "110754": {
+              "opacity": 1
+            },
+            "1087878": {
+              "opacity": 1
+            }
+          },
           "type": "combined"
         }
       ],
@@ -1393,18 +2287,38 @@
       "id": 110976,
       "sub_opinions": [
         {
-          "opinions_cited": [
-            {"107360": {"opacity": 1}},
-            {"": {"opacity": 1}},
-            {"108995": {"opacity": 1}},
-            {"109541": {"opacity": 1}},
-            {"109537": {"opacity": 1}},
-            {"110119": {"opacity": 1}},
-            {"107979": {"opacity": 1}},
-            {"109714": {"opacity": 1}},
-            {"108893": {"opacity": 1}},
-            {"110559": {"opacity": 1}}
-          ],
+          "opinions_cited": {
+            "104769": {
+              "opacity": 1
+            },
+            "107360": {
+              "opacity": 1
+            },
+            "107979": {
+              "opacity": 1
+            },
+            "108893": {
+              "opacity": 1
+            },
+            "108995": {
+              "opacity": 1
+            },
+            "109537": {
+              "opacity": 1
+            },
+            "109541": {
+              "opacity": 1
+            },
+            "109714": {
+              "opacity": 1
+            },
+            "110119": {
+              "opacity": 1
+            },
+            "110559": {
+              "opacity": 1
+            }
+          },
           "type": "combined"
         }
       ],
@@ -1421,17 +2335,35 @@
       "id": 110979,
       "sub_opinions": [
         {
-          "opinions_cited": [
-            {"": {"opacity": 1}},
-            {"110119": {"opacity": 1}},
-            {"107465": {"opacity": 1}},
-            {"107564": {"opacity": 1}},
-            {"107729": {"opacity": 1}},
-            {"109714": {"opacity": 1}},
-            {"110901": {"opacity": 1}},
-            {"108184": {"opacity": 1}},
-            {"108377": {"opacity": 1}}
-          ],
+          "opinions_cited": {
+            "104769": {
+              "opacity": 1
+            },
+            "107465": {
+              "opacity": 1
+            },
+            "107564": {
+              "opacity": 1
+            },
+            "107729": {
+              "opacity": 1
+            },
+            "108184": {
+              "opacity": 1
+            },
+            "108377": {
+              "opacity": 1
+            },
+            "109714": {
+              "opacity": 1
+            },
+            "110119": {
+              "opacity": 1
+            },
+            "110901": {
+              "opacity": 1
+            }
+          },
           "type": "combined"
         }
       ],
@@ -1448,20 +2380,44 @@
       "id": 111020,
       "sub_opinions": [
         {
-          "opinions_cited": [
-            {"110976": {"opacity": 1}},
-            {"": {"opacity": 1}},
-            {"110979": {"opacity": 1}},
-            {"109537": {"opacity": 1}},
-            {"107979": {"opacity": 1}},
-            {"110959": {"opacity": 1}},
-            {"107729": {"opacity": 1}},
-            {"107730": {"opacity": 1}},
-            {"110901": {"opacity": 1}},
-            {"108377": {"opacity": 1}},
-            {"108893": {"opacity": 1}},
-            {"110559": {"opacity": 1}}
-          ],
+          "opinions_cited": {
+            "104769": {
+              "opacity": 1
+            },
+            "107729": {
+              "opacity": 1
+            },
+            "107730": {
+              "opacity": 1
+            },
+            "107979": {
+              "opacity": 1
+            },
+            "108377": {
+              "opacity": 1
+            },
+            "108893": {
+              "opacity": 1
+            },
+            "109537": {
+              "opacity": 1
+            },
+            "110559": {
+              "opacity": 1
+            },
+            "110901": {
+              "opacity": 1
+            },
+            "110959": {
+              "opacity": 1
+            },
+            "110976": {
+              "opacity": 1
+            },
+            "110979": {
+              "opacity": 1
+            }
+          },
           "type": "combined"
         }
       ],
@@ -1478,34 +2434,86 @@
       "id": 111259,
       "sub_opinions": [
         {
-          "opinions_cited": [
-            {"110976": {"opacity": 1}},
-            {"110979": {"opacity": 1}},
-            {"1087878": {"opacity": 1}},
-            {"109714": {"opacity": 1}},
-            {"106515": {"opacity": 1}},
-            {"108183": {"opacity": 1}},
-            {"108184": {"opacity": 1}},
-            {"111262": {"opacity": 1}},
-            {"108581": {"opacity": 1}},
-            {"110119": {"opacity": 1}},
-            {"107564": {"opacity": 1}},
-            {"106285": {"opacity": 1}},
-            {"110901": {"opacity": 1}},
-            {"106936": {"opacity": 1}},
-            {"109504": {"opacity": 1}},
-            {"": {"opacity": 1}},
-            {"108995": {"opacity": 1}},
-            {"107979": {"opacity": 1}},
-            {"107729": {"opacity": 1}},
-            {"108377": {"opacity": 1}},
-            {"108893": {"opacity": 1}},
-            {"109537": {"opacity": 1}},
-            {"104932": {"opacity": 1}},
-            {"107252": {"opacity": 1}},
-            {"109302": {"opacity": 1}},
-            {"106107": {"opacity": 1}}
-          ],
+          "opinions_cited": {
+            "104769": {
+              "opacity": 1
+            },
+            "104932": {
+              "opacity": 1
+            },
+            "106107": {
+              "opacity": 1
+            },
+            "106285": {
+              "opacity": 1
+            },
+            "106515": {
+              "opacity": 1
+            },
+            "106936": {
+              "opacity": 1
+            },
+            "107252": {
+              "opacity": 1
+            },
+            "107564": {
+              "opacity": 1
+            },
+            "107729": {
+              "opacity": 1
+            },
+            "107979": {
+              "opacity": 1
+            },
+            "108183": {
+              "opacity": 1
+            },
+            "108184": {
+              "opacity": 1
+            },
+            "108377": {
+              "opacity": 1
+            },
+            "108581": {
+              "opacity": 1
+            },
+            "108893": {
+              "opacity": 1
+            },
+            "108995": {
+              "opacity": 1
+            },
+            "109302": {
+              "opacity": 1
+            },
+            "109504": {
+              "opacity": 1
+            },
+            "109537": {
+              "opacity": 1
+            },
+            "109714": {
+              "opacity": 1
+            },
+            "110119": {
+              "opacity": 1
+            },
+            "110901": {
+              "opacity": 1
+            },
+            "110976": {
+              "opacity": 1
+            },
+            "110979": {
+              "opacity": 1
+            },
+            "111262": {
+              "opacity": 1
+            },
+            "1087878": {
+              "opacity": 1
+            }
+          },
           "type": "combined"
         }
       ],
@@ -1522,31 +2530,77 @@
       "id": 111262,
       "sub_opinions": [
         {
-          "opinions_cited": [
-            {"1087878": {"opacity": 1}},
-            {"109714": {"opacity": 1}},
-            {"106515": {"opacity": 1}},
-            {"105748": {"opacity": 1}},
-            {"108183": {"opacity": 1}},
-            {"111259": {"opacity": 1}},
-            {"110754": {"opacity": 1}},
-            {"108581": {"opacity": 1}},
-            {"107564": {"opacity": 1}},
-            {"106285": {"opacity": 1}},
-            {"110127": {"opacity": 1}},
-            {"107831": {"opacity": 1}},
-            {"106936": {"opacity": 1}},
-            {"": {"opacity": 1}},
-            {"107979": {"opacity": 1}},
-            {"107729": {"opacity": 1}},
-            {"107730": {"opacity": 1}},
-            {"108377": {"opacity": 1}},
-            {"106990": {"opacity": 1}},
-            {"110959": {"opacity": 1}},
-            {"109302": {"opacity": 1}},
-            {"107898": {"opacity": 1}},
-            {"106107": {"opacity": 1}}
-          ],
+          "opinions_cited": {
+            "104769": {
+              "opacity": 1
+            },
+            "105748": {
+              "opacity": 1
+            },
+            "106107": {
+              "opacity": 1
+            },
+            "106285": {
+              "opacity": 1
+            },
+            "106515": {
+              "opacity": 1
+            },
+            "106936": {
+              "opacity": 1
+            },
+            "106990": {
+              "opacity": 1
+            },
+            "107564": {
+              "opacity": 1
+            },
+            "107729": {
+              "opacity": 1
+            },
+            "107730": {
+              "opacity": 1
+            },
+            "107831": {
+              "opacity": 1
+            },
+            "107898": {
+              "opacity": 1
+            },
+            "107979": {
+              "opacity": 1
+            },
+            "108183": {
+              "opacity": 1
+            },
+            "108377": {
+              "opacity": 1
+            },
+            "108581": {
+              "opacity": 1
+            },
+            "109302": {
+              "opacity": 1
+            },
+            "109714": {
+              "opacity": 1
+            },
+            "110127": {
+              "opacity": 1
+            },
+            "110754": {
+              "opacity": 1
+            },
+            "110959": {
+              "opacity": 1
+            },
+            "111259": {
+              "opacity": 1
+            },
+            "1087878": {
+              "opacity": 1
+            }
+          },
           "type": "combined"
         }
       ],
@@ -1563,34 +2617,86 @@
       "id": 111301,
       "sub_opinions": [
         {
-          "opinions_cited": [
-            {"110976": {"opacity": 1}},
-            {"110979": {"opacity": 1}},
-            {"1087878": {"opacity": 1}},
-            {"111020": {"opacity": 1}},
-            {"109714": {"opacity": 1}},
-            {"106515": {"opacity": 1}},
-            {"108184": {"opacity": 1}},
-            {"111259": {"opacity": 1}},
-            {"111262": {"opacity": 1}},
-            {"108581": {"opacity": 1}},
-            {"110119": {"opacity": 1}},
-            {"107564": {"opacity": 1}},
-            {"106285": {"opacity": 1}},
-            {"110901": {"opacity": 1}},
-            {"107831": {"opacity": 1}},
-            {"106936": {"opacity": 1}},
-            {"": {"opacity": 1}},
-            {"107465": {"opacity": 1}},
-            {"107729": {"opacity": 1}},
-            {"107730": {"opacity": 1}},
-            {"108377": {"opacity": 1}},
-            {"108893": {"opacity": 1}},
-            {"109537": {"opacity": 1}},
-            {"109541": {"opacity": 1}},
-            {"110959": {"opacity": 1}},
-            {"106107": {"opacity": 1}}
-          ],
+          "opinions_cited": {
+            "104769": {
+              "opacity": 1
+            },
+            "106107": {
+              "opacity": 1
+            },
+            "106285": {
+              "opacity": 1
+            },
+            "106515": {
+              "opacity": 1
+            },
+            "106936": {
+              "opacity": 1
+            },
+            "107465": {
+              "opacity": 1
+            },
+            "107564": {
+              "opacity": 1
+            },
+            "107729": {
+              "opacity": 1
+            },
+            "107730": {
+              "opacity": 1
+            },
+            "107831": {
+              "opacity": 1
+            },
+            "108184": {
+              "opacity": 1
+            },
+            "108377": {
+              "opacity": 1
+            },
+            "108581": {
+              "opacity": 1
+            },
+            "108893": {
+              "opacity": 1
+            },
+            "109537": {
+              "opacity": 1
+            },
+            "109541": {
+              "opacity": 1
+            },
+            "109714": {
+              "opacity": 1
+            },
+            "110119": {
+              "opacity": 1
+            },
+            "110901": {
+              "opacity": 1
+            },
+            "110959": {
+              "opacity": 1
+            },
+            "110976": {
+              "opacity": 1
+            },
+            "110979": {
+              "opacity": 1
+            },
+            "111020": {
+              "opacity": 1
+            },
+            "111259": {
+              "opacity": 1
+            },
+            "111262": {
+              "opacity": 1
+            },
+            "1087878": {
+              "opacity": 1
+            }
+          },
           "type": "combined"
         }
       ],
@@ -1607,14 +2713,26 @@
       "id": 111380,
       "sub_opinions": [
         {
-          "opinions_cited": [
-            {"109537": {"opacity": 1}},
-            {"1087878": {"opacity": 1}},
-            {"107564": {"opacity": 1}},
-            {"106285": {"opacity": 1}},
-            {"107729": {"opacity": 1}},
-            {"107262": {"opacity": 1}}
-          ],
+          "opinions_cited": {
+            "106285": {
+              "opacity": 1
+            },
+            "107262": {
+              "opacity": 1
+            },
+            "107564": {
+              "opacity": 1
+            },
+            "107729": {
+              "opacity": 1
+            },
+            "109537": {
+              "opacity": 1
+            },
+            "1087878": {
+              "opacity": 1
+            }
+          },
           "type": "combined"
         }
       ],
@@ -1631,23 +2749,53 @@
       "id": 111509,
       "sub_opinions": [
         {
-          "opinions_cited": [
-            {"": {"opacity": 1}},
-            {"109186": {"opacity": 1}},
-            {"110979": {"opacity": 1}},
-            {"106021": {"opacity": 1}},
-            {"109537": {"opacity": 1}},
-            {"107564": {"opacity": 1}},
-            {"107729": {"opacity": 1}},
-            {"111301": {"opacity": 1}},
-            {"106515": {"opacity": 1}},
-            {"111380": {"opacity": 1}},
-            {"106936": {"opacity": 1}},
-            {"108377": {"opacity": 1}},
-            {"109541": {"opacity": 1}},
-            {"107262": {"opacity": 1}},
-            {"108581": {"opacity": 1}}
-          ],
+          "opinions_cited": {
+            "104769": {
+              "opacity": 1
+            },
+            "106021": {
+              "opacity": 1
+            },
+            "106515": {
+              "opacity": 1
+            },
+            "106936": {
+              "opacity": 1
+            },
+            "107262": {
+              "opacity": 1
+            },
+            "107564": {
+              "opacity": 1
+            },
+            "107729": {
+              "opacity": 1
+            },
+            "108377": {
+              "opacity": 1
+            },
+            "108581": {
+              "opacity": 1
+            },
+            "109186": {
+              "opacity": 1
+            },
+            "109537": {
+              "opacity": 1
+            },
+            "109541": {
+              "opacity": 1
+            },
+            "110979": {
+              "opacity": 1
+            },
+            "111301": {
+              "opacity": 1
+            },
+            "111380": {
+              "opacity": 1
+            }
+          },
           "type": "combined"
         }
       ],
@@ -1664,11 +2812,20 @@
       "id": 111891,
       "sub_opinions": [
         {
-          "opinions_cited": [
-            {"": {"opacity": 1}},
-            {"109186": {"opacity": 1}},
-            {"110075": {"opacity": 1}}
-          ],
+          "opinions_cited": {
+            "104769": {
+              "opacity": 1
+            },
+            "109186": {
+              "opacity": 1
+            },
+            "110075": {
+              "opacity": 1
+            },
+            "111891": {
+              "opacity": 1
+            }
+          },
           "type": "combined"
         }
       ],
@@ -1685,26 +2842,62 @@
       "id": 112219,
       "sub_opinions": [
         {
-          "opinions_cited": [
-            {"110976": {"opacity": 1}},
-            {"108801": {"opacity": 1}},
-            {"110979": {"opacity": 1}},
-            {"108581": {"opacity": 1}},
-            {"111301": {"opacity": 1}},
-            {"107979": {"opacity": 1}},
-            {"107564": {"opacity": 1}},
-            {"107729": {"opacity": 1}},
-            {"109714": {"opacity": 1}},
-            {"111380": {"opacity": 1}},
-            {"111509": {"opacity": 1}},
-            {"109592": {"opacity": 1}},
-            {"108184": {"opacity": 1}},
-            {"108377": {"opacity": 1}},
-            {"110075": {"opacity": 1}},
-            {"112220": {"opacity": 1}},
-            {"107262": {"opacity": 1}},
-            {"109541": {"opacity": 1}}
-          ],
+          "opinions_cited": {
+            "107262": {
+              "opacity": 1
+            },
+            "107564": {
+              "opacity": 1
+            },
+            "107729": {
+              "opacity": 1
+            },
+            "107979": {
+              "opacity": 1
+            },
+            "108184": {
+              "opacity": 1
+            },
+            "108377": {
+              "opacity": 1
+            },
+            "108581": {
+              "opacity": 1
+            },
+            "108801": {
+              "opacity": 1
+            },
+            "109541": {
+              "opacity": 1
+            },
+            "109592": {
+              "opacity": 1
+            },
+            "109714": {
+              "opacity": 1
+            },
+            "110075": {
+              "opacity": 1
+            },
+            "110976": {
+              "opacity": 1
+            },
+            "110979": {
+              "opacity": 1
+            },
+            "111301": {
+              "opacity": 1
+            },
+            "111380": {
+              "opacity": 1
+            },
+            "111509": {
+              "opacity": 1
+            },
+            "112220": {
+              "opacity": 1
+            }
+          },
           "type": "combined"
         }
       ],
@@ -1721,14 +2914,26 @@
       "id": 112220,
       "sub_opinions": [
         {
-          "opinions_cited": [
-            {"109537": {"opacity": 1}},
-            {"110075": {"opacity": 1}},
-            {"109541": {"opacity": 1}},
-            {"111509": {"opacity": 1}},
-            {"112219": {"opacity": 1}},
-            {"111301": {"opacity": 1}}
-          ],
+          "opinions_cited": {
+            "109537": {
+              "opacity": 1
+            },
+            "109541": {
+              "opacity": 1
+            },
+            "110075": {
+              "opacity": 1
+            },
+            "111301": {
+              "opacity": 1
+            },
+            "111509": {
+              "opacity": 1
+            },
+            "112219": {
+              "opacity": 1
+            }
+          },
           "type": "combined"
         }
       ],
@@ -1745,15 +2950,29 @@
       "id": 112384,
       "sub_opinions": [
         {
-          "opinions_cited": [
-            {"110979": {"opacity": 1}},
-            {"108581": {"opacity": 1}},
-            {"107979": {"opacity": 1}},
-            {"111020": {"opacity": 1}},
-            {"107729": {"opacity": 1}},
-            {"112219": {"opacity": 1}},
-            {"111301": {"opacity": 1}}
-          ],
+          "opinions_cited": {
+            "107729": {
+              "opacity": 1
+            },
+            "107979": {
+              "opacity": 1
+            },
+            "108581": {
+              "opacity": 1
+            },
+            "110979": {
+              "opacity": 1
+            },
+            "111020": {
+              "opacity": 1
+            },
+            "111301": {
+              "opacity": 1
+            },
+            "112219": {
+              "opacity": 1
+            }
+          },
           "type": "combined"
         }
       ],
@@ -1770,11 +2989,17 @@
       "id": 112464,
       "sub_opinions": [
         {
-          "opinions_cited": [
-            {"111020": {"opacity": 1}},
-            {"107252": {"opacity": 1}},
-            {"107262": {"opacity": 1}}
-          ],
+          "opinions_cited": {
+            "107252": {
+              "opacity": 1
+            },
+            "107262": {
+              "opacity": 1
+            },
+            "111020": {
+              "opacity": 1
+            }
+          },
           "type": "combined"
         }
       ],
@@ -1791,9 +3016,11 @@
       "id": 112585,
       "sub_opinions": [
         {
-          "opinions_cited": [
-            {"109186": {"opacity": 1}}
-          ],
+          "opinions_cited": {
+            "109186": {
+              "opacity": 1
+            }
+          },
           "type": "combined"
         }
       ],
@@ -1810,27 +3037,65 @@
       "id": 112608,
       "sub_opinions": [
         {
-          "opinions_cited": [
-            {"110976": {"opacity": 1}},
-            {"": {"opacity": 1}},
-            {"110979": {"opacity": 1}},
-            {"104932": {"opacity": 1}},
-            {"111301": {"opacity": 1}},
-            {"110119": {"opacity": 1}},
-            {"111020": {"opacity": 1}},
-            {"107979": {"opacity": 1}},
-            {"107564": {"opacity": 1}},
-            {"110959": {"opacity": 1}},
-            {"109714": {"opacity": 1}},
-            {"110901": {"opacity": 1}},
-            {"108184": {"opacity": 1}},
-            {"108377": {"opacity": 1}},
-            {"112219": {"opacity": 1}},
-            {"112220": {"opacity": 1}},
-            {"111509": {"opacity": 1}},
-            {"111262": {"opacity": 1}},
-            {"110559": {"opacity": 1}}
-          ],
+          "opinions_cited": {
+            "104769": {
+              "opacity": 1
+            },
+            "104932": {
+              "opacity": 1
+            },
+            "107564": {
+              "opacity": 1
+            },
+            "107979": {
+              "opacity": 1
+            },
+            "108184": {
+              "opacity": 1
+            },
+            "108377": {
+              "opacity": 1
+            },
+            "109714": {
+              "opacity": 1
+            },
+            "110119": {
+              "opacity": 1
+            },
+            "110559": {
+              "opacity": 1
+            },
+            "110901": {
+              "opacity": 1
+            },
+            "110959": {
+              "opacity": 1
+            },
+            "110976": {
+              "opacity": 1
+            },
+            "110979": {
+              "opacity": 1
+            },
+            "111020": {
+              "opacity": 1
+            },
+            "111262": {
+              "opacity": 1
+            },
+            "111301": {
+              "opacity": 1
+            },
+            "111509": {
+              "opacity": 1
+            },
+            "112219": {
+              "opacity": 1
+            },
+            "112220": {
+              "opacity": 1
+            }
+          },
           "type": "combined"
         }
       ],
@@ -1847,17 +3112,35 @@
       "id": 117964,
       "sub_opinions": [
         {
-          "opinions_cited": [
-            {"108801": {"opacity": 1}},
-            {"112219": {"opacity": 1}},
-            {"110075": {"opacity": 1}},
-            {"111301": {"opacity": 1}},
-            {"109537": {"opacity": 1}},
-            {"111509": {"opacity": 1}},
-            {"106107": {"opacity": 1}},
-            {"112220": {"opacity": 1}},
-            {"109541": {"opacity": 1}}
-          ],
+          "opinions_cited": {
+            "106107": {
+              "opacity": 1
+            },
+            "108801": {
+              "opacity": 1
+            },
+            "109537": {
+              "opacity": 1
+            },
+            "109541": {
+              "opacity": 1
+            },
+            "110075": {
+              "opacity": 1
+            },
+            "111301": {
+              "opacity": 1
+            },
+            "111509": {
+              "opacity": 1
+            },
+            "112219": {
+              "opacity": 1
+            },
+            "112220": {
+              "opacity": 1
+            }
+          },
           "type": "combined"
         }
       ],
@@ -1874,13 +3157,23 @@
       "id": 118100,
       "sub_opinions": [
         {
-          "opinions_cited": [
-            {"117964": {"opacity": 1}},
-            {"112219": {"opacity": 1}},
-            {"112220": {"opacity": 1}},
-            {"109541": {"opacity": 1}},
-            {"111301": {"opacity": 1}}
-          ],
+          "opinions_cited": {
+            "109541": {
+              "opacity": 1
+            },
+            "111301": {
+              "opacity": 1
+            },
+            "112219": {
+              "opacity": 1
+            },
+            "112220": {
+              "opacity": 1
+            },
+            "117964": {
+              "opacity": 1
+            }
+          },
           "type": "combined"
         }
       ],
@@ -1897,15 +3190,29 @@
       "id": 118277,
       "sub_opinions": [
         {
-          "opinions_cited": [
-            {"112608": {"opacity": 1}},
-            {"109537": {"opacity": 1}},
-            {"111301": {"opacity": 1}},
-            {"117964": {"opacity": 1}},
-            {"107729": {"opacity": 1}},
-            {"107730": {"opacity": 1}},
-            {"118100": {"opacity": 1}}
-          ],
+          "opinions_cited": {
+            "107729": {
+              "opacity": 1
+            },
+            "107730": {
+              "opacity": 1
+            },
+            "109537": {
+              "opacity": 1
+            },
+            "111301": {
+              "opacity": 1
+            },
+            "112608": {
+              "opacity": 1
+            },
+            "117964": {
+              "opacity": 1
+            },
+            "118100": {
+              "opacity": 1
+            }
+          },
           "type": "combined"
         }
       ],
@@ -1922,18 +3229,38 @@
       "id": 118391,
       "sub_opinions": [
         {
-          "opinions_cited": [
-            {"109537": {"opacity": 1}},
-            {"110979": {"opacity": 1}},
-            {"111301": {"opacity": 1}},
-            {"117964": {"opacity": 1}},
-            {"107729": {"opacity": 1}},
-            {"118100": {"opacity": 1}},
-            {"111509": {"opacity": 1}},
-            {"112219": {"opacity": 1}},
-            {"112220": {"opacity": 1}},
-            {"109541": {"opacity": 1}}
-          ],
+          "opinions_cited": {
+            "107729": {
+              "opacity": 1
+            },
+            "109537": {
+              "opacity": 1
+            },
+            "109541": {
+              "opacity": 1
+            },
+            "110979": {
+              "opacity": 1
+            },
+            "111301": {
+              "opacity": 1
+            },
+            "111509": {
+              "opacity": 1
+            },
+            "112219": {
+              "opacity": 1
+            },
+            "112220": {
+              "opacity": 1
+            },
+            "117964": {
+              "opacity": 1
+            },
+            "118100": {
+              "opacity": 1
+            }
+          },
           "type": "combined"
         }
       ],
@@ -1950,18 +3277,38 @@
       "id": 118405,
       "sub_opinions": [
         {
-          "opinions_cited": [
-            {"109504": {"opacity": 1}},
-            {"110979": {"opacity": 1}},
-            {"104932": {"opacity": 1}},
-            {"108581": {"opacity": 1}},
-            {"107465": {"opacity": 1}},
-            {"106990": {"opacity": 1}},
-            {"107729": {"opacity": 1}},
-            {"110901": {"opacity": 1}},
-            {"111259": {"opacity": 1}},
-            {"107262": {"opacity": 1}}
-          ],
+          "opinions_cited": {
+            "104932": {
+              "opacity": 1
+            },
+            "106990": {
+              "opacity": 1
+            },
+            "107262": {
+              "opacity": 1
+            },
+            "107465": {
+              "opacity": 1
+            },
+            "107729": {
+              "opacity": 1
+            },
+            "108581": {
+              "opacity": 1
+            },
+            "109504": {
+              "opacity": 1
+            },
+            "110901": {
+              "opacity": 1
+            },
+            "110979": {
+              "opacity": 1
+            },
+            "111259": {
+              "opacity": 1
+            }
+          },
           "type": "combined"
         }
       ],
@@ -1978,17 +3325,35 @@
       "id": 134746,
       "sub_opinions": [
         {
-          "opinions_cited": [
-            {"": {"opacity": 1}},
-            {"118277": {"opacity": 1}},
-            {"107465": {"opacity": 1}},
-            {"107979": {"opacity": 1}},
-            {"111020": {"opacity": 1}},
-            {"107730": {"opacity": 1}},
-            {"106771": {"opacity": 1}},
-            {"108893": {"opacity": 1}},
-            {"110559": {"opacity": 1}}
-          ],
+          "opinions_cited": {
+            "104769": {
+              "opacity": 1
+            },
+            "106771": {
+              "opacity": 1
+            },
+            "107465": {
+              "opacity": 1
+            },
+            "107730": {
+              "opacity": 1
+            },
+            "107979": {
+              "opacity": 1
+            },
+            "108893": {
+              "opacity": 1
+            },
+            "110559": {
+              "opacity": 1
+            },
+            "111020": {
+              "opacity": 1
+            },
+            "118277": {
+              "opacity": 1
+            }
+          },
           "type": "combined"
         }
       ],
@@ -2005,13 +3370,23 @@
       "id": 136990,
       "sub_opinions": [
         {
-          "opinions_cited": [
-            {"112464": {"opacity": 1}},
-            {"107729": {"opacity": 1}},
-            {"110979": {"opacity": 1}},
-            {"107252": {"opacity": 1}},
-            {"107262": {"opacity": 1}}
-          ],
+          "opinions_cited": {
+            "107252": {
+              "opacity": 1
+            },
+            "107262": {
+              "opacity": 1
+            },
+            "107729": {
+              "opacity": 1
+            },
+            "110979": {
+              "opacity": 1
+            },
+            "112464": {
+              "opacity": 1
+            }
+          },
           "type": "combined"
         }
       ],
@@ -2028,19 +3403,41 @@
       "id": 145887,
       "sub_opinions": [
         {
-          "opinions_cited": [
-            {"112384": {"opacity": 1}},
-            {"": {"opacity": 1}},
-            {"111020": {"opacity": 1}},
-            {"107979": {"opacity": 1}},
-            {"107564": {"opacity": 1}},
-            {"107729": {"opacity": 1}},
-            {"106771": {"opacity": 1}},
-            {"107252": {"opacity": 1}},
-            {"134746": {"opacity": 1}},
-            {"108893": {"opacity": 1}},
-            {"110559": {"opacity": 1}}
-          ],
+          "opinions_cited": {
+            "104769": {
+              "opacity": 1
+            },
+            "106771": {
+              "opacity": 1
+            },
+            "107252": {
+              "opacity": 1
+            },
+            "107564": {
+              "opacity": 1
+            },
+            "107729": {
+              "opacity": 1
+            },
+            "107979": {
+              "opacity": 1
+            },
+            "108893": {
+              "opacity": 1
+            },
+            "110559": {
+              "opacity": 1
+            },
+            "111020": {
+              "opacity": 1
+            },
+            "112384": {
+              "opacity": 1
+            },
+            "134746": {
+              "opacity": 1
+            }
+          },
           "type": "combined"
         }
       ],
@@ -2057,13 +3454,23 @@
       "id": 856195,
       "sub_opinions": [
         {
-          "opinions_cited": [
-            {"110979": {"opacity": 1}},
-            {"107564": {"opacity": 1}},
-            {"118277": {"opacity": 1}},
-            {"106990": {"opacity": 1}},
-            {"145887": {"opacity": 1}}
-          ],
+          "opinions_cited": {
+            "106990": {
+              "opacity": 1
+            },
+            "107564": {
+              "opacity": 1
+            },
+            "110979": {
+              "opacity": 1
+            },
+            "118277": {
+              "opacity": 1
+            },
+            "145887": {
+              "opacity": 1
+            }
+          },
           "type": "combined"
         }
       ],
@@ -2080,13 +3487,23 @@
       "id": 856347,
       "sub_opinions": [
         {
-          "opinions_cited": [
-            {"110979": {"opacity": 1}},
-            {"107564": {"opacity": 1}},
-            {"118277": {"opacity": 1}},
-            {"106990": {"opacity": 1}},
-            {"145887": {"opacity": 1}}
-          ],
+          "opinions_cited": {
+            "106990": {
+              "opacity": 1
+            },
+            "107564": {
+              "opacity": 1
+            },
+            "110979": {
+              "opacity": 1
+            },
+            "118277": {
+              "opacity": 1
+            },
+            "145887": {
+              "opacity": 1
+            }
+          },
           "type": "combined"
         }
       ],
@@ -2103,20 +3520,44 @@
       "id": 858288,
       "sub_opinions": [
         {
-          "opinions_cited": [
-            {"109504": {"opacity": 1}},
-            {"108801": {"opacity": 1}},
-            {"112608": {"opacity": 1}},
-            {"107729": {"opacity": 1}},
-            {"107465": {"opacity": 1}},
-            {"106641": {"opacity": 1}},
-            {"106771": {"opacity": 1}},
-            {"111380": {"opacity": 1}},
-            {"112219": {"opacity": 1}},
-            {"108893": {"opacity": 1}},
-            {"107262": {"opacity": 1}},
-            {"118405": {"opacity": 1}}
-          ],
+          "opinions_cited": {
+            "106641": {
+              "opacity": 1
+            },
+            "106771": {
+              "opacity": 1
+            },
+            "107262": {
+              "opacity": 1
+            },
+            "107465": {
+              "opacity": 1
+            },
+            "107729": {
+              "opacity": 1
+            },
+            "108801": {
+              "opacity": 1
+            },
+            "108893": {
+              "opacity": 1
+            },
+            "109504": {
+              "opacity": 1
+            },
+            "111380": {
+              "opacity": 1
+            },
+            "112219": {
+              "opacity": 1
+            },
+            "112608": {
+              "opacity": 1
+            },
+            "118405": {
+              "opacity": 1
+            }
+          },
           "type": "combined"
         }
       ],
@@ -2133,44 +3574,116 @@
       "id": 873669,
       "sub_opinions": [
         {
-          "opinions_cited": [
-            {"110976": {"opacity": 1}},
-            {"108801": {"opacity": 1}},
-            {"109186": {"opacity": 1}},
-            {"856195": {"opacity": 1}},
-            {"118277": {"opacity": 1}},
-            {"1087878": {"opacity": 1}},
-            {"111891": {"opacity": 1}},
-            {"111380": {"opacity": 1}},
-            {"109592": {"opacity": 1}},
-            {"856347": {"opacity": 1}},
-            {"136990": {"opacity": 1}},
-            {"118405": {"opacity": 1}},
-            {"107564": {"opacity": 1}},
-            {"106285": {"opacity": 1}},
-            {"110127": {"opacity": 1}},
-            {"858288": {"opacity": 1}},
-            {"145887": {"opacity": 1}},
-            {"112384": {"opacity": 1}},
-            {"111301": {"opacity": 1}},
-            {"112585": {"opacity": 1}},
-            {"107979": {"opacity": 1}},
-            {"117964": {"opacity": 1}},
-            {"112464": {"opacity": 1}},
-            {"107729": {"opacity": 1}},
-            {"118100": {"opacity": 1}},
-            {"134746": {"opacity": 1}},
-            {"112219": {"opacity": 1}},
-            {"112220": {"opacity": 1}},
-            {"108893": {"opacity": 1}},
-            {"110559": {"opacity": 1}},
-            {"109541": {"opacity": 1}},
-            {"110959": {"opacity": 1}},
-            {"107252": {"opacity": 1}},
-            {"118391": {"opacity": 1}},
-            {"110075": {"opacity": 1}},
-            {"107262": {"opacity": 1}}
-          ],
+          "opinions_cited": {
+            "106285": {
+              "opacity": 1
+            },
+            "107252": {
+              "opacity": 1
+            },
+            "107262": {
+              "opacity": 1
+            },
+            "107564": {
+              "opacity": 1
+            },
+            "107729": {
+              "opacity": 1
+            },
+            "107979": {
+              "opacity": 1
+            },
+            "108801": {
+              "opacity": 1
+            },
+            "108893": {
+              "opacity": 1
+            },
+            "109186": {
+              "opacity": 1
+            },
+            "109541": {
+              "opacity": 1
+            },
+            "109592": {
+              "opacity": 1
+            },
+            "110075": {
+              "opacity": 1
+            },
+            "110127": {
+              "opacity": 1
+            },
+            "110559": {
+              "opacity": 1
+            },
+            "110959": {
+              "opacity": 1
+            },
+            "110976": {
+              "opacity": 1
+            },
+            "111301": {
+              "opacity": 1
+            },
+            "111380": {
+              "opacity": 1
+            },
+            "111891": {
+              "opacity": 1
+            },
+            "112219": {
+              "opacity": 1
+            },
+            "112220": {
+              "opacity": 1
+            },
+            "112384": {
+              "opacity": 1
+            },
+            "112464": {
+              "opacity": 1
+            },
+            "112585": {
+              "opacity": 1
+            },
+            "117964": {
+              "opacity": 1
+            },
+            "118100": {
+              "opacity": 1
+            },
+            "118277": {
+              "opacity": 1
+            },
+            "118391": {
+              "opacity": 1
+            },
+            "118405": {
+              "opacity": 1
+            },
+            "134746": {
+              "opacity": 1
+            },
+            "136990": {
+              "opacity": 1
+            },
+            "145887": {
+              "opacity": 1
+            },
+            "856195": {
+              "opacity": 1
+            },
+            "856347": {
+              "opacity": 1
+            },
+            "858288": {
+              "opacity": 1
+            },
+            "1087878": {
+              "opacity": 1
+            }
+          },
           "type": "combined"
         }
       ],

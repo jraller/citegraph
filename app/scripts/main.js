@@ -46,7 +46,7 @@ var citationJSON = {};
 
  * @return {object} [description]
  */
-function drawGraph(target, chartType, axisType, height, maxDoS) {
+function drawGraph(target, chartType, axisType, height, maxDoS, breakout) {
 	var workingJSON = [],
 		parseDate = d3.time.format('%Y-%m-%d').parse, // to parse dates in the JSON into d3 dates
 		chartMode = (typeof chartType !== 'undefined') ? chartType : 'dos',
@@ -115,16 +115,14 @@ function drawGraph(target, chartType, axisType, height, maxDoS) {
 		chart = {}; // the chart itself
 
 	function getFirstKey(object) {
-		var index = 0,
-			result = 0;
+		var index = 0;
 
 		for (index in object) {
 			if (object.hasOwnProperty(index)) {
-				result = index;
 				break;
 			}
 		}
-		return result;
+		return index;
 	}
 
 	/**
@@ -151,13 +149,15 @@ function drawGraph(target, chartType, axisType, height, maxDoS) {
 		});
 		// add cited by others in JSON to each
 		citationJSON.opinion_clusters.forEach(function (cluster) {
-			cluster.sub_opinions[0].opinions_cited.forEach(function (item) {
-				var key = getFirstKey(item);
+			var item = '';
 
-				if (JSONIndex[key] && JSONIndex[key].citedBy.indexOf() === -1) {
-					JSONIndex[key].citedBy.push(cluster.id);
+			for (item in cluster.sub_opinions[0].opinions_cited) {
+				if (cluster.sub_opinions[0].opinions_cited.hasOwnProperty(item)) {
+					if (JSONIndex[item] && JSONIndex[item].citedBy.indexOf() === -1) {
+						JSONIndex[item].citedBy.push(cluster.id);
+					}
 				}
-			});
+			}
 		});
 	}
 
@@ -180,7 +180,8 @@ function drawGraph(target, chartType, axisType, height, maxDoS) {
 	 */
 	function traverse(nodeid, last, depth) {
 		var order = citationJSON.opinion_clusters[nodeid].travRev,
-			linkId = '';
+			linkId = '',
+			item = '';
 
 		if (nodeid !== last) {
 			linkId = linkName(citationJSON.opinion_clusters[nodeid].id, citationJSON.opinion_clusters[last].id);
@@ -194,11 +195,13 @@ function drawGraph(target, chartType, axisType, height, maxDoS) {
 		}
 		if (typeof order === 'undefined' || order > depth) {
 			citationJSON.opinion_clusters[nodeid].travRev = depth;
-			citationJSON.opinion_clusters[nodeid].sub_opinions[0].opinions_cited.forEach(function (item) {
-				if (JSONIndex[getFirstKey(item)]) {
-					traverse(JSONIndex[getFirstKey(item)].num, nodeid, depth + 1);
+			for (item in citationJSON.opinion_clusters[nodeid].sub_opinions[0].opinions_cited) {
+				if (citationJSON.opinion_clusters[nodeid].sub_opinions[0].opinions_cited.hasOwnProperty(item)) {
+					if (JSONIndex[item]) {
+						traverse(JSONIndex[item].num, nodeid, depth + 1);
+					}
 				}
-			});
+			}
 		}
 	}
 
@@ -351,11 +354,8 @@ function drawGraph(target, chartType, axisType, height, maxDoS) {
 	if (chartMode === 'dos') {
 		colorScale.domain(degrees.slice(0, maxDegree + 1));
 	} else {
-
-//Todo slice these to size
-
-		colorScale.domain(ddlul);
-		colorScale.range(['purple', 'red', 'blue', 'green', 'orange']);
+		colorScale.domain(ddlul.slice(0, maxDoS));
+		colorScale.range(['purple', 'red', 'blue', 'green', 'orange'].slice(0, maxDoS));
 	}
 
 	xAxisCat = new Plottable.Axes.Category(xScaleCat, 'bottom');
@@ -509,21 +509,26 @@ function drawGraph(target, chartType, axisType, height, maxDoS) {
 			coords[cluster.id] = point;
 		});
 		workingJSON.forEach(function (cluster) {
-			cluster.sub_opinions[0].opinions_cited.forEach(function (id) {
-				var name = linkName(cluster.id, getFirstKey(id)),
-					color = 'unk';
+			var item = '',
+				name = '',
+				color = '';
 
-				if (typeof links[name] !== 'undefined') {
-					// replace the following if with the limiter to control greatest DoS connector shown
-					if (typeof links[name].d !== 'undefined') {
-						color = links[name].d;
+			for (item in cluster.sub_opinions[0].opinions_cited) {
+				if (cluster.sub_opinions[0].opinions_cited.hasOwnProperty(item)) {
+					name = linkName(cluster.id, item);
+					color = 'unk';
+					if (typeof links[name] !== 'undefined') {
+						// replace the following if with the limiter to control greatest DoS connector shown
+						if (typeof links[name].d !== 'undefined') {
+							color = links[name].d;
+						}
+						connections.addDataset(new Plottable.Dataset([
+							{x: coords[cluster.id].date_filed, y: coords[cluster.id].count, c: color},
+							{x: coords[item].date_filed, y: coords[item].count, c: color}
+						]));
 					}
-					connections.addDataset(new Plottable.Dataset([
-						{x: coords[cluster.id].date_filed, y: coords[cluster.id].count, c: color},
-						{x: coords[getFirstKey(id)].date_filed, y: coords[getFirstKey(id)].count, c: color}
-					]));
 				}
-			});
+			}
 		});
 	} else {
 		workingJSON.forEach(function (cluster) {
@@ -543,14 +548,16 @@ function drawGraph(target, chartType, axisType, height, maxDoS) {
 			coords[cluster.id] = point;
 		});
 		workingJSON.forEach(function (cluster) {
-			cluster.sub_opinions[0].opinions_cited.forEach(function (id) {
-				var key = getFirstKey(id);
+			var item = {};
 
-				connections.addDataset(new Plottable.Dataset([
-					{x: coords[cluster.id].date_filed, y: coords[cluster.id].split, c: coords[key].dec},
-					{x: coords[key].date_filed, y: coords[key].split, c: coords[key].dec}
-				]));
-			});
+			for (item in cluster.sub_opinions[0].opinions_cited) {
+				if (cluster.sub_opinions[0].opinions_cited.hasOwnProperty(item)) {
+					connections.addDataset(new Plottable.Dataset([
+						{x: coords[cluster.id].date_filed, y: coords[cluster.id].split, c: coords[item].dec},
+						{x: coords[item].date_filed, y: coords[item].split, c: coords[item].dec}
+					]));
+				}
+			}
 		});
 	}
 
@@ -565,7 +572,7 @@ function drawGraph(target, chartType, axisType, height, maxDoS) {
 
 	chart.renderTo('#coverageChart');
 
-	window.addEventListener('resize', function() {
+	window.addEventListener('resize', function () {
 		chart.redraw();
 	});
 
@@ -649,8 +656,12 @@ function drawGraph(target, chartType, axisType, height, maxDoS) {
 			}
 		}
 		if (datum !== null) {
-//			console.log(datum.absolute_url);
-			window.location.assign(datum.absolute_url);
+			if (breakout === 'blank') {
+				// handle this side differently in order to break out of embed
+				window.location.assign('https://www.courtlistener.com' + datum.absolute_url);
+			} else {
+				window.location.assign(datum.absolute_url);
+			}
 		}
 	});
 
@@ -746,8 +757,45 @@ function citationTable(target, data, columns) {
 }
 
 $(document).ready(function () {
-	var chartTarget = '#chart',
+	var settings = {
+			'type': 'dos',
+			'xaxis': 'cat',
+			'dos': 3
+		},
+		args = {},
+		chartTarget = '#chart',
 		tableTarget = '#table';
+
+	// Read a page's GET URL variables and return them as an associative array.
+	function getUrlVars() {
+		var vars = {},
+			i = 0,
+			hash = '',
+			hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+
+		for (i = 0; i < hashes.length; i++) {
+			hash = hashes[i].split('=');
+//			vars.push(hash[0]);
+			vars[hash[0]] = hash[1];
+		}
+		return vars;
+	}
+
+	function updateUrl(payload) {
+		var newUrl = window.location.href.split('?')[0],
+			key = '',
+			count = 0;
+
+		for (key in payload) {
+			if (payload.hasOwnProperty(key)) {
+				newUrl += ((count === 0) ? '?' : '&') + key + '=' + payload[key];
+				count++;
+			}
+		}
+		console.log('newUrl', newUrl, count, payload);
+		// window.history.replaceState({}, '', newUrl);
+	}
+
 
 	function dateFormat(s) {
 		var parseDate = d3.time.format('%Y-%m-%d').parse,
@@ -777,13 +825,15 @@ $(document).ready(function () {
 	// type = chartType [spread, spaeth, gene]
 	// xaxis = axisType [cat, time]
 	// dos = maxDos [integer 1->]
+	// if target = _blank then open links in new tab?
 	//
 	// controls update url without adding to history
-	function trigger() {
-		var chartType = $('#chartTypeSelect').val(),
-			axisType = $('#axisTypeSelect').val(),
+	function trigger(params) {
+		var chartType = params.type,
+			axisType = params.xaxis,
 			heightType = $('#heightTypeSelect').val(),
-			maxDoS = $('#degreesOfSeparationSelect').val(),
+			maxDoS = params.dos,
+			breakout = params.target,
 			JSONpath = $('#dataSourceSelect').val();
 
 		// for courtlistener unwrap this json call
@@ -806,7 +856,7 @@ $(document).ready(function () {
 				// 	maxDoS -- maximum degree of separation to show, is this only DoS
 				// )
 
-			used = drawGraph(chartTarget, chartType, axisType, heightType, maxDoS);
+			used = drawGraph(chartTarget, chartType, axisType, heightType, maxDoS, breakout);
 			citationTable(tableTarget, used,
 				[
 					{s: 'id', f: bold},
@@ -819,22 +869,39 @@ $(document).ready(function () {
 		});
 	}
 
+	// get url search parameters
+	args = getUrlVars();
+
+	// merge settings and args
+	$.extend(settings, args);
+
+	$('#chartTypeSelect').val(settings.type);
+	$('#axisTypeSelect').val(settings.xaxis);
+	$('#degreesOfSeparationSelect').val(settings.dos);
+
+
 	// unwrap dataSourceSelect for courtlistener
 	// on select JSON in the data and then call drawGraph()
 	$('#dataSourceSelect').change(function () {
 		$('#chartTypeSelect').change(function () {
-			trigger();
+			settings.type = $('#chartTypeSelect').val();
+			updateUrl(settings);
+			trigger(settings);
 		});
 		$('#axisTypeSelect').change(function () {
-			trigger();
+			settings.xaxis = $('#axisTypeSelect').val();
+			updateUrl(settings);
+			trigger(settings);
 		});
 		$('#heightTypeSelect').change(function () {
-			trigger();
+			trigger(settings);
 		});
 		$('#degreesOfSeparationSelect').change(function () {
-			trigger();
+			settings.dos = $('#degreesOfSeparationSelect').val();
+			updateUrl(settings);
+			trigger(settings);
 		});
-		trigger();
+		trigger(settings);
 	});
 
 });
