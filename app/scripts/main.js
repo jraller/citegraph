@@ -792,8 +792,8 @@ $(document).ready(function () {
 				count++;
 			}
 		}
-		console.log('newUrl', newUrl, count, payload);
-		// window.history.replaceState({}, '', newUrl);
+		// console.log('newUrl', newUrl, count, payload);
+		window.history.replaceState({}, '', newUrl);
 	}
 
 
