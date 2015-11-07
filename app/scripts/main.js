@@ -820,7 +820,8 @@ $(document).ready(function () {
 		args = {},
 		chartTarget = '#chart',
 		tableTarget = '#table',
-		metadataTarget = '#metadata';
+		metadataTarget = '#metadata',
+		caseCountTarget = '#casecount';
 
 	// Read a page's GET URL variables and return them as an associative array.
 	function getUrlVars() {
@@ -852,7 +853,10 @@ $(document).ready(function () {
 			}
 		}
 
-		$('#embed-input').val(embedPre + embedUrl + params + embedPost);
+		if ($('#embed-input').length) {
+			$('#embed-input').val(embedPre + embedUrl + params + embedPost);
+		}
+
 		// console.log('newUrl', newUrl, count, payload);
 		window.history.replaceState({}, '', newUrl + params);
 	}
@@ -917,16 +921,17 @@ $(document).ready(function () {
 				// )
 
 			used = drawGraph(chartTarget, chartType, axisType, heightType, maxDoS, breakout);
+			$(caseCountTarget).text(used.length);
 			citationTable(tableTarget, used,
 				[
-					{s: 'id', f: bold},
+					// {s: 'id', f: bold},
 					{s: 'case_name_short', l: 'Case Name', a: 'absolute_url'},
 					{s: 'citation_count', l: 'Total Citations'},
 					{s: 'order', l: 'Degrees of Separation'},
 					{s: 'date_filed', l: 'Date Filed', f: dateFormat}
 				]
 			);
-			casesMetadata (metadataTarget, used);
+			casesMetadata(metadataTarget, used);
 		});
 	}
 
