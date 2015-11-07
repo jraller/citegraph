@@ -39,14 +39,15 @@ var citationJSON = {};
 /**
  * [drawGraph description]
  * @param {string} target id of target HTML element to draw the chart in
- * @param {string} chartType [description]
- * @param {string} axisType [description]
+ * @param {string} chartType defaults to dos (Degrees of Separation), also [spaeth, genealogy]
+ * @param {string} axisType controls X axis formatting as category or timeline
  * @param {string} height [description]
  * @param {integer} maxDoS [description]
-
+ * @param {boolean} breakout controls if case links open in new window
  * @return {object} [description]
  */
 function drawGraph(target, chartType, axisType, height, maxDoS, breakout) {
+	// add "edit mode" boolean
 	var workingJSON = [],
 		parseDate = d3.time.format('%Y-%m-%d').parse, // to parse dates in the JSON into d3 dates
 		chartMode = (typeof chartType !== 'undefined') ? chartType : 'dos',
@@ -756,6 +757,60 @@ function citationTable(target, data, columns) {
 	return table;
 }
 
+/**
+ * [casesMetadata description]
+ * @param  {[type]} target [description]
+ * @param  {[type]} data   [description]
+ * @return {[type]}        [description]
+ */
+function casesMetadata(target, data) {
+	var div = d3.select(target).append('div');
+
+	function degreeOfDissent(cases) {
+// @property
+// def degree_of_dissent(self):
+//     """Calculate the average between all the cases included in the viz.
+
+//     The method is to calculate the average of
+
+//         1 - (difference between votes / total votes)
+
+//     So in a 5-4 decision, that'd be:
+
+//         1 - ((5-4) / (5 + 4)) --> 1 - 1/9 --> 0.89
+
+//     And then you'd just average these values for every case that's displayed.
+//     """
+//     dods = []
+//     for cluster in self.clusters.all():
+//         majority = cluster.scdb_votes_majority
+//         minority = cluster.scdb_votes_minority
+//         dods.append(1 - float(
+//             abs(majority - minority) /
+//             sum([majority, minority])
+//         ))
+//     return sum(dods) / len(dods)
+		var dods = [];
+
+		cases.forEach(function (c) {
+			var majority = c.votes_majority,
+				minority = c.votes_minority;
+
+			if (majority !== -1 && minority !== -1) {
+				dods.push(1 - (Math.abs(majority - minority) / (majority + minority)));
+			}
+		});
+
+		return (d3.sum(dods) / dods.length) * 100;
+	}
+
+	div.append('h2')
+		.text('Metadata for ' + data[data.length - 1].case_name + ' to ' + data[0].case_name);
+
+	div.append('p')
+		.text('Degree of Dissent: ' + degreeOfDissent(data).toFixed(2) + '%');
+}
+
 $(document).ready(function () {
 	var settings = {
 			'type': 'dos',
@@ -764,7 +819,8 @@ $(document).ready(function () {
 		},
 		args = {},
 		chartTarget = '#chart',
-		tableTarget = '#table';
+		tableTarget = '#table',
+		metadataTarget = '#metadata';
 
 	// Read a page's GET URL variables and return them as an associative array.
 	function getUrlVars() {
@@ -870,6 +926,7 @@ $(document).ready(function () {
 					{s: 'date_filed', l: 'Date Filed', f: dateFormat}
 				]
 			);
+			casesMetadata (metadataTarget, used);
 		});
 	}
 
