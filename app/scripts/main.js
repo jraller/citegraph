@@ -339,9 +339,6 @@ function drawGraph(target, chartType, axisType, height, maxDoS, breakout) {
 	colorScale = new Plottable.Scales.Color();
 
 	if (chartMode === 'dos') {
-
-		console.log(maxDoS, degrees);
-
 		colorScale.domain(degrees.slice(0, maxDoS));
 	} else {
 		colorScale.domain(ddlul.slice(0, maxDoS));
