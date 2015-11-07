@@ -42,44 +42,39 @@ var citationJSON = {};
  * @param {string} chartType defaults to dos (Degrees of Separation), also [spaeth, genealogy]
  * @param {string} axisType controls X axis formatting as category or timeline
  * @param {string} height [description]
- * @param {integer} maxDoS [description]
+ * @param {integer} maxDoS a maximum degree of separation to show
  * @param {boolean} breakout controls if case links open in new window
- * @return {object} [description]
+ * @return {object} a new version of the source data showing only utilized information
  */
 function drawGraph(target, chartType, axisType, height, maxDoS, breakout) {
 	// add "edit mode" boolean
-	var workingJSON = [],
+	var chartMode = (typeof chartType !== 'undefined') ? chartType : 'dos',
+		xAxisMode = (typeof axisType !== 'undefined') ? axisType : 'cat',
+		heightValue = '400px', // default, height is processed below
 		parseDate = d3.time.format('%Y-%m-%d').parse, // to parse dates in the JSON into d3 dates
-		chartMode = (typeof chartType !== 'undefined') ? chartType : 'dos',
-		heightValue = '400px',
-		chartWidth = 0,
-		xDate = {}, // to format date for display
+		chartWidth = $(target).width(), // the width of the enclosing div
+		xDate = d3.time.format('%b-%Y'), // to format date for display
+		// data structures
+		workingJSON = [],
+		links = {}, // used to hold DoS for connectors
+		coords = {}, // object to hold extracted coordinates keyed by case id
+		point = {}, // a point within coords
+		JSONIndex = {},
+		JSONCount = 0,
+		caseCount = 0, // number of opinions
+		flagSize = 0, // square root of 2 less than the number of opinions
+		maxDegree = 0,
+		label = '',
+		//scales
 		xScaleCat = {}, // the scaling function for x in category mode
 		xScaleTime = {}, // the scaling function for x in timeline mode
 		yScale = {}, // the scaling function for y
 		sizeScale = {}, // the scale used to size the case circles
 		colorScale = {}, // the scale used to keep the colors for the degrees of separation
+		//constants
 		degrees = ['first', 'second', 'third', 'fourth', 'fifth', 'sixth', 'seventh', 'eighth', 'ninth', 'distant'],
-		maxDegree = 0,
-		xAxisCat = {}, // the x axis
-		xAxisTime = {}, // the x axis
-		xAxisMode = (typeof axisType !== 'undefined') ? axisType : 'cat',
-		yAxis = {}, // the y axis
-		label = '',
-		xLabel = {}, // label for the x axis
-		yLabel = {}, // label for the y axis
-		legend = {}, // chart legend, in this case showing the different colors for degrees of separation
-		xGrid = {},
-		yGrid = {},
-		grid = {},
-		cases = {}, // reference to the case circles used to attach interactions
-		connections = {}, // reference to the connection lines used to attach interactions
-		plot = {}, // the plot area of the chart
-		labels = {},
-
-		caseCount = 0, // number of opinions
-		flagSize = 0, // square root of 2 less than the number of opinions
-
+		ddlu = ['N', 'C', 'L', 'U'], // from http://scdb.wustl.edu/documentation.php?var=decisionDirection
+		ddlul = ['Neutral', 'Conservative', 'Liberal', 'Unspecifiable', 'Unknown'],
 		distributions = [
 			[1], // 1
 			[1, 2], // 4
@@ -92,39 +87,31 @@ function drawGraph(target, chartType, axisType, height, maxDoS, breakout) {
 			[1, 2, 3, 4, 5, 6, 7, 8, 9] // 81
 			// how far does this table go?
 		],
-
 		distribution = [], // will hold the correctly sized vertical distribution pattern
-
-		ddlu = ['N', 'C', 'L', 'U'], // from http://scdb.wustl.edu/documentation.php?var=decisionDirection
-		ddlul = ['Neutral', 'Conservative', 'Liberal', 'Unspecifiable', 'Unknown'],
-
-		links = {}, // used to hold DoS for connectors
-
-		coords = {}, // object to hold extracted coordinates keyed by case id
-		point = {}, // a point within coords
-
-		JSONIndex = {},
-		JSONCount = 0,
-
+		labels = {},
+		// chart parts
+		chart = {}, // the chart itself
+		table = [], // holds the structure of the chart
+		legend = {}, // chart legend, in this case showing the different colors for degrees of separation
+		yLabel = {}, // label for the y axis
+		yAxis = {}, // the y axis
+		plot = {}, // the plot area of the chart
+		// parts of the plot
+		xGrid = {},
+		yGrid = {},
+		grid = {},
+		cases = {}, // reference to the case circles used to attach interactions
+		connections = {}, // reference to the connection lines used to attach interactions
+		// x axis
+		xAxisCat = {}, // the x axis category
+		xAxisTime = {}, // the x axis timeline
+		xLabel = {}, // label for the x axis
+		// chart interactions
 		caseHover = {}, // interaction behavior
 		// defaultCaseHoverText = '',
 		// caseHoverText = {}, // reference to the text in the object shown when hovering
 		caseHoverGroup = {}, // reference to the hover show object
-		caseClick = {}, // interaction behavior
-		//connectionHover
-		table = [], // holds the structure of the chart
-		chart = {}; // the chart itself
-
-	function getFirstKey(object) {
-		var index = 0;
-
-		for (index in object) {
-			if (object.hasOwnProperty(index)) {
-				break;
-			}
-		}
-		return index;
-	}
+		caseClick = {}; // interaction behavior
 
 	/**
 	 * [prepJSON description]
@@ -138,7 +125,6 @@ function drawGraph(target, chartType, axisType, height, maxDoS, breakout) {
 			if (parseDate(a.date_filed) < parseDate(b.date_filed)) {
 				return -1;
 			}
-			// a must be equal to b
 			return 0;
 		});
 		// build index
@@ -291,7 +277,7 @@ function drawGraph(target, chartType, axisType, height, maxDoS, breakout) {
 		}
 	}
 
-	xDate = d3.time.format('%b-%Y');
+	// start of process
 
 	prepJSON();
 
@@ -353,7 +339,10 @@ function drawGraph(target, chartType, axisType, height, maxDoS, breakout) {
 	colorScale = new Plottable.Scales.Color();
 
 	if (chartMode === 'dos') {
-		colorScale.domain(degrees.slice(0, maxDegree + 1));
+
+		console.log(maxDoS, degrees);
+
+		colorScale.domain(degrees.slice(0, maxDoS));
 	} else {
 		colorScale.domain(ddlul.slice(0, maxDoS));
 		colorScale.range(['purple', 'red', 'blue', 'green', 'orange'].slice(0, maxDoS));
@@ -368,19 +357,17 @@ function drawGraph(target, chartType, axisType, height, maxDoS, breakout) {
 		return xDate(d);
 	});
 
-	chartWidth = $(target).width();
-
+	// change label angle when it gets too tight to read
 	if (chartWidth / caseCount > 50) {
 		xAxisCat.tickLabelAngle(0);
 	} else {
 		xAxisCat.tickLabelAngle(-90);
 	}
 
-
 	yAxis = new Plottable.Axes.Category(yScale, 'left');
-	// yAxis.formatter(function () {
-	// 	return '';
-	// });
+	yAxis.formatter(function () {
+		return '';
+	});
 
 	label = 'Time';
 	label += (xAxisMode === 'cat') ? ' as Category' : 'line';
