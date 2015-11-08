@@ -364,9 +364,6 @@ function drawGraph(target, chartType, axisType, height, maxDoS, breakout) {
 	}
 
 	yAxis = new Plottable.Axes.Category(yScale, 'left');
-	yAxis.formatter(function () {
-		return '';
-	});
 
 	label = 'Time';
 	label += (xAxisMode === 'cat') ? ' as Category' : 'line';
@@ -486,6 +483,9 @@ function drawGraph(target, chartType, axisType, height, maxDoS, breakout) {
 	plot.append(labels);
 
 	if (chartMode === 'dos') {
+		yAxis.formatter(function () {
+			return '';
+		});
 		workingJSON.forEach(function (cluster) {
 			point = {};
 			point.date_filed = cluster.date_filed;
