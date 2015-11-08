@@ -343,8 +343,8 @@ function drawGraph(target, chartType, axisType, height, maxDoS, breakout) {
 	if (chartMode === 'dos') {
 		colorScale.domain(degrees.slice(0, maxDoS));
 	} else {
-		colorScale.domain(ddlul.slice(0, maxDoS));
-		colorScale.range(['purple', 'red', 'blue', 'green', 'orange'].slice(0, maxDoS));
+		colorScale.domain(ddlul);
+		colorScale.range(['purple', 'red', 'blue', 'green', 'orange']);
 	}
 
 	xAxisCat = new Plottable.Axes.Category(xScaleCat, 'bottom');
@@ -439,13 +439,10 @@ function drawGraph(target, chartType, axisType, height, maxDoS, breakout) {
 			return value;
 		}, sizeScale)
 		.attr('stroke', function (d) {
-			return colorScale.scale(d.order);
+			return colorScale.scale((chartMode === 'dos') ? d.order : ddlul[d.decision_direction]);
 		})
 		.attr('fill', function (d) {
-			return colorScale.scale(d.order);
-		})
-		.attr('title', function (d) {
-			return d.case_name;
+			return colorScale.scale((chartMode === 'dos') ? d.order : ddlul[d.decision_direction]);
 		});
 	plot.append(cases);
 
@@ -554,7 +551,48 @@ function drawGraph(target, chartType, axisType, height, maxDoS, breakout) {
 
 */
 
-			console.log(workingJSON);
+			// console.log(workingJSON);
+			// console.log(JSONIndex);
+
+			workingJSON.forEach(function (cluster) {
+				var item = {},
+					recent = parseDate('1500-01-01'),
+					recentIndex = 0,
+					recentOp = parseDate('1500-01-01'),
+					recentOpIndex = 0;
+
+// expand this to handle all of the logic above.
+// make sure that if the mode is genealogy that maxDos is ignored from the start
+
+				for (item in cluster.sub_opinions[0].opinions_cited) {
+					if (cluster.sub_opinions[0].opinions_cited.hasOwnProperty(item)) {
+						cluster.sub_opinions[0].opinions_cited[item].opacity = 0.25;
+						// console.log(cluster.decision_direction, ddlu[cluster.decision_direction], JSONIndex[item].num);
+
+						// console.log(recent, parseDate(workingJSON[JSONIndex[item].num].date_filed));
+						if (cluster.decision_direction === workingJSON[JSONIndex[item].num].decision_direction) {
+							if (recent < parseDate(workingJSON[JSONIndex[item].num].date_filed)) {
+								recent = parseDate(workingJSON[JSONIndex[item].num].date_filed);
+								recentIndex = item;
+							}
+						} else {
+							if (recentOp < parseDate(workingJSON[JSONIndex[item].num].date_filed)) {
+								recentOp = parseDate(workingJSON[JSONIndex[item].num].date_filed);
+								recentOpIndex = item;
+							}
+						}
+					}
+				}
+				if (recentIndex !== 0) {
+					// console.log('Pick:', recentIndex);
+					cluster.sub_opinions[0].opinions_cited[recentIndex].opacity = 1;
+				} else if (recentOpIndex !== 0) {
+					// console.log('PickOp:', recentOpIndex);
+					cluster.sub_opinions[0].opinions_cited[recentOpIndex].opacity = 1;
+				}
+
+			});
+
 		}
 		workingJSON.forEach(function (cluster) {
 			var minority = cluster.votes_minority,
