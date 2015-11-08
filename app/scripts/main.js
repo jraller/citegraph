@@ -176,7 +176,7 @@ function drawGraph(target, chartType, axisType, height, maxDoS, breakout) {
 				if (links[linkId].dr > depth) {
 					links[linkId].dr = depth;
 				}
-			} if (typeof links[linkId] === 'undefined') {
+			} else if (typeof links[linkId] === 'undefined') {
 				links[linkId] = {dr: depth};
 			} else {
 				links[linkId].dr = depth;
@@ -452,36 +452,6 @@ function drawGraph(target, chartType, axisType, height, maxDoS, breakout) {
 		});
 	plot.append(cases);
 
-/*
-
-1.	Start with all of the cases from the bacon map and sort them in chronological order.
-
-2.	Starting with the most recent case and working your way back to the oldest case:
-
-3.	Get all citations from that case, and find the most recent cited-case that (a) has the same decision direction
-	(conservative/liberal) and (b) is also in the set of cases from the bacon map. Note that the found citation may
-	be one that is displayed on the bacon map, but it may also be one that was excluded from the bacon map (because
-	it would have resulted in too many connections between the start and end cases). If you find a citation, add it
-	to the genealogy map and skip to step (6).
-
-4.	If you do not find a citation in step (3) above, then get all citations from that case, and find the most
-	recent cited-case that is also in the set of cases from the bacon map, regardless of the decision direction.
-	Again, this may be a citation that was not displayed on the bacon map.  If you find a citation, then add it to
-	the genealogy map and skip step (5).
-
-5.	If you are starting with a group of cases from a bacon map, you should never get to this step.  However, to
-	make this algorithm work with other groups of cases, you will reach this step if there are no citations from
-	this case to any other ones in the original group of cases.  If this occurs, then instead of checking the
-	cases that this one cites, check to see if this case is cited-by another case in the set.  Give preference to
-	one with the same decision direction that is also closest in age.  If one with the same decision direction
-	cannot be found, then just fine the one that is the closest in age and add that citation to the genealogy map.
-
-6.	Repeat steps 3-5 for the rest of the cases in the set, continuing backwards chronologically through the cases.
-
-7.	Add the citations to the appropriate strands (conservative/liberal/unknown) based on the decision direction of the citing case.
-
-*/
-
 	connections = new Plottable.Plots.Line()
 		.x(function (d) {
 			return parseDate(d.x);
@@ -552,6 +522,40 @@ function drawGraph(target, chartType, axisType, height, maxDoS, breakout) {
 			}
 		});
 	} else {
+		if (chartMode === 'genealogy') {
+
+/*
+
+1.	Start with all of the cases from the bacon map and sort them in chronological order.
+
+2.	Starting with the most recent case and working your way back to the oldest case:
+
+3.	Get all citations from that case, and find the most recent cited-case that (a) has the same decision direction
+	(conservative/liberal) and (b) is also in the set of cases from the bacon map. Note that the found citation may
+	be one that is displayed on the bacon map, but it may also be one that was excluded from the bacon map (because
+	it would have resulted in too many connections between the start and end cases). If you find a citation, add it
+	to the genealogy map and skip to step (6).
+
+4.	If you do not find a citation in step (3) above, then get all citations from that case, and find the most
+	recent cited-case that is also in the set of cases from the bacon map, regardless of the decision direction.
+	Again, this may be a citation that was not displayed on the bacon map.  If you find a citation, then add it to
+	the genealogy map and skip step (5).
+
+5.	If you are starting with a group of cases from a bacon map, you should never get to this step.  However, to
+	make this algorithm work with other groups of cases, you will reach this step if there are no citations from
+	this case to any other ones in the original group of cases.  If this occurs, then instead of checking the
+	cases that this one cites, check to see if this case is cited-by another case in the set.  Give preference to
+	one with the same decision direction that is also closest in age.  If one with the same decision direction
+	cannot be found, then just fine the one that is the closest in age and add that citation to the genealogy map.
+
+6.	Repeat steps 3-5 for the rest of the cases in the set, continuing backwards chronologically through the cases.
+
+7.	Add the citations to the appropriate strands (conservative/liberal/unknown) based on the decision direction of the citing case.
+
+*/
+
+			console.log(workingJSON);
+		}
 		workingJSON.forEach(function (cluster) {
 			var minority = cluster.votes_minority,
 				majority = String(9 - Number(minority)), // cluster.votes_majority,
