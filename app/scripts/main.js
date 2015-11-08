@@ -176,8 +176,10 @@ function drawGraph(target, chartType, axisType, height, maxDoS, breakout) {
 				if (links[linkId].dr > depth) {
 					links[linkId].dr = depth;
 				}
-			} else {
+			} if (typeof links[linkId] === 'undefined') {
 				links[linkId] = {dr: depth};
+			} else {
+				links[linkId].dr = depth;
 			}
 		}
 		if (typeof order === 'undefined' || order > depth) {
@@ -450,6 +452,36 @@ function drawGraph(target, chartType, axisType, height, maxDoS, breakout) {
 		});
 	plot.append(cases);
 
+/*
+
+1.	Start with all of the cases from the bacon map and sort them in chronological order.
+
+2.	Starting with the most recent case and working your way back to the oldest case:
+
+3.	Get all citations from that case, and find the most recent cited-case that (a) has the same decision direction
+	(conservative/liberal) and (b) is also in the set of cases from the bacon map. Note that the found citation may
+	be one that is displayed on the bacon map, but it may also be one that was excluded from the bacon map (because
+	it would have resulted in too many connections between the start and end cases). If you find a citation, add it
+	to the genealogy map and skip to step (6).
+
+4.	If you do not find a citation in step (3) above, then get all citations from that case, and find the most
+	recent cited-case that is also in the set of cases from the bacon map, regardless of the decision direction.
+	Again, this may be a citation that was not displayed on the bacon map.  If you find a citation, then add it to
+	the genealogy map and skip step (5).
+
+5.	If you are starting with a group of cases from a bacon map, you should never get to this step.  However, to
+	make this algorithm work with other groups of cases, you will reach this step if there are no citations from
+	this case to any other ones in the original group of cases.  If this occurs, then instead of checking the
+	cases that this one cites, check to see if this case is cited-by another case in the set.  Give preference to
+	one with the same decision direction that is also closest in age.  If one with the same decision direction
+	cannot be found, then just fine the one that is the closest in age and add that citation to the genealogy map.
+
+6.	Repeat steps 3-5 for the rest of the cases in the set, continuing backwards chronologically through the cases.
+
+7.	Add the citations to the appropriate strands (conservative/liberal/unknown) based on the decision direction of the citing case.
+
+*/
+
 	connections = new Plottable.Plots.Line()
 		.x(function (d) {
 			return parseDate(d.x);
@@ -460,7 +492,9 @@ function drawGraph(target, chartType, axisType, height, maxDoS, breakout) {
 		.attr('stroke', function (d) {
 			return colorScale.scale(d.c);
 		})
-		.attr('opacity', 0.5);
+		.attr('opacity', function (d) {
+			return d.o;
+		});
 	plot.append(connections);
 
 	labels = new Plottable.Plots.Rectangle()
@@ -496,20 +530,22 @@ function drawGraph(target, chartType, axisType, height, maxDoS, breakout) {
 		workingJSON.forEach(function (cluster) {
 			var item = '',
 				name = '',
-				color = '';
+				color = '',
+				opacity = 0;
 
 			for (item in cluster.sub_opinions[0].opinions_cited) {
 				if (cluster.sub_opinions[0].opinions_cited.hasOwnProperty(item)) {
 					name = linkName(cluster.id, item);
 					color = 'unk';
+					opacity = cluster.sub_opinions[0].opinions_cited[item].opacity;
 					if (typeof links[name] !== 'undefined') {
 						// replace the following if with the limiter to control greatest DoS connector shown
 						if (typeof links[name].d !== 'undefined') {
 							color = links[name].d;
 						}
 						connections.addDataset(new Plottable.Dataset([
-							{x: coords[cluster.id].date_filed, y: coords[cluster.id].count, c: color},
-							{x: coords[item].date_filed, y: coords[item].count, c: color}
+							{x: coords[cluster.id].date_filed, y: coords[cluster.id].count, c: color, o: opacity},
+							{x: coords[item].date_filed, y: coords[item].count, c: color, o: opacity}
 						]));
 					}
 				}
@@ -533,13 +569,15 @@ function drawGraph(target, chartType, axisType, height, maxDoS, breakout) {
 			coords[cluster.id] = point;
 		});
 		workingJSON.forEach(function (cluster) {
-			var item = {};
+			var item = {},
+				opacity = 0;
 
 			for (item in cluster.sub_opinions[0].opinions_cited) {
 				if (cluster.sub_opinions[0].opinions_cited.hasOwnProperty(item)) {
+					opacity = cluster.sub_opinions[0].opinions_cited[item].opacity;
 					connections.addDataset(new Plottable.Dataset([
-						{x: coords[cluster.id].date_filed, y: coords[cluster.id].split, c: coords[item].dec},
-						{x: coords[item].date_filed, y: coords[item].split, c: coords[item].dec}
+						{x: coords[cluster.id].date_filed, y: coords[cluster.id].split, c: coords[item].dec, o: opacity},
+						{x: coords[item].date_filed, y: coords[item].split, c: coords[item].dec, o: opacity}
 					]));
 				}
 			}
