@@ -793,10 +793,20 @@ function citationTable(target, data, columns) {
 
 	rows.selectAll('td') // cells
 		.data(function (row) {
+			var val = '';
+
 			return columns.map(function (column) {
+				if ($.isArray(column.s)) {
+					val = [];
+					column.s.forEach(function (i) {
+						val.push(row[i]);
+					});
+				} else {
+					val = row[column.s];
+				}
 				return {
 					column: column.s,
-					value: row[column.s],
+					value: val,
 					link: row[column.a],
 					format: column.f
 				};
@@ -941,6 +951,25 @@ $(document).ready(function () {
 		return '<strong>' + s + '</strong>';
 	}
 
+	function formatSplit(s) {
+		var r = 'no data';
+
+		if (s[0] !== '-1' || s[1] !== '-1') {
+			r = s[0] + '-' + s[1];
+		}
+		return r;
+	}
+
+	function formatDecision(s) {
+		var dec = ['Neutral', 'Conservative', 'Liberal', 'Unspecifiable', 'Unknown'],
+			r = 'no data';
+
+		if (s >= 0 && s <= 4) {
+			r = dec[s];
+		}
+		return r;
+	}
+
 	// opinions_cited array of number or
 	// array of object of name by cite number with dictionary of values
 	// {"112331": {"opacity": 1}}
@@ -988,13 +1017,32 @@ $(document).ready(function () {
 			$(caseCountTarget).text(used.length);
 			citationTable(tableTarget, used,
 				[
+					// {s: 'source', }
 					// {s: 'id', f: bold},
 					{s: 'case_name_short', l: 'Case Name', a: 'absolute_url'},
 					{s: 'citation_count', l: 'Total Citations'},
-					{s: 'order', l: 'Degrees of Separation'},
-					{s: 'date_filed', l: 'Date Filed', f: dateFormat}
+					// {s: 'order', l: 'Degrees of Separation'},
+					{s: 'date_filed', l: 'Date Filed', f: dateFormat},
+					{s: ['votes_majority', 'votes_minority'], l: 'Vote Count', f: formatSplit},
+					{s: 'decision_direction', l: 'Direction', f: formatDecision}
+					// {s: '', l: 'Spaeth Issue'},
+					// {s: '', l: 'Issue Area'},
+					// {s: '', l: 'Provision'}
 				]
 			);
+
+/*
+
+I came to the “it’s all about the network” realization when playing with what the CASES table. This feature
+is totally awesome and easy. Being able to order and re-order the table by categories is very useful. In
+fact, I think we need to build on that table so that it includes: vote count and liberal/conservative.
+Ideally, it would also include the Spaeth codes — issue, issue area, and provision. (I don’t think we
+need Degrees of Separation in the Table). With such a table alone, the user would have a very powerful way
+of slicing and dicing the network s/he has created. As I’ve said before, combining Spaeth with network
+analysis is at the hear of the "cash value" of this project.
+
+*/
+
 			casesMetadata(metadataTarget, used);
 		});
 	}
