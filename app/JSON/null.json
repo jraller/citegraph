@@ -1,0 +1,124 @@
+{
+	"meta": {
+		"donate": "Please consider donating to support more projects from Free Law Project",
+		"version": 1.0
+	},
+	"opinion_clusters": [
+		{
+			"votes_majority": 9,
+			"date_filed": "2004-03-08",
+			"citation_count": 4,
+			"votes_minority": 0,
+			"absolute_url": "/opinion/134724/crawford-v-washington/",
+			"case_name_short": "Crawford",
+			"sub_opinions": [
+				{
+					"type": "combined",
+					"opinions_cited": {}
+				}
+			],
+			"id": 134724,
+			"decision_direction": "2",
+			"case_name": "Crawford v. Washington"
+		},
+		{
+			"votes_majority": 5,
+			"date_filed": "2004-06-21",
+			"citation_count": 2,
+			"votes_minority": 4,
+			"absolute_url": "/opinion/136990/hiibel-v-sixth-judicial-dist-court-of-nev-humboldt/",
+			"case_name_short": "Hiibel",
+			"sub_opinions": [
+				{
+					"type": "combined",
+					"opinions_cited": {
+						"134724": {
+							"opacitiy": 1
+						}
+					}
+				}
+			],
+			"id": 136990,
+			"decision_direction": "1",
+			"case_name": "Hiibel v. Sixth Judicial Dist. Court of Nev., Humboldt Cty."
+		},
+		{
+			"votes_majority": 9,
+			"date_filed": "2006-06-19",
+			"citation_count": 2,
+			"votes_minority": 0,
+			"absolute_url": "/opinion/145641/davis-v-washington/",
+			"case_name_short": "Davis",
+			"sub_opinions": [
+				{
+					"type": "combined",
+					"opinions_cited": {
+						"134724": {
+							"opacitiy": 1
+						},
+						"136990": {
+							"opacitiy": 1
+						}
+					}
+				}
+			],
+			"id": 145641,
+			"decision_direction": "1",
+			"case_name": "Davis v. Washington"
+		},
+		{
+			"votes_majority": 6,
+			"date_filed": "2008-06-25",
+			"citation_count": 1,
+			"votes_minority": 3,
+			"absolute_url": "/opinion/145781/giles-v-california/",
+			"case_name_short": "Giles",
+			"sub_opinions": [
+				{
+					"type": "combined",
+					"opinions_cited": {
+						"145641": {
+							"opacitiy": 1
+						},
+						"134724": {
+							"opacitiy": 1
+						}
+					}
+				}
+			],
+			"id": 145781,
+			"decision_direction": "1",
+			"case_name": "Giles v. California"
+		},
+		{
+			"votes_majority": null,
+			"date_filed": "2011-02-28",
+			"citation_count": 0,
+			"votes_minority": null,
+			"absolute_url": "/opinion/205606/michigan-v-bryant/",
+			"case_name_short": "Bryant",
+			"sub_opinions": [
+				{
+					"type": "combined",
+					"opinions_cited": {
+						"145641": {
+							"opacitiy": 1
+						},
+						"134724": {
+							"opacitiy": 1
+						},
+						"145781": {
+							"opacitiy": 1
+						},
+						"136990": {
+							"opacitiy": 1
+						}
+					}
+				}
+			],
+			"id": 205606,
+			"decision_direction": null,
+			"case_name": "Michigan v. Bryant"
+		}
+	]
+}

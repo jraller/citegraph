@@ -954,7 +954,8 @@ $(document).ready(function () {
 	function formatSplit(s) {
 		var r = 'no data';
 
-		if (s[0] !== '-1' || s[1] !== '-1') {
+		// filter out nulls and out of bound numbers
+		if (typeof s[0] === 'number' && typeof s[1] === 'number' && (s[0] !== '-1' || s[1] !== '-1')) {
 			r = s[0] + '-' + s[1];
 		}
 		return r;
@@ -964,7 +965,8 @@ $(document).ready(function () {
 		var dec = ['Neutral', 'Conservative', 'Liberal', 'Unspecifiable', 'Unknown'],
 			r = 'no data';
 
-		if (s >= 0 && s <= 4) {
+		// filter out nulls and out of bound numbers
+		if (s && s >= 0 && s <= 4) {
 			r = dec[s];
 		}
 		return r;
@@ -1004,6 +1006,7 @@ $(document).ready(function () {
 			// citationJSON = JSON.parse(JSON.stringify(opinions));
 			d3.select(chartTarget).select('svg').remove();
 			d3.select(tableTarget).select('table').remove();
+			d3.select(metadataTarget).html('');
 
 				// drawGraph (
 				// 	target -- where to draw it
