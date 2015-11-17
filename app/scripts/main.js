@@ -133,6 +133,15 @@ function drawGraph(target, chartType, axisType, height, maxDoS, breakout) {
 			point.num = JSONCount++;
 			point.citedBy = [];
 			JSONIndex[cluster.id] = point;
+			if (cluster.decision_direction === null) {
+				cluster.decision_direction = '4';
+			}
+			if (cluster.votes_majority === null) {
+				cluster.votes_majority = '-1';
+			}
+			if (cluster.votes_minority === null) {
+				cluster.votes_minority = '-1';
+			}
 		});
 		// add cited by others in JSON to each
 		citationJSON.opinion_clusters.forEach(function (cluster) {
@@ -439,7 +448,9 @@ function drawGraph(target, chartType, axisType, height, maxDoS, breakout) {
 			return value;
 		}, sizeScale)
 		.attr('stroke', function (d) {
-			return colorScale.scale((chartMode === 'dos') ? d.order : ddlul[d.decision_direction]);
+			var c = d.decision_direction;
+
+			return colorScale.scale((chartMode === 'dos') ? d.order : ddlul[c]);
 		})
 		.attr('fill', function (d) {
 			return colorScale.scale((chartMode === 'dos') ? d.order : ddlul[d.decision_direction]);
@@ -575,11 +586,9 @@ function drawGraph(target, chartType, axisType, height, maxDoS, breakout) {
 								recent = parseDate(workingJSON[JSONIndex[item].num].date_filed);
 								recentIndex = item;
 							}
-						} else {
-							if (recentOp < parseDate(workingJSON[JSONIndex[item].num].date_filed)) {
-								recentOp = parseDate(workingJSON[JSONIndex[item].num].date_filed);
-								recentOpIndex = item;
-							}
+						} else if (recentOp < parseDate(workingJSON[JSONIndex[item].num].date_filed)) {
+							recentOp = parseDate(workingJSON[JSONIndex[item].num].date_filed);
+							recentOpIndex = item;
 						}
 					}
 				}
@@ -595,18 +604,19 @@ function drawGraph(target, chartType, axisType, height, maxDoS, breakout) {
 
 		}
 		workingJSON.forEach(function (cluster) {
-			var minority = cluster.votes_minority,
-				majority = String(9 - Number(minority)), // cluster.votes_majority,
-				decision_direction = ddlu[cluster.decision_direction],
+			var minority = (cluster.votes_minority !== null) ? String(cluster.votes_minority) : '-1',
+				majority = (cluster.votes_majority !== null) ? String(9 - Number(minority)) : '-1',
+				decision_direction = (cluster.decision_direction) ? ddlu[cluster.decision_direction] : ddlu[4],
 				prefix = (majority === '9') ? 'N' : decision_direction;
 
 			point = {};
 			point.date_filed = cluster.date_filed;
-			point.split = prefix + majority + '-' + minority;
-			point.dec = ddlul[cluster.decision_direction];
 			if (minority === '-1') {
 				point.split = 'Unk';
 				point.dec = 'Unknown';
+			} else {
+				point.split = prefix + majority + '-' + minority;
+				point.dec = ddlul[cluster.decision_direction];
 			}
 			coords[cluster.id] = point;
 		});
