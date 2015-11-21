@@ -856,54 +856,64 @@ function citationTable(target, data, columns) {
  * [casesMetadata description]
  * @param  {[type]} target [description]
  * @param  {[type]} data   [description]
- * @return {[type]}        [description]
  */
 function casesMetadata(target, data) {
-	var div = d3.select(target).append('div');
+	var div = d3.select(target).append('div'),
+		meter = '',
+		dissent = 0,
+		i = 0;
 
 	function degreeOfDissent(cases) {
-// @property
-// def degree_of_dissent(self):
-//     """Calculate the average between all the cases included in the viz.
-
-//     The method is to calculate the average of
-
-//         1 - (difference between votes / total votes)
-
-//     So in a 5-4 decision, that'd be:
-
-//         1 - ((5-4) / (5 + 4)) --> 1 - 1/9 --> 0.89
-
-//     And then you'd just average these values for every case that's displayed.
-//     """
-//     dods = []
-//     for cluster in self.clusters.all():
-//         majority = cluster.scdb_votes_majority
-//         minority = cluster.scdb_votes_minority
-//         dods.append(1 - float(
-//             abs(majority - minority) /
-//             sum([majority, minority])
-//         ))
-//     return sum(dods) / len(dods)
 		var dods = [];
 
 		cases.forEach(function (c) {
-			var majority = c.votes_majority,
-				minority = c.votes_minority;
+			var minority = c.votes_minority;
 
-			if (majority !== -1 && minority !== -1) {
-				dods.push(1 - (Math.abs(majority - minority) / (majority + minority)));
+			if (minority !== -1) {
+				dods.push(minority * 0.25);
 			}
 		});
 
-		return (d3.sum(dods) / dods.length) * 100;
+		return (d3.sum(dods) / dods.length);
 	}
+
+	dissent = degreeOfDissent(data);
 
 	div.append('h2')
 		.text('Metadata for ' + data[data.length - 1].case_name + ' to ' + data[0].case_name);
 
 	div.append('p')
-		.text('Degree of Dissent: ' + degreeOfDissent(data).toFixed(2) + '%');
+		.text('Degree of Dissent: ' + dissent.toFixed(2));
+
+	meter = div.append('svg')
+		.attr('height', 40)
+		.append('g')
+		.attr('stroke', 'black')
+		.attr('font-family', 'Arial')
+		.attr('font-size', 12)
+		.attr('text-anchor', 'middle');
+
+	meter.append('line') // base
+		.attr('x1', 10)
+		.attr('y1', 20)
+		.attr('x2', 110)
+		.attr('y2', 20);
+
+	for (i = 0; i < 5; i++) {
+		meter.append('line')
+			.attr('x1', (i * 25) + 10)
+			.attr('y1', 20)
+			.attr('x2', (i * 25) + 10)
+			.attr('y2', 10);
+		meter.append('text')
+			.attr('x', (i * 25) + 10)
+			.attr('y', 35)
+			.text((9 - i) + '-' + i);
+	}
+
+	meter.append('path')
+		.attr('fill', 'red')
+		.attr('d', 'M' + ((dissent * 100) + 10) + ' 18 l -10 -10 l 20 0 z');
 }
 
 $(document).ready(function () {
@@ -1047,19 +1057,6 @@ $(document).ready(function () {
 				// {s: '', l: 'Provision'}
 			]
 		);
-
-/*
-
-I came to the “it’s all about the network” realization when playing with what the CASES table. This feature
-is totally awesome and easy. Being able to order and re-order the table by categories is very useful. In
-fact, I think we need to build on that table so that it includes: vote count and liberal/conservative.
-Ideally, it would also include the Spaeth codes — issue, issue area, and provision. (I don’t think we
-need Degrees of Separation in the Table). With such a table alone, the user would have a very powerful way
-of slicing and dicing the network s/he has created. As I’ve said before, combining Spaeth with network
-analysis is at the hear of the "cash value" of this project.
-
-*/
-
 		casesMetadata(metadataTarget, used);
 	}
 
