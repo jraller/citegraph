@@ -34,7 +34,8 @@ below the plot add a table with:
 
 'use strict';
 
-var citationJSON = {};
+var citationJSON = {},
+	controlDown = false;
 
 /**
  * [drawGraph description]
@@ -111,7 +112,8 @@ function drawGraph(target, chartType, axisType, height, maxDoS, breakout) {
 		// defaultCaseHoverText = '',
 		// caseHoverText = {}, // reference to the text in the object shown when hovering
 		caseHoverGroup = {}, // reference to the hover show object
-		caseClick = {}; // interaction behavior
+		caseClick = {}, // interaction behavior
+		keys = {};
 
 	/**
 	 * [prepJSON description]
@@ -731,9 +733,9 @@ function drawGraph(target, chartType, axisType, height, maxDoS, breakout) {
 			}
 		}
 		if (datum !== null) {
-			if (breakout === 'blank') {
+			if (breakout === 'blank' || controlDown) {
 				// handle this side differently in order to break out of embed
-				window.location.assign('https://www.courtlistener.com' + datum.absolute_url);
+				window.open('https://www.courtlistener.com' + datum.absolute_url, '_blank');
 			} else {
 				window.location.assign(datum.absolute_url);
 			}
@@ -741,6 +743,15 @@ function drawGraph(target, chartType, axisType, height, maxDoS, breakout) {
 	});
 
 	caseClick.attachTo(cases);
+
+	keys = new Plottable.Interactions.Key();
+	keys.onKeyPress(17, function () {
+		controlDown = true;
+	});
+	keys.onKeyRelease(17, function () {
+		controlDown = false;
+	});
+	keys.attachTo(cases);
 
 	return workingJSON;
 
