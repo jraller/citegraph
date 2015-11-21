@@ -869,12 +869,13 @@ function casesMetadata(target, data) {
 		cases.forEach(function (c) {
 			var minority = c.votes_minority;
 
-			if (minority !== -1) {
+			if (minority.toString() !== '-1') {
 				dods.push(minority * 0.25);
 			}
 		});
 
-		return (d3.sum(dods) / dods.length);
+		return {'d': (d3.sum(dods) / dods.length),
+			'c': dods.length};
 	}
 
 	dissent = degreeOfDissent(data);
@@ -883,7 +884,7 @@ function casesMetadata(target, data) {
 		.text('Metadata for ' + data[data.length - 1].case_name + ' to ' + data[0].case_name);
 
 	div.append('p')
-		.text('Degree of Dissent: ' + dissent.toFixed(2));
+		.text('Degree of Dissent: ' + dissent.d.toFixed(2) + ' for ' + dissent.c + ' cases of ' + data.length);
 
 	meter = div.append('svg')
 		.attr('height', 40)
@@ -913,7 +914,7 @@ function casesMetadata(target, data) {
 
 	meter.append('path')
 		.attr('fill', 'red')
-		.attr('d', 'M' + ((dissent * 100) + 10) + ' 18 l -10 -10 l 20 0 z');
+		.attr('d', 'M' + ((dissent.d * 100) + 10) + ' 18 l -10 -10 l 20 0 z');
 }
 
 $(document).ready(function () {
