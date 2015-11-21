@@ -985,8 +985,10 @@ $(document).ready(function () {
 	function formatSplit(s) {
 		var r = 'no data';
 
+console.log(s);
+
 		// filter out nulls and out of bound numbers
-		if (typeof s[0] === 'number' && typeof s[1] === 'number' && (s[0] !== '-1' || s[1] !== '-1')) {
+		if (s[0].toString() !== '-1' || s[1].toString() !== '-1') {
 			r = s[0] + '-' + s[1];
 		}
 		return r;
