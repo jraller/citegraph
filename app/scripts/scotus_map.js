@@ -45,7 +45,7 @@ var citationJSON = {},
  * @param {string} height [description]
  * @param {integer} maxDoS a maximum degree of separation to show
  * @param {boolean} breakout controls if case links open in new window
- * @return {object} a new version of the source data showing only utilized information
+ * @return {object} a new version of the source data containing only utilized information
  */
 function drawGraph(target, chartType, axisType, height, maxDoS, breakout) {
 	// add "edit mode" boolean
@@ -80,9 +80,9 @@ function drawGraph(target, chartType, axisType, height, maxDoS, breakout) {
 			[1], // 1
 			[1, 2], // 4
 			[1, 2, 3], // 9
-			[1, 3, 2, 4], // 16
+			[4, 7, 2, 9], // 16
 			[2, 10, 5, 13, 16], // 25
-			[1, 2, 3, 4, 5, 6], // 36
+			[7, 2, 16, 5, 21, 25], // 36
 			[1, 2, 3, 4, 5, 6, 7], // 49
 			[1, 2, 3, 4, 5, 6, 7, 8], // 64
 			[1, 2, 3, 4, 5, 6, 7, 8, 9] // 81
@@ -187,10 +187,8 @@ function drawGraph(target, chartType, axisType, height, maxDoS, breakout) {
 				if (links[linkId].dr > depth) {
 					links[linkId].dr = depth;
 				}
-			} else if (typeof links[linkId] === 'undefined') {
-				links[linkId] = {dr: depth};
 			} else {
-				links[linkId].dr = depth;
+				links[linkId] = {dr: depth};
 			}
 		}
 		if (typeof order === 'undefined' || order > depth) {
@@ -606,9 +604,9 @@ function drawGraph(target, chartType, axisType, height, maxDoS, breakout) {
 
 		}
 		workingJSON.forEach(function (cluster) {
-			var minority = (cluster.votes_minority !== null) ? String(cluster.votes_minority) : '-1',
-				majority = (cluster.votes_majority !== null) ? String(9 - Number(minority)) : '-1',
-				decision_direction = (cluster.decision_direction) ? ddlu[cluster.decision_direction] : ddlu[4],
+			var minority = cluster.votes_minority,
+				majority = String(9 - parseInt(minority, 10)),
+				decision_direction = ddlu[cluster.decision_direction],
 				prefix = (majority === '9') ? 'N' : decision_direction;
 
 			point = {};
@@ -629,6 +627,7 @@ function drawGraph(target, chartType, axisType, height, maxDoS, breakout) {
 			for (item in cluster.sub_opinions[0].opinions_cited) {
 				if (cluster.sub_opinions[0].opinions_cited.hasOwnProperty(item)) {
 					opacity = cluster.sub_opinions[0].opinions_cited[item].opacity;
+					// badly formed data can result in coords[item] being undefined, check for this
 					connections.addDataset(new Plottable.Dataset([
 						{x: coords[cluster.id].date_filed, y: coords[cluster.id].split, c: coords[item].dec, o: opacity},
 						{x: coords[item].date_filed, y: coords[item].split, c: coords[item].dec, o: opacity}
