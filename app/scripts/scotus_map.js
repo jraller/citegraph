@@ -924,9 +924,9 @@ $(document).ready(function () {
 		},
 		args = {},
 		chartTarget = '#chart',
-		tableTarget = '#table',
-		metadataTarget = '#metadata',
-		caseCountTarget = '#casecount';
+		tableTarget = '#case-table',
+		metadataTarget = '#case-metadata',
+		caseCountTarget = '#case-count';
 
 	// Read a page's GET URL variables and return them as an associative array.
 	function getUrlVars() {
