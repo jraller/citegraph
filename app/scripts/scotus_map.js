@@ -795,10 +795,10 @@ function citationTable(target, data, columns) {
 
 						if (c.s === d.s) {
 							if (d.d === 'a') {
-								label += ' <span class="glyphicon glyphicon-triangle-top" aria-hidden="true"></span>';
+								label += ' <i class="fa fa-caret-up" aria-hidden="true"></i>';
 								d.d = 'd';
 							} else {
-								label += ' <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>';
+								label += ' <i class="fa fa-caret-down" aria-hidden="true"></i>';
 								d.d = 'a';
 							}
 						}
