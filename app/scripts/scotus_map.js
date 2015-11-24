@@ -76,6 +76,7 @@ function drawGraph(target, chartType, axisType, height, maxDoS, breakout) {
 		degrees = ['first', 'second', 'third', 'fourth', 'fifth', 'sixth', 'seventh', 'eighth', 'ninth', 'distant'],
 		ddlu = ['N', 'C', 'L', 'U'], // from http://scdb.wustl.edu/documentation.php?var=decisionDirection
 		ddlul = ['Neutral', 'Conservative', 'Liberal', 'Unspecifiable', 'Unknown'],
+		ddc = [0, 0, 0, 0, 0],
 		distributions = [
 			[1], // 1
 			[1, 2], // 4
@@ -144,6 +145,7 @@ function drawGraph(target, chartType, axisType, height, maxDoS, breakout) {
 			if (cluster.votes_minority === null) {
 				cluster.votes_minority = '-1';
 			}
+			ddc[cluster.decision_direction]++;
 		});
 		// add cited by others in JSON to each
 		citationJSON.opinion_clusters.forEach(function (cluster) {
@@ -349,11 +351,25 @@ function drawGraph(target, chartType, axisType, height, maxDoS, breakout) {
 	sizeScale.range([5, 50]);
 	colorScale = new Plottable.Scales.Color();
 
+	function filter(source, compare) {
+		var array = [],
+			index = 0,
+			sl = source.length,
+			cl = compare.length;
+
+		for (index = 0; index < sl; index++) {
+			if (index < cl && compare[index] > 0) {
+				array.push(source[index]);
+			}
+		}
+		return array;
+	}
+
 	if (chartMode === 'dos') {
 		colorScale.domain(degrees.slice(0, maxDoS));
 	} else {
-		colorScale.domain(ddlul);
-		colorScale.range(['purple', 'red', 'blue', 'green', 'orange']);
+		colorScale.domain(filter(ddlul, ddc));
+		colorScale.range(filter(['purple', 'red', 'blue', 'green', 'orange'], ddc));
 	}
 
 	xAxisCat = new Plottable.Axes.Category(xScaleCat, 'bottom');
@@ -448,12 +464,14 @@ function drawGraph(target, chartType, axisType, height, maxDoS, breakout) {
 			return value;
 		}, sizeScale)
 		.attr('stroke', function (d) {
-			var c = d.decision_direction;
-
-			return colorScale.scale((chartMode === 'dos') ? d.order : ddlul[c]);
+			return colorScale.scale((chartMode === 'dos')
+				? d.order
+				: ddlul[d.decision_direction]);
 		})
 		.attr('fill', function (d) {
-			return colorScale.scale((chartMode === 'dos') ? d.order : ddlul[d.decision_direction]);
+			return colorScale.scale((chartMode === 'dos')
+				? d.order
+				: ddlul[d.decision_direction]);
 		});
 	plot.append(cases);
 
@@ -581,14 +599,16 @@ function drawGraph(target, chartType, axisType, height, maxDoS, breakout) {
 						// console.log(cluster.decision_direction, ddlu[cluster.decision_direction], JSONIndex[item].num);
 
 						// console.log(recent, parseDate(workingJSON[JSONIndex[item].num].date_filed));
-						if (cluster.decision_direction === workingJSON[JSONIndex[item].num].decision_direction) {
-							if (recent < parseDate(workingJSON[JSONIndex[item].num].date_filed)) {
-								recent = parseDate(workingJSON[JSONIndex[item].num].date_filed);
-								recentIndex = item;
+						if (typeof workingJSON[JSONIndex[item].num] !== 'undefined') {
+							if (cluster.decision_direction === workingJSON[JSONIndex[item].num].decision_direction) {
+								if (recent < parseDate(workingJSON[JSONIndex[item].num].date_filed)) {
+									recent = parseDate(workingJSON[JSONIndex[item].num].date_filed);
+									recentIndex = item;
+								}
+							} else if (recentOp < parseDate(workingJSON[JSONIndex[item].num].date_filed)) {
+								recentOp = parseDate(workingJSON[JSONIndex[item].num].date_filed);
+								recentOpIndex = item;
 							}
-						} else if (recentOp < parseDate(workingJSON[JSONIndex[item].num].date_filed)) {
-							recentOp = parseDate(workingJSON[JSONIndex[item].num].date_filed);
-							recentOpIndex = item;
 						}
 					}
 				}
@@ -628,10 +648,12 @@ function drawGraph(target, chartType, axisType, height, maxDoS, breakout) {
 				if (cluster.sub_opinions[0].opinions_cited.hasOwnProperty(item)) {
 					opacity = cluster.sub_opinions[0].opinions_cited[item].opacity;
 					// badly formed data can result in coords[item] being undefined, check for this
-					connections.addDataset(new Plottable.Dataset([
-						{x: coords[cluster.id].date_filed, y: coords[cluster.id].split, c: coords[item].dec, o: opacity},
-						{x: coords[item].date_filed, y: coords[item].split, c: coords[item].dec, o: opacity}
-					]));
+					if (typeof coords[item] !== 'undefined') {
+						connections.addDataset(new Plottable.Dataset([
+							{x: coords[cluster.id].date_filed, y: coords[cluster.id].split, c: coords[item].dec, o: opacity},
+							{x: coords[item].date_filed, y: coords[item].split, c: coords[item].dec, o: opacity}
+						]));
+					}
 				}
 			}
 		});
