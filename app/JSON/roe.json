@@ -1,0 +1,1699 @@
+{
+	"meta": {
+		"donate": "Please consider donating to support more projects from Free Law Project",
+		"version": 1.0
+	},
+	"opinion_clusters": [
+		{
+			"votes_majority": 5,
+			"date_filed": "1980-09-17",
+			"citation_count": 3,
+			"votes_minority": 4,
+			"absolute_url": "/opinion/110333/harris-v-mcrae/",
+			"case_name_short": "Harris",
+			"sub_opinions": [
+				{
+					"type": "combined",
+					"opinions_cited": {
+						"108713": {
+							"opacitiy": 1
+						}
+					}
+				}
+			],
+			"id": 110333,
+			"decision_direction": 1,
+			"case_name": "Harris v. McRae"
+		},
+		{
+			"votes_majority": 6,
+			"date_filed": "1979-05-14",
+			"citation_count": 1,
+			"votes_minority": 3,
+			"absolute_url": "/opinion/110075/bell-v-wolfish/",
+			"case_name_short": "Wolfish",
+			"sub_opinions": [
+				{
+					"type": "combined",
+					"opinions_cited": {
+						"108713": {
+							"opacitiy": 1
+						}
+					}
+				}
+			],
+			"id": 110075,
+			"decision_direction": 1,
+			"case_name": "Bell v. Wolfish"
+		},
+		{
+			"votes_majority": 5,
+			"date_filed": "1986-09-11",
+			"citation_count": 2,
+			"votes_minority": 4,
+			"absolute_url": "/opinion/111738/bowers-v-hardwick/",
+			"case_name_short": "Bowers",
+			"sub_opinions": [
+				{
+					"type": "combined",
+					"opinions_cited": {
+						"108713": {
+							"opacitiy": 1
+						}
+					}
+				}
+			],
+			"id": 111738,
+			"decision_direction": 1,
+			"case_name": "Bowers v. Hardwick"
+		},
+		{
+			"votes_majority": 6,
+			"date_filed": "1983-06-15",
+			"citation_count": 1,
+			"votes_minority": 3,
+			"absolute_url": "/opinion/110968/akron-v-akron-center-for-reproductive-health-inc/",
+			"case_name_short": "",
+			"sub_opinions": [
+				{
+					"type": "combined",
+					"opinions_cited": {
+						"108713": {
+							"opacitiy": 1
+						}
+					}
+				}
+			],
+			"id": 110968,
+			"decision_direction": 2,
+			"case_name": "Akron v. Akron Center for Reproductive Health, Inc."
+		},
+		{
+			"votes_majority": 5,
+			"date_filed": "1975-06-25",
+			"citation_count": 6,
+			"votes_minority": 4,
+			"absolute_url": "/opinion/109301/warth-v-seldin/",
+			"case_name_short": "Warth",
+			"sub_opinions": [
+				{
+					"type": "combined",
+					"opinions_cited": {
+						"108713": {
+							"opacitiy": 1
+						},
+						"108714": {
+							"opacitiy": 1
+						},
+						"109271": {
+							"opacitiy": 1
+						}
+					}
+				}
+			],
+			"id": 109301,
+			"decision_direction": 1,
+			"case_name": "Warth v. Seldin"
+		},
+		{
+			"votes_majority": 9,
+			"date_filed": "1977-06-13",
+			"citation_count": 1,
+			"votes_minority": 0,
+			"absolute_url": "/opinion/109684/smith-v-organization-of-foster-families-for-equali/",
+			"case_name_short": "",
+			"sub_opinions": [
+				{
+					"type": "combined",
+					"opinions_cited": {
+						"108713": {
+							"opacitiy": 1
+						}
+					}
+				}
+			],
+			"id": 109684,
+			"decision_direction": 1,
+			"case_name": "Smith v. Organization of Foster Families for Equality & Reform"
+		},
+		{
+			"votes_majority": 5,
+			"date_filed": "1981-11-10",
+			"citation_count": 1,
+			"votes_minority": 3,
+			"absolute_url": "/opinion/110578/ridgway-v-ridgway/",
+			"case_name_short": "Ridgway",
+			"sub_opinions": [
+				{
+					"type": "combined",
+					"opinions_cited": {
+						"110145": {
+							"opacitiy": 1
+						}
+					}
+				}
+			],
+			"id": 110578,
+			"decision_direction": 2,
+			"case_name": "Ridgway v. Ridgway"
+		},
+		{
+			"votes_majority": 7,
+			"date_filed": "1974-01-21",
+			"citation_count": 1,
+			"votes_minority": 2,
+			"absolute_url": "/opinion/108913/cleveland-bd-of-ed-v-lafleur/",
+			"case_name_short": "LaFleur",
+			"sub_opinions": [
+				{
+					"type": "combined",
+					"opinions_cited": {
+						"108713": {
+							"opacitiy": 1
+						}
+					}
+				}
+			],
+			"id": 108913,
+			"decision_direction": 2,
+			"case_name": "Cleveland Bd. of Ed. v. LaFleur"
+		},
+		{
+			"votes_majority": 6,
+			"date_filed": "2003-06-26",
+			"citation_count": 1,
+			"votes_minority": 3,
+			"absolute_url": "/opinion/130160/lawrence-v-texas/",
+			"case_name_short": "Lawrence",
+			"sub_opinions": [
+				{
+					"type": "combined",
+					"opinions_cited": {
+						"118144": {
+							"opacitiy": 1
+						},
+						"112643": {
+							"opacitiy": 1
+						},
+						"109670": {
+							"opacitiy": 1
+						},
+						"112295": {
+							"opacitiy": 1
+						},
+						"108713": {
+							"opacitiy": 1
+						},
+						"109679": {
+							"opacitiy": 1
+						},
+						"112786": {
+							"opacitiy": 1
+						},
+						"111738": {
+							"opacitiy": 1
+						}
+					}
+				}
+			],
+			"id": 130160,
+			"decision_direction": 2,
+			"case_name": "Lawrence v. Texas"
+		},
+		{
+			"votes_majority": 7,
+			"date_filed": "1977-06-09",
+			"citation_count": 4,
+			"votes_minority": 2,
+			"absolute_url": "/opinion/109679/carey-v-population-services-intl/",
+			"case_name_short": "Carey",
+			"sub_opinions": [
+				{
+					"type": "combined",
+					"opinions_cited": {
+						"108713": {
+							"opacitiy": 1
+						}
+					}
+				}
+			],
+			"id": 109679,
+			"decision_direction": 2,
+			"case_name": "Carey v. Population Services Int'l"
+		},
+		{
+			"votes_majority": 7,
+			"date_filed": "2000-06-26",
+			"citation_count": 1,
+			"votes_minority": 2,
+			"absolute_url": "/opinion/118380/dickerson-v-united-states/",
+			"case_name_short": "Dickerson",
+			"sub_opinions": [
+				{
+					"type": "combined",
+					"opinions_cited": {
+						"112643": {
+							"opacitiy": 1
+						},
+						"110075": {
+							"opacitiy": 1
+						}
+					}
+				}
+			],
+			"id": 118380,
+			"decision_direction": 2,
+			"case_name": "Dickerson v. United States"
+		},
+		{
+			"votes_majority": 6,
+			"date_filed": "1992-06-12",
+			"citation_count": 1,
+			"votes_minority": 3,
+			"absolute_url": "/opinion/112747/lujan-v-defenders-of-wildlife/",
+			"case_name_short": "Lujan",
+			"sub_opinions": [
+				{
+					"type": "combined",
+					"opinions_cited": {
+						"111258": {
+							"opacitiy": 1
+						},
+						"109301": {
+							"opacitiy": 1
+						}
+					}
+				}
+			],
+			"id": 112747,
+			"decision_direction": 1,
+			"case_name": "Lujan v. Defenders of Wildlife"
+		},
+		{
+			"votes_majority": 5,
+			"date_filed": "2007-06-28",
+			"citation_count": 1,
+			"votes_minority": 4,
+			"absolute_url": "/opinion/145702/parents-involved-in-community-schools-v-seattle-sc/",
+			"case_name_short": "",
+			"sub_opinions": [
+				{
+					"type": "combined",
+					"opinions_cited": {
+						"108751": {
+							"opacitiy": 1
+						}
+					}
+				}
+			],
+			"id": 145702,
+			"decision_direction": 1,
+			"case_name": "Parents Involved in Community Schools v. Seattle School Dist. No. 1"
+		},
+		{
+			"votes_majority": 5,
+			"date_filed": "1977-05-31",
+			"citation_count": 2,
+			"votes_minority": 4,
+			"absolute_url": "/opinion/109670/moore-v-east-cleveland/",
+			"case_name_short": "Moore",
+			"sub_opinions": [
+				{
+					"type": "combined",
+					"opinions_cited": {
+						"108713": {
+							"opacitiy": 1
+						}
+					}
+				}
+			],
+			"id": 109670,
+			"decision_direction": 2,
+			"case_name": "Moore v. East Cleveland"
+		},
+		{
+			"votes_majority": 6,
+			"date_filed": "1974-04-01",
+			"citation_count": 1,
+			"votes_minority": 3,
+			"absolute_url": "/opinion/109005/california-bankers-assn-v-shultz/",
+			"case_name_short": "Shultz",
+			"sub_opinions": [
+				{
+					"type": "combined",
+					"opinions_cited": {
+						"108713": {
+							"opacitiy": 1
+						}
+					}
+				}
+			],
+			"id": 109005,
+			"decision_direction": 1,
+			"case_name": "California Bankers Assn. v. Shultz"
+		},
+		{
+			"votes_majority": 5,
+			"date_filed": "1981-03-23",
+			"citation_count": 1,
+			"votes_minority": 4,
+			"absolute_url": "/opinion/110434/michael-m-v-superior-court-sonoma-cty/",
+			"case_name_short": "",
+			"sub_opinions": [
+				{
+					"type": "combined",
+					"opinions_cited": {
+						"110432": {
+							"opacitiy": 1
+						},
+						"110246": {
+							"opacitiy": 1
+						},
+						"109708": {
+							"opacitiy": 1
+						},
+						"109710": {
+							"opacitiy": 1
+						},
+						"108751": {
+							"opacitiy": 1
+						},
+						"109712": {
+							"opacitiy": 1
+						},
+						"109529": {
+							"opacitiy": 1
+						},
+						"109679": {
+							"opacitiy": 1
+						},
+						"110333": {
+							"opacitiy": 1
+						}
+					}
+				}
+			],
+			"id": 110434,
+			"decision_direction": 1,
+			"case_name": "Michael M. v. Superior Court, Sonoma Cty."
+		},
+		{
+			"votes_majority": 6,
+			"date_filed": "1981-03-23",
+			"citation_count": 1,
+			"votes_minority": 3,
+			"absolute_url": "/opinion/110432/hl-v-matheson/",
+			"case_name_short": "HL",
+			"sub_opinions": [
+				{
+					"type": "combined",
+					"opinions_cited": {
+						"108713": {
+							"opacitiy": 1
+						}
+					}
+				}
+			],
+			"id": 110432,
+			"decision_direction": 1,
+			"case_name": "HL v. Matheson"
+		},
+		{
+			"votes_majority": 5,
+			"date_filed": "1990-06-25",
+			"citation_count": 1,
+			"votes_minority": 4,
+			"absolute_url": "/opinion/112478/cruzan-v-director-mo-dept-of-health/",
+			"case_name_short": "Cruzan",
+			"sub_opinions": [
+				{
+					"type": "combined",
+					"opinions_cited": {
+						"108713": {
+							"opacitiy": 1
+						}
+					}
+				}
+			],
+			"id": 112478,
+			"decision_direction": 1,
+			"case_name": "Cruzan v. Director, Mo. Dept. of Health"
+		},
+		{
+			"votes_majority": 9,
+			"date_filed": "1976-07-01",
+			"citation_count": 2,
+			"votes_minority": 0,
+			"absolute_url": "/opinion/109531/bellotti-v-baird/",
+			"case_name_short": "Bellotti",
+			"sub_opinions": [
+				{
+					"type": "combined",
+					"opinions_cited": {
+						"108713": {
+							"opacitiy": 1
+						}
+					}
+				}
+			],
+			"id": 109531,
+			"decision_direction": 1,
+			"case_name": "Bellotti v. Baird"
+		},
+		{
+			"votes_majority": 5,
+			"date_filed": "1976-07-01",
+			"citation_count": 3,
+			"votes_minority": 4,
+			"absolute_url": "/opinion/109530/singleton-v-wulff/",
+			"case_name_short": "Singleton",
+			"sub_opinions": [
+				{
+					"type": "combined",
+					"opinions_cited": {
+						"108713": {
+							"opacitiy": 1
+						}
+					}
+				}
+			],
+			"id": 109530,
+			"decision_direction": 2,
+			"case_name": "Singleton v. Wulff"
+		},
+		{
+			"votes_majority": 5,
+			"date_filed": "1976-07-01",
+			"citation_count": 4,
+			"votes_minority": 4,
+			"absolute_url": "/opinion/109529/planned-parenthood-of-central-mo-v-danforth/",
+			"case_name_short": "Danforth",
+			"sub_opinions": [
+				{
+					"type": "combined",
+					"opinions_cited": {
+						"108713": {
+							"opacitiy": 1
+						}
+					}
+				}
+			],
+			"id": 109529,
+			"decision_direction": 2,
+			"case_name": "Planned Parenthood of Central Mo. v. Danforth"
+		},
+		{
+			"votes_majority": 7,
+			"date_filed": "1975-06-16",
+			"citation_count": 2,
+			"votes_minority": 2,
+			"absolute_url": "/opinion/109271/bigelow-v-virginia/",
+			"case_name_short": "Bigelow",
+			"sub_opinions": [
+				{
+					"type": "combined",
+					"opinions_cited": {
+						"108713": {
+							"opacitiy": 1
+						}
+					}
+				}
+			],
+			"id": 109271,
+			"decision_direction": 2,
+			"case_name": "Bigelow v. Virginia"
+		},
+		{
+			"votes_majority": 6,
+			"date_filed": "1979-01-09",
+			"citation_count": 1,
+			"votes_minority": 3,
+			"absolute_url": "/opinion/109966/colautti-v-franklin/",
+			"case_name_short": "Colautti",
+			"sub_opinions": [
+				{
+					"type": "combined",
+					"opinions_cited": {
+						"108713": {
+							"opacitiy": 1
+						}
+					}
+				}
+			],
+			"id": 109966,
+			"decision_direction": 2,
+			"case_name": "Colautti v. Franklin"
+		},
+		{
+			"votes_majority": 5,
+			"date_filed": "1974-04-23",
+			"citation_count": 1,
+			"votes_minority": 4,
+			"absolute_url": "/opinion/109012/defunis-v-odegaard/",
+			"case_name_short": "DeFunis",
+			"sub_opinions": [
+				{
+					"type": "combined",
+					"opinions_cited": {
+						"108713": {
+							"opacitiy": 1
+						}
+					}
+				}
+			],
+			"id": 109012,
+			"decision_direction": 1,
+			"case_name": "DeFunis v. Odegaard"
+		},
+		{
+			"votes_majority": 5,
+			"date_filed": "1991-05-23",
+			"citation_count": 1,
+			"votes_minority": 4,
+			"absolute_url": "/opinion/112593/rust-v-sullivan/",
+			"case_name_short": "Rust",
+			"sub_opinions": [
+				{
+					"type": "combined",
+					"opinions_cited": {
+						"108713": {
+							"opacitiy": 1
+						},
+						"112330": {
+							"opacitiy": 1
+						},
+						"109966": {
+							"opacitiy": 1
+						},
+						"110968": {
+							"opacitiy": 1
+						},
+						"111690": {
+							"opacitiy": 1
+						},
+						"109710": {
+							"opacitiy": 1
+						},
+						"109592": {
+							"opacitiy": 1
+						},
+						"109529": {
+							"opacitiy": 1
+						},
+						"110333": {
+							"opacitiy": 1
+						}
+					}
+				}
+			],
+			"id": 112593,
+			"decision_direction": 1,
+			"case_name": "Rust v. Sullivan"
+		},
+		{
+			"votes_majority": 5,
+			"date_filed": "1973-04-23",
+			"citation_count": 8,
+			"votes_minority": 4,
+			"absolute_url": "/opinion/108751/san-antonio-independent-school-dist-v-rodriguez/",
+			"case_name_short": "Rodriguez",
+			"sub_opinions": [
+				{
+					"type": "combined",
+					"opinions_cited": {
+						"108713": {
+							"opacitiy": 1
+						}
+					}
+				}
+			],
+			"id": 108751,
+			"decision_direction": 1,
+			"case_name": "San Antonio Independent School Dist. v. Rodriguez"
+		},
+		{
+			"votes_majority": 9,
+			"date_filed": "1997-03-03",
+			"citation_count": 1,
+			"votes_minority": 0,
+			"absolute_url": "/opinion/118093/arizonans-for-official-english-v-arizona/",
+			"case_name_short": "",
+			"sub_opinions": [
+				{
+					"type": "combined",
+					"opinions_cited": {
+						"108985": {
+							"opacitiy": 1
+						},
+						"109298": {
+							"opacitiy": 1
+						},
+						"109531": {
+							"opacitiy": 1
+						},
+						"110228": {
+							"opacitiy": 1
+						}
+					}
+				}
+			],
+			"id": 118093,
+			"decision_direction": 1,
+			"case_name": "Arizonans for Official English v. Arizona"
+		},
+		{
+			"votes_majority": 7,
+			"date_filed": "1974-04-01",
+			"citation_count": 1,
+			"votes_minority": 2,
+			"absolute_url": "/opinion/109004/village-of-belle-terre-v-boraas/",
+			"case_name_short": "Boraas",
+			"sub_opinions": [
+				{
+					"type": "combined",
+					"opinions_cited": {
+						"108713": {
+							"opacitiy": 1
+						}
+					}
+				}
+			],
+			"id": 109004,
+			"decision_direction": 1,
+			"case_name": "Village of Belle Terre v. Boraas"
+		},
+		{
+			"votes_majority": 7,
+			"date_filed": "1976-06-25",
+			"citation_count": 4,
+			"votes_minority": 1,
+			"absolute_url": "/opinion/109515/massachusetts-bd-of-retirement-v-murgia/",
+			"case_name_short": "Murgia",
+			"sub_opinions": [
+				{
+					"type": "combined",
+					"opinions_cited": {
+						"108713": {
+							"opacitiy": 1
+						}
+					}
+				}
+			],
+			"id": 109515,
+			"decision_direction": 1,
+			"case_name": "Massachusetts Bd. of Retirement v. Murgia"
+		},
+		{
+			"votes_majority": 5,
+			"date_filed": "1989-07-03",
+			"citation_count": 1,
+			"votes_minority": 4,
+			"absolute_url": "/opinion/112330/webster-v-reproductive-health-services/",
+			"case_name_short": "Webster",
+			"sub_opinions": [
+				{
+					"type": "combined",
+					"opinions_cited": {
+						"108713": {
+							"opacitiy": 1
+						}
+					}
+				}
+			],
+			"id": 112330,
+			"decision_direction": 1,
+			"case_name": "Webster v. Reproductive Health Services"
+		},
+		{
+			"votes_majority": 5,
+			"date_filed": "2013-06-26",
+			"citation_count": 0,
+			"votes_minority": 4,
+			"absolute_url": "/opinion/945737/united-states-v-windsor/",
+			"case_name_short": "Windsor",
+			"sub_opinions": [
+				{
+					"type": "combined",
+					"opinions_cited": {
+						"112896": {
+							"opacitiy": 1
+						},
+						"118144": {
+							"opacitiy": 1
+						},
+						"118146": {
+							"opacitiy": 1
+						},
+						"118027": {
+							"opacitiy": 1
+						},
+						"109710": {
+							"opacitiy": 1
+						},
+						"110225": {
+							"opacitiy": 1
+						},
+						"111507": {
+							"opacitiy": 1
+						},
+						"136984": {
+							"opacitiy": 1
+						},
+						"109086": {
+							"opacitiy": 1
+						},
+						"145702": {
+							"opacitiy": 1
+						},
+						"118056": {
+							"opacitiy": 1
+						},
+						"111661": {
+							"opacitiy": 1
+						},
+						"111924": {
+							"opacitiy": 1
+						},
+						"117947": {
+							"opacitiy": 1
+						},
+						"109380": {
+							"opacitiy": 1
+						},
+						"109128": {
+							"opacitiy": 1
+						},
+						"118093": {
+							"opacitiy": 1
+						},
+						"112593": {
+							"opacitiy": 1
+						},
+						"110434": {
+							"opacitiy": 1
+						},
+						"112747": {
+							"opacitiy": 1
+						},
+						"118380": {
+							"opacitiy": 1
+						},
+						"130160": {
+							"opacitiy": 1
+						},
+						"145704": {
+							"opacitiy": 1
+						},
+						"110578": {
+							"opacitiy": 1
+						},
+						"109301": {
+							"opacitiy": 1
+						}
+					}
+				}
+			],
+			"id": 945737,
+			"decision_direction": 2,
+			"case_name": "United States v. Windsor"
+		},
+		{
+			"votes_majority": 6,
+			"date_filed": "1975-01-14",
+			"citation_count": 1,
+			"votes_minority": 3,
+			"absolute_url": "/opinion/109128/sosna-v-iowa/",
+			"case_name_short": "Sosna",
+			"sub_opinions": [
+				{
+					"type": "combined",
+					"opinions_cited": {
+						"108985": {
+							"opacitiy": 1
+						},
+						"109083": {
+							"opacitiy": 1
+						},
+						"108751": {
+							"opacitiy": 1
+						}
+					}
+				}
+			],
+			"id": 109128,
+			"decision_direction": 1,
+			"case_name": "Sosna v. Iowa"
+		},
+		{
+			"votes_majority": 7,
+			"date_filed": "1976-02-27",
+			"citation_count": 1,
+			"votes_minority": 1,
+			"absolute_url": "/opinion/109380/buckley-v-valeo/",
+			"case_name_short": "Buckley",
+			"sub_opinions": [
+				{
+					"type": "combined",
+					"opinions_cited": {
+						"109005": {
+							"opacitiy": 1
+						},
+						"109271": {
+							"opacitiy": 1
+						}
+					}
+				}
+			],
+			"id": 109380,
+			"decision_direction": 2,
+			"case_name": "Buckley v. Valeo"
+		},
+		{
+			"votes_majority": 9,
+			"date_filed": "1986-01-21",
+			"citation_count": 1,
+			"votes_minority": 0,
+			"absolute_url": "/opinion/111555/daniels-v-williams/",
+			"case_name_short": "Daniels",
+			"sub_opinions": [
+				{
+					"type": "combined",
+					"opinions_cited": {
+						"108713": {
+							"opacitiy": 1
+						}
+					}
+				}
+			],
+			"id": 111555,
+			"decision_direction": 1,
+			"case_name": "Daniels v. Williams"
+		},
+		{
+			"votes_majority": 8,
+			"date_filed": "1979-10-01",
+			"citation_count": 1,
+			"votes_minority": 1,
+			"absolute_url": "/opinion/110145/bellotti-v-baird/",
+			"case_name_short": "Bellotti",
+			"sub_opinions": [
+				{
+					"type": "combined",
+					"opinions_cited": {
+						"108713": {
+							"opacitiy": 1
+						}
+					}
+				}
+			],
+			"id": 110145,
+			"decision_direction": 2,
+			"case_name": "Bellotti v. Baird"
+		},
+		{
+			"votes_majority": 5,
+			"date_filed": "1986-06-11",
+			"citation_count": 1,
+			"votes_minority": 4,
+			"absolute_url": "/opinion/111690/thornburgh-v-american-college-of-obstetricians-and/",
+			"case_name_short": "",
+			"sub_opinions": [
+				{
+					"type": "combined",
+					"opinions_cited": {
+						"108713": {
+							"opacitiy": 1
+						}
+					}
+				}
+			],
+			"id": 111690,
+			"decision_direction": 2,
+			"case_name": "Thornburgh v. American College of Obstetricians and Gynecologists"
+		},
+		{
+			"votes_majority": 5,
+			"date_filed": "1995-06-12",
+			"citation_count": 1,
+			"votes_minority": 4,
+			"absolute_url": "/opinion/117947/adarand-constructors-inc-v-pena/",
+			"case_name_short": "Pena",
+			"sub_opinions": [
+				{
+					"type": "combined",
+					"opinions_cited": {
+						"112786": {
+							"opacitiy": 1
+						},
+						"112643": {
+							"opacitiy": 1
+						},
+						"108751": {
+							"opacitiy": 1
+						}
+					}
+				}
+			],
+			"id": 117947,
+			"decision_direction": 1,
+			"case_name": "Adarand Constructors, Inc. v. Pena"
+		},
+		{
+			"votes_majority": 9,
+			"date_filed": "1974-03-19",
+			"citation_count": 2,
+			"votes_minority": 0,
+			"absolute_url": "/opinion/108985/steffel-v-thompson/",
+			"case_name_short": "Steffel",
+			"sub_opinions": [
+				{
+					"type": "combined",
+					"opinions_cited": {
+						"108713": {
+							"opacitiy": 1
+						}
+					}
+				}
+			],
+			"id": 108985,
+			"decision_direction": 2,
+			"case_name": "Steffel v. Thompson"
+		},
+		{
+			"votes_majority": 7,
+			"date_filed": "1987-06-19",
+			"citation_count": 1,
+			"votes_minority": 2,
+			"absolute_url": "/opinion/111924/edwards-v-aguillard/",
+			"case_name_short": "Edwards",
+			"sub_opinions": [
+				{
+					"type": "combined",
+					"opinions_cited": {
+						"110333": {
+							"opacitiy": 1
+						}
+					}
+				}
+			],
+			"id": 111924,
+			"decision_direction": 2,
+			"case_name": "Edwards v. Aguillard"
+		},
+		{
+			"votes_majority": 9,
+			"date_filed": "1986-04-30",
+			"citation_count": 1,
+			"votes_minority": 0,
+			"absolute_url": "/opinion/111661/diamond-v-charles/",
+			"case_name_short": "Diamond",
+			"sub_opinions": [
+				{
+					"type": "combined",
+					"opinions_cited": {
+						"109529": {
+							"opacitiy": 1
+						},
+						"109530": {
+							"opacitiy": 1
+						},
+						"108714": {
+							"opacitiy": 1
+						},
+						"111258": {
+							"opacitiy": 1
+						},
+						"109301": {
+							"opacitiy": 1
+						}
+					}
+				}
+			],
+			"id": 111661,
+			"decision_direction": 1,
+			"case_name": "Diamond v. Charles"
+		},
+		{
+			"votes_majority": 7,
+			"date_filed": "1973-02-26",
+			"citation_count": 3,
+			"votes_minority": 2,
+			"absolute_url": "/opinion/108714/doe-v-bolton/",
+			"case_name_short": "Doe",
+			"sub_opinions": [
+				{
+					"type": "combined",
+					"opinions_cited": {
+						"108713": {
+							"opacitiy": 1
+						}
+					}
+				}
+			],
+			"id": 108714,
+			"decision_direction": 2,
+			"case_name": "Doe v. Bolton"
+		},
+		{
+			"votes_majority": 7,
+			"date_filed": "1973-02-26",
+			"citation_count": 45,
+			"votes_minority": 2,
+			"absolute_url": "/opinion/108713/roe-v-wade/",
+			"case_name_short": "Roe",
+			"sub_opinions": [
+				{
+					"type": "combined",
+					"opinions_cited": {}
+				}
+			],
+			"id": 108713,
+			"decision_direction": 2,
+			"case_name": "Roe v. Wade"
+		},
+		{
+			"votes_majority": 5,
+			"date_filed": "2007-06-25",
+			"citation_count": 1,
+			"votes_minority": 4,
+			"absolute_url": "/opinion/145704/hein-v-freedom-from-religion-foundation-inc/",
+			"case_name_short": "Hein",
+			"sub_opinions": [
+				{
+					"type": "combined",
+					"opinions_cited": {
+						"111258": {
+							"opacitiy": 1
+						},
+						"109301": {
+							"opacitiy": 1
+						}
+					}
+				}
+			],
+			"id": 145704,
+			"decision_direction": 1,
+			"case_name": "Hein v. Freedom From Religion Foundation, Inc."
+		},
+		{
+			"votes_majority": 5,
+			"date_filed": "1989-08-30",
+			"citation_count": 2,
+			"votes_minority": 4,
+			"absolute_url": "/opinion/112295/michael-h-v-gerald-d/",
+			"case_name_short": "",
+			"sub_opinions": [
+				{
+					"type": "combined",
+					"opinions_cited": {
+						"108713": {
+							"opacitiy": 1
+						}
+					}
+				}
+			],
+			"id": 112295,
+			"decision_direction": 1,
+			"case_name": "Michael H. v. Gerald D."
+		},
+		{
+			"votes_majority": 6,
+			"date_filed": "1980-04-22",
+			"citation_count": 1,
+			"votes_minority": 3,
+			"absolute_url": "/opinion/110246/mobile-v-bolden/",
+			"case_name_short": "Bolden",
+			"sub_opinions": [
+				{
+					"type": "combined",
+					"opinions_cited": {
+						"108713": {
+							"opacitiy": 1
+						}
+					}
+				}
+			],
+			"id": 110246,
+			"decision_direction": 1,
+			"case_name": "Mobile v. Bolden"
+		},
+		{
+			"votes_majority": 9,
+			"date_filed": "1973-06-21",
+			"citation_count": 1,
+			"votes_minority": 0,
+			"absolute_url": "/opinion/108837/gilligan-v-morgan/",
+			"case_name_short": "Gilligan",
+			"sub_opinions": [
+				{
+					"type": "combined",
+					"opinions_cited": {
+						"108713": {
+							"opacitiy": 1
+						}
+					}
+				}
+			],
+			"id": 108837,
+			"decision_direction": 1,
+			"case_name": "Gilligan v. Morgan"
+		},
+		{
+			"votes_majority": 6,
+			"date_filed": "1979-06-20",
+			"citation_count": 1,
+			"votes_minority": 3,
+			"absolute_url": "/opinion/110113/parham-v-jr/",
+			"case_name_short": "Parham",
+			"sub_opinions": [
+				{
+					"type": "combined",
+					"opinions_cited": {
+						"108713": {
+							"opacitiy": 1
+						}
+					}
+				}
+			],
+			"id": 110113,
+			"decision_direction": 1,
+			"case_name": "Parham v. JR"
+		},
+		{
+			"votes_majority": 6,
+			"date_filed": "1978-05-01",
+			"citation_count": 1,
+			"votes_minority": 3,
+			"absolute_url": "/opinion/109855/memphis-light-gas-water-div-v-craft/",
+			"case_name_short": "Craft",
+			"sub_opinions": [
+				{
+					"type": "combined",
+					"opinions_cited": {
+						"108713": {
+							"opacitiy": 1
+						}
+					}
+				}
+			],
+			"id": 109855,
+			"decision_direction": 2,
+			"case_name": "Memphis Light, Gas & Water Div. v. Craft"
+		},
+		{
+			"votes_majority": 5,
+			"date_filed": "1974-06-25",
+			"citation_count": 1,
+			"votes_minority": 4,
+			"absolute_url": "/opinion/109086/united-states-v-richardson/",
+			"case_name_short": "",
+			"sub_opinions": [
+				{
+					"type": "combined",
+					"opinions_cited": {
+						"108837": {
+							"opacitiy": 1
+						}
+					}
+				}
+			],
+			"id": 109086,
+			"decision_direction": 1,
+			"case_name": "United States v. Richardson"
+		},
+		{
+			"votes_majority": 6,
+			"date_filed": "1974-06-24",
+			"citation_count": 3,
+			"votes_minority": 3,
+			"absolute_url": "/opinion/109083/richardson-v-ramirez/",
+			"case_name_short": "Ramirez",
+			"sub_opinions": [
+				{
+					"type": "combined",
+					"opinions_cited": {
+						"108713": {
+							"opacitiy": 1
+						}
+					}
+				}
+			],
+			"id": 109083,
+			"decision_direction": 1,
+			"case_name": "Richardson v. Ramirez"
+		},
+		{
+			"votes_majority": 5,
+			"date_filed": "1984-09-18",
+			"citation_count": 5,
+			"votes_minority": 3,
+			"absolute_url": "/opinion/111258/allen-v-wright/",
+			"case_name_short": "Allen",
+			"sub_opinions": [
+				{
+					"type": "combined",
+					"opinions_cited": {
+						"108713": {
+							"opacitiy": 1
+						}
+					}
+				}
+			],
+			"id": 111258,
+			"decision_direction": 1,
+			"case_name": "Allen v. Wright"
+		},
+		{
+			"votes_majority": 9,
+			"date_filed": "1977-02-22",
+			"citation_count": 3,
+			"votes_minority": 0,
+			"absolute_url": "/opinion/109592/whalen-v-roe/",
+			"case_name_short": "Whalen",
+			"sub_opinions": [
+				{
+					"type": "combined",
+					"opinions_cited": {
+						"108713": {
+							"opacitiy": 1
+						}
+					}
+				}
+			],
+			"id": 109592,
+			"decision_direction": 1,
+			"case_name": "Whalen v. Roe"
+		},
+		{
+			"votes_majority": 5,
+			"date_filed": "1980-03-19",
+			"citation_count": 2,
+			"votes_minority": 4,
+			"absolute_url": "/opinion/110228/united-states-parole-commn-v-geraghty/",
+			"case_name_short": "Geraghty",
+			"sub_opinions": [
+				{
+					"type": "combined",
+					"opinions_cited": {
+						"108713": {
+							"opacitiy": 1
+						}
+					}
+				}
+			],
+			"id": 110228,
+			"decision_direction": 2,
+			"case_name": "United States Parole Comm'n v. Geraghty"
+		},
+		{
+			"votes_majority": 9,
+			"date_filed": "1985-07-01",
+			"citation_count": 1,
+			"votes_minority": 0,
+			"absolute_url": "/opinion/111507/cleburne-v-cleburne-living-center-inc/",
+			"case_name_short": "Cleburne",
+			"sub_opinions": [
+				{
+					"type": "combined",
+					"opinions_cited": {
+						"108913": {
+							"opacitiy": 1
+						},
+						"109083": {
+							"opacitiy": 1
+						},
+						"109004": {
+							"opacitiy": 1
+						},
+						"109515": {
+							"opacitiy": 1
+						},
+						"108751": {
+							"opacitiy": 1
+						}
+					}
+				}
+			],
+			"id": 111507,
+			"decision_direction": 2,
+			"case_name": "Cleburne v. Cleburne Living Center, Inc."
+		},
+		{
+			"votes_majority": 5,
+			"date_filed": "1992-06-29",
+			"citation_count": 4,
+			"votes_minority": 4,
+			"absolute_url": "/opinion/112786/planned-parenthood-of-southeastern-pa-v-casey/",
+			"case_name_short": "Casey",
+			"sub_opinions": [
+				{
+					"type": "combined",
+					"opinions_cited": {
+						"108713": {
+							"opacitiy": 1
+						}
+					}
+				}
+			],
+			"id": 112786,
+			"decision_direction": 2,
+			"case_name": "Planned Parenthood of Southeastern Pa. v. Casey"
+		},
+		{
+			"votes_majority": 7,
+			"date_filed": "1980-05-12",
+			"citation_count": 1,
+			"votes_minority": 2,
+			"absolute_url": "/opinion/110225/deposit-guaranty-nat-bank-v-roper/",
+			"case_name_short": "Roper",
+			"sub_opinions": [
+				{
+					"type": "combined",
+					"opinions_cited": {
+						"110228": {
+							"opacitiy": 1
+						},
+						"109298": {
+							"opacitiy": 1
+						},
+						"109012": {
+							"opacitiy": 1
+						},
+						"109855": {
+							"opacitiy": 1
+						}
+					}
+				}
+			],
+			"id": 110225,
+			"decision_direction": 2,
+			"case_name": "Deposit Guaranty Nat. Bank v. Roper"
+		},
+		{
+			"votes_majority": 6,
+			"date_filed": "1977-06-20",
+			"citation_count": 1,
+			"votes_minority": 3,
+			"absolute_url": "/opinion/109712/poelker-v-doe/",
+			"case_name_short": "Poelker",
+			"sub_opinions": [
+				{
+					"type": "combined",
+					"opinions_cited": {
+						"108713": {
+							"opacitiy": 1
+						}
+					}
+				}
+			],
+			"id": 109712,
+			"decision_direction": 1,
+			"case_name": "Poelker v. Doe"
+		},
+		{
+			"votes_majority": 7,
+			"date_filed": "1996-07-03",
+			"citation_count": 1,
+			"votes_minority": 1,
+			"absolute_url": "/opinion/118056/united-states-v-virginia/",
+			"case_name_short": "",
+			"sub_opinions": [
+				{
+					"type": "combined",
+					"opinions_cited": {
+						"112786": {
+							"opacitiy": 1
+						},
+						"112295": {
+							"opacitiy": 1
+						}
+					}
+				}
+			],
+			"id": 118056,
+			"decision_direction": 2,
+			"case_name": "United States v. Virginia"
+		},
+		{
+			"votes_majority": 6,
+			"date_filed": "1977-06-20",
+			"citation_count": 3,
+			"votes_minority": 3,
+			"absolute_url": "/opinion/109710/maher-v-roe/",
+			"case_name_short": "Maher",
+			"sub_opinions": [
+				{
+					"type": "combined",
+					"opinions_cited": {
+						"109679": {
+							"opacitiy": 1
+						},
+						"108713": {
+							"opacitiy": 1
+						},
+						"108714": {
+							"opacitiy": 1
+						},
+						"109515": {
+							"opacitiy": 1
+						},
+						"109708": {
+							"opacitiy": 1
+						},
+						"108751": {
+							"opacitiy": 1
+						},
+						"109592": {
+							"opacitiy": 1
+						},
+						"109529": {
+							"opacitiy": 1
+						},
+						"109530": {
+							"opacitiy": 1
+						},
+						"109531": {
+							"opacitiy": 1
+						}
+					}
+				}
+			],
+			"id": 109710,
+			"decision_direction": 1,
+			"case_name": "Maher v. Roe"
+		},
+		{
+			"votes_majority": 6,
+			"date_filed": "1977-06-20",
+			"citation_count": 2,
+			"votes_minority": 3,
+			"absolute_url": "/opinion/109708/beal-v-doe/",
+			"case_name_short": "Beal",
+			"sub_opinions": [
+				{
+					"type": "combined",
+					"opinions_cited": {
+						"108713": {
+							"opacitiy": 1
+						}
+					}
+				}
+			],
+			"id": 109708,
+			"decision_direction": 1,
+			"case_name": "Beal v. Doe"
+		},
+		{
+			"votes_majority": 6,
+			"date_filed": "1996-06-03",
+			"citation_count": 1,
+			"votes_minority": 3,
+			"absolute_url": "/opinion/118027/romer-v-evans/",
+			"case_name_short": "Romer",
+			"sub_opinions": [
+				{
+					"type": "combined",
+					"opinions_cited": {
+						"111738": {
+							"opacitiy": 1
+						},
+						"109083": {
+							"opacitiy": 1
+						},
+						"109515": {
+							"opacitiy": 1
+						}
+					}
+				}
+			],
+			"id": 118027,
+			"decision_direction": 2,
+			"case_name": "Romer v. Evans"
+		},
+		{
+			"votes_majority": 8,
+			"date_filed": "1975-06-25",
+			"citation_count": 2,
+			"votes_minority": 1,
+			"absolute_url": "/opinion/109298/preiser-v-newkirk/",
+			"case_name_short": "Preiser",
+			"sub_opinions": [
+				{
+					"type": "combined",
+					"opinions_cited": {
+						"108713": {
+							"opacitiy": 1
+						}
+					}
+				}
+			],
+			"id": 109298,
+			"decision_direction": 1,
+			"case_name": "Preiser v. Newkirk"
+		},
+		{
+			"votes_majority": 8,
+			"date_filed": "2004-06-14",
+			"citation_count": 1,
+			"votes_minority": 0,
+			"absolute_url": "/opinion/136984/elk-grove-unified-school-dist-v-newdow/",
+			"case_name_short": "Newdow",
+			"sub_opinions": [
+				{
+					"type": "combined",
+					"opinions_cited": {
+						"109530": {
+							"opacitiy": 1
+						},
+						"109301": {
+							"opacitiy": 1
+						},
+						"111258": {
+							"opacitiy": 1
+						}
+					}
+				}
+			],
+			"id": 136984,
+			"decision_direction": 1,
+			"case_name": "Elk Grove Unified School Dist. v. Newdow"
+		},
+		{
+			"votes_majority": 6,
+			"date_filed": "1991-09-13",
+			"citation_count": 3,
+			"votes_minority": 3,
+			"absolute_url": "/opinion/112643/payne-v-tennessee/",
+			"case_name_short": "Payne",
+			"sub_opinions": [
+				{
+					"type": "combined",
+					"opinions_cited": {
+						"108713": {
+							"opacitiy": 1
+						}
+					}
+				}
+			],
+			"id": 112643,
+			"decision_direction": 1,
+			"case_name": "Payne v. Tennessee"
+		},
+		{
+			"votes_majority": 7,
+			"date_filed": "1997-06-26",
+			"citation_count": 1,
+			"votes_minority": 2,
+			"absolute_url": "/opinion/118146/raines-v-byrd/",
+			"case_name_short": "Raines",
+			"sub_opinions": [
+				{
+					"type": "combined",
+					"opinions_cited": {
+						"111258": {
+							"opacitiy": 1
+						},
+						"109301": {
+							"opacitiy": 1
+						}
+					}
+				}
+			],
+			"id": 118146,
+			"decision_direction": 1,
+			"case_name": "Raines v. Byrd"
+		},
+		{
+			"votes_majority": 9,
+			"date_filed": "1997-06-26",
+			"citation_count": 2,
+			"votes_minority": 0,
+			"absolute_url": "/opinion/118144/washington-v-glucksberg/",
+			"case_name_short": "Glucksberg",
+			"sub_opinions": [
+				{
+					"type": "combined",
+					"opinions_cited": {
+						"111555": {
+							"opacitiy": 1
+						},
+						"109670": {
+							"opacitiy": 1
+						},
+						"108713": {
+							"opacitiy": 1
+						},
+						"108751": {
+							"opacitiy": 1
+						},
+						"112786": {
+							"opacitiy": 1
+						},
+						"109592": {
+							"opacitiy": 1
+						},
+						"109679": {
+							"opacitiy": 1
+						},
+						"112478": {
+							"opacitiy": 1
+						}
+					}
+				}
+			],
+			"id": 118144,
+			"decision_direction": 1,
+			"case_name": "Washington v. Glucksberg"
+		},
+		{
+			"votes_majority": 5,
+			"date_filed": "1993-06-24",
+			"citation_count": 1,
+			"votes_minority": 4,
+			"absolute_url": "/opinion/112896/heller-v-doe/",
+			"case_name_short": "Heller",
+			"sub_opinions": [
+				{
+					"type": "combined",
+					"opinions_cited": {
+						"110113": {
+							"opacitiy": 1
+						},
+						"109515": {
+							"opacitiy": 1
+						},
+						"109684": {
+							"opacitiy": 1
+						},
+						"108751": {
+							"opacitiy": 1
+						}
+					}
+				}
+			],
+			"id": 112896,
+			"decision_direction": 1,
+			"case_name": "Heller v. Doe"
+		}
+	]
+}

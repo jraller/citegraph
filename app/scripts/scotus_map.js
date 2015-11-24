@@ -120,12 +120,30 @@ function drawGraph(target, chartType, axisType, height, maxDoS, breakout) {
 	 * [prepJSON description]
 	 */
 	function prepJSON() {
+		function citations(obj) {
+			var size = 0,
+				key = '';
+
+			for (key in obj) {
+				if (obj.hasOwnProperty(key)) {
+					size++;
+				}
+			}
+			return size;
+		}
 		// sort by date_filed
 		citationJSON.opinion_clusters.sort(function (a, b) {
 			if (parseDate(a.date_filed) > parseDate(b.date_filed)) {
 				return 1;
 			}
 			if (parseDate(a.date_filed) < parseDate(b.date_filed)) {
+				return -1;
+			}
+			// break the tie for two opinions on the same day, must start network with one with no cites
+			if (citations(a.sub_opinions[0].opinions_cited) > citations(b.sub_opinions[0].opinions_cited)) {
+				return 1;
+			}
+			if (citations(a.sub_opinions[0].opinions_cited) < citations(b.sub_opinions[0].opinions_cited)) {
 				return -1;
 			}
 			return 0;
@@ -183,23 +201,22 @@ function drawGraph(target, chartType, axisType, height, maxDoS, breakout) {
 			linkId = '',
 			item = '';
 
+		// for any iteration that is traversing between two points
 		if (nodeid !== last) {
 			linkId = linkName(citationJSON.opinion_clusters[nodeid].id, citationJSON.opinion_clusters[last].id);
-			if (links.hasOwnProperty(linkId)) {
-				if (links[linkId].dr > depth) {
-					links[linkId].dr = depth;
-				}
-			} else {
+			if (! links.hasOwnProperty(linkId)) {
 				links[linkId] = {dr: depth};
+			} else if (typeof links[linkId].dr === 'undefined' || links[linkId].dr > depth) {
+				links[linkId].dr = depth;
 			}
 		}
+		// branch and follow all children this direction
 		if (typeof order === 'undefined' || order > depth) {
-			citationJSON.opinion_clusters[nodeid].travRev = depth;
+			// if this is our first time getting here or we found a shorter path
+			citationJSON.opinion_clusters[nodeid].travRev = depth; // record the new shorter distance
 			for (item in citationJSON.opinion_clusters[nodeid].sub_opinions[0].opinions_cited) {
 				if (citationJSON.opinion_clusters[nodeid].sub_opinions[0].opinions_cited.hasOwnProperty(item)) {
-					if (JSONIndex[item]) {
-						traverse(JSONIndex[item].num, nodeid, depth + 1);
-					}
+					traverse(JSONIndex[item].num, nodeid, depth + 1);
 				}
 			}
 		}
@@ -217,10 +234,10 @@ function drawGraph(target, chartType, axisType, height, maxDoS, breakout) {
 
 		if (nodeid !== last) {
 			linkId = linkName(citationJSON.opinion_clusters[nodeid].id, citationJSON.opinion_clusters[last].id);
-			if (links.hasOwnProperty(linkId)) {
-				if (typeof links[linkId].df === 'undefined' || links[linkId].df > depth) {
-					links[linkId].df = depth;
-				}
+			if (! links.hasOwnProperty(linkId)) {
+				links[linkId] = {df: depth};
+			} else if (typeof links[linkId].df === 'undefined' || links[linkId].df > depth) {
+				links[linkId].df = depth;
 			}
 		}
 		if (typeof order === 'undefined' || order > depth) {
@@ -228,6 +245,10 @@ function drawGraph(target, chartType, axisType, height, maxDoS, breakout) {
 			JSONIndex[citationJSON.opinion_clusters[nodeid].id].citedBy.forEach(function (item) {
 				traverseBack(JSONIndex[item].num, nodeid, depth + 1);
 			});
+			// for (index = 0; index < JSONIndex[citationJSON.opinion_clusters[nodeid].id].citedBy.length; index++) {
+			// 	target = JSONIndex[citationJSON.opinion_clusters[nodeid].id].citedBy[index];
+			// 	traverseBack(JSONIndex[target].num, nodeid, depth + 1);
+			// }
 		}
 	}
 
@@ -1068,9 +1089,9 @@ $(document).ready(function () {
 			[
 				// {s: 'source', }
 				// {s: 'id', f: bold},
+				// {s: 'order', l: 'Degrees of Separation'},
 				{s: 'case_name', l: 'Case Name', a: 'absolute_url'},
 				{s: 'citation_count', l: 'Total Citations'},
-				// {s: 'order', l: 'Degrees of Separation'},
 				{s: 'date_filed', l: 'Date Filed', f: dateFormat},
 				{s: ['votes_majority', 'votes_minority'], l: 'Vote Count', f: formatSplit},
 				{s: 'decision_direction', l: 'Direction', f: formatDecision}
