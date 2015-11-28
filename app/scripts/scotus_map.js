@@ -1046,6 +1046,10 @@ $(document).ready(function () {
 		return r;
 	}
 
+	function scdbLink(s) {
+		return '<a href="http://supremecourtdatabase.org/analysisCaseDetail.php?cid=' + s + '">' + s + '</a>'
+	}
+
 	// opinions_cited array of number or
 	// array of object of name by cite number with dictionary of values
 	// {"112331": {"opacity": 1}}
@@ -1091,6 +1095,7 @@ $(document).ready(function () {
 				// {s: 'id', f: bold},
 				// {s: 'order', l: 'Degrees of Separation'},
 				{s: 'case_name', l: 'Case Name', a: 'absolute_url'},
+				{s: 'scdb_id', l: 'SCDB', f: scdbLink},
 				{s: 'citation_count', l: 'Total Citations'},
 				{s: 'date_filed', l: 'Date Filed', f: dateFormat},
 				{s: ['votes_majority', 'votes_minority'], l: 'Vote Count', f: formatSplit},
