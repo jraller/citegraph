@@ -435,7 +435,7 @@ function drawGraph(target, chartType, axisType, height, maxDoS, breakout, mode) 
 
 	xLabel = new Plottable.Components.AxisLabel(label, 0);
 
-	label = (chartMode === 'dos') ? 'Random' : 'Conservative <-- --> Liberal';
+	label = (chartMode === 'dos') ? 'Random' : 'Conservative  ⟵  ⟶  Liberal';
 
 	yLabel = new Plottable.Components.AxisLabel(label, -90);
 
@@ -500,7 +500,8 @@ function drawGraph(target, chartType, axisType, height, maxDoS, breakout, mode) 
 			return colorScale.scale((chartMode === 'dos')
 				? d.order
 				: ddlul[d.decision_direction]);
-		});
+		})
+		.attr('opacity', 1);
 		// .labelsEnabled(function () {
 		// 	return true;
 		// })
@@ -581,7 +582,8 @@ function drawGraph(target, chartType, axisType, height, maxDoS, breakout, mode) 
 
 6.	Repeat steps 3-5 for the rest of the cases in the set, continuing backwards chronologically through the cases.
 
-7.	Add the citations to the appropriate strands (conservative/liberal/unknown) based on the decision direction of the citing case.
+7.	Add the citations to the appropriate strands (conservative/liberal/unknown) based on the decision direction of
+	the citing case.
 
 */
 
@@ -597,10 +599,9 @@ function drawGraph(target, chartType, axisType, height, maxDoS, breakout, mode) 
 
 // expand this to handle all of the logic above.
 // make sure that if the mode is genealogy that maxDos is ignored from the start
-
 				for (item in cluster.sub_opinions[0].opinions_cited) {
 					if (cluster.sub_opinions[0].opinions_cited.hasOwnProperty(item)) {
-						cluster.sub_opinions[0].opinions_cited[item].opacity = 0.25;
+						cluster.sub_opinions[0].opinions_cited[item].opacity = 0.15;
 						// console.log(cluster.decision_direction, ddlu[cluster.decision_direction], JSONIndex[item].num);
 
 						// console.log(recent, parseDate(workingJSON[JSONIndex[item].num].date_filed));
@@ -617,15 +618,29 @@ function drawGraph(target, chartType, axisType, height, maxDoS, breakout, mode) 
 						}
 					}
 				}
-				if (recentIndex !== 0) {
-					// console.log('Pick:', recentIndex);
+				if (recentIndex !== 0 || cluster.count === caseCount) {
 					cluster.sub_opinions[0].opinions_cited[recentIndex].opacity = 1;
-				} else if (recentOpIndex !== 0) {
-					// console.log('PickOp:', recentOpIndex);
-					cluster.sub_opinions[0].opinions_cited[recentOpIndex].opacity = 1;
+					workingJSON[JSONIndex[recentIndex].num].visited = true;
 				}
-
+				if ((recentOpIndex !== 0  && recentIndex === 0) || cluster.count === caseCount) {
+					cluster.sub_opinions[0].opinions_cited[recentOpIndex].opacity = 1;
+					workingJSON[JSONIndex[recentOpIndex].num].visited = true;
+				}
 			});
+			// second pass to pick up orphans
+			workingJSON.forEach(function (cluster) {
+				var item = {};
+
+				for (item in cluster.sub_opinions[0].opinions_cited) {
+					if (cluster.sub_opinions[0].opinions_cited.hasOwnProperty(item)) {
+						if (! workingJSON[JSONIndex[item].num].hasOwnProperty('visited')) {
+							cluster.sub_opinions[0].opinions_cited[item].opacity = 1;
+							workingJSON[JSONIndex[item].num].visited = true;
+						}
+					}
+				}
+			});
+
 
 		}
 		workingJSON.forEach(function (cluster) {
