@@ -47,8 +47,7 @@ var citationJSON = {},
  * @param {boolean} breakout controls if case links open in new window
  * @return {object} a new version of the source data containing only utilized information
  */
-function drawGraph(target, chartType, axisType, height, maxDoS, breakout) {
-	// add "edit mode" boolean
+function drawGraph(target, chartType, axisType, height, maxDoS, breakout, mode) {
 	var chartMode = (typeof chartType !== 'undefined') ? chartType : 'dos',
 		xAxisMode = (typeof axisType !== 'undefined') ? axisType : 'cat',
 		heightValue = '400px', // default, height is processed below
@@ -63,7 +62,6 @@ function drawGraph(target, chartType, axisType, height, maxDoS, breakout) {
 		JSONIndex = {},
 		JSONCount = 0,
 		caseCount = 0, // number of opinions
-		flagSize = 0, // square root of 2 less than the number of opinions
 		maxDegree = 0,
 		label = '',
 		//scales
@@ -77,20 +75,9 @@ function drawGraph(target, chartType, axisType, height, maxDoS, breakout) {
 		ddlu = ['N', 'C', 'L', 'U'], // from http://scdb.wustl.edu/documentation.php?var=decisionDirection
 		ddlul = ['Neutral', 'Conservative', 'Liberal', 'Unspecifiable', 'Unknown'],
 		ddc = [0, 0, 0, 0, 0],
-		distributions = [
-			[1], // 1
-			[1, 2], // 4
-			[1, 2, 3], // 9
-			[4, 7, 2, 9], // 16
-			[2, 10, 5, 13, 16], // 25
-			[7, 2, 16, 5, 21, 25], // 36
-			[1, 2, 3, 4, 5, 6, 7], // 49
-			[1, 2, 3, 4, 5, 6, 7, 8], // 64
-			[1, 2, 3, 4, 5, 6, 7, 8, 9] // 81
-			// how far does this table go?
-		],
+		offset = 0,
+		index = 0,
 		distribution = [], // will hold the correctly sized vertical distribution pattern
-		labels = {},
 		// chart parts
 		chart = {}, // the chart itself
 		table = [], // holds the structure of the chart
@@ -114,6 +101,8 @@ function drawGraph(target, chartType, axisType, height, maxDoS, breakout) {
 		// caseHoverText = {}, // reference to the text in the object shown when hovering
 		caseHoverGroup = {}, // reference to the hover show object
 		caseClick = {}, // interaction behavior
+		caseDrag = {},
+		dragTarget = null,
 		keys = {};
 
 	/**
@@ -245,10 +234,6 @@ function drawGraph(target, chartType, axisType, height, maxDoS, breakout) {
 			JSONIndex[citationJSON.opinion_clusters[nodeid].id].citedBy.forEach(function (item) {
 				traverseBack(JSONIndex[item].num, nodeid, depth + 1);
 			});
-			// for (index = 0; index < JSONIndex[citationJSON.opinion_clusters[nodeid].id].citedBy.length; index++) {
-			// 	target = JSONIndex[citationJSON.opinion_clusters[nodeid].id].citedBy[index];
-			// 	traverseBack(JSONIndex[target].num, nodeid, depth + 1);
-			// }
 		}
 	}
 
@@ -296,12 +281,20 @@ function drawGraph(target, chartType, axisType, height, maxDoS, breakout) {
 
 	function trimJSON(limit) {
 		var max = parseInt(limit, 10),
-			link = {};
+			link = {},
+			c = 1;
 
+		// filter out cases that have higher DoS
 		workingJSON = citationJSON.opinion_clusters.filter(function (cluster) {
 			return degrees.indexOf(cluster.order) < max;
 		});
+		// renumber the remaining cases
+		workingJSON.forEach(function (cluster) {
+			cluster.count = c++;
+		});
+		// get the count of the remaining cases
 		caseCount = workingJSON.length;
+		// remove links that have higher DoS
 		for (link in links) {
 			if (links.hasOwnProperty(link)) {
 				if (degrees.indexOf(links[link].d) >= max) {
@@ -321,17 +314,38 @@ function drawGraph(target, chartType, axisType, height, maxDoS, breakout) {
 
 	trimJSON(maxDoS);
 
-	flagSize = Math.ceil(Math.sqrt(caseCount));
-
-	if (flagSize > 0 && flagSize < distributions.length) {
-		distribution = distributions[flagSize - 1];
-	} else {
-		distribution = d3.range(1, flagSize + 2);
-	}
-
 	// hard code distributions for Friday
 	// rewrite to use modulus and take aspect ratio into account
-	distribution = [2, 10, 5, 13, 16];
+	// distribution = [2, 10, 5, 13, 16];
+
+	distribution = [];
+
+	distribution.push(50); // first at 50
+	for (index = 0; index < caseCount - 2; index++) {
+		// need better numbers here
+		offset += [68, 77, 55, 37, 42, 21, 62][index % 7];
+		distribution.push((offset % 91) + 5);
+	}
+	distribution.push(50); // last at 50
+
+	function dosYSpread(d) {
+		return (d.y) ? d.y : distribution[d.count - 1];
+	}
+
+	function spaethYSpread(d) {
+		var minority = d.votes_minority,
+			majority = String(9 - Number(minority)), // d.votes_majority,
+			decision_direction = ddlu[d.decision_direction],
+			prefix = (majority === '9') ? 'N' : decision_direction,
+			value = '';
+
+		if (minority === '-1') {
+			value = 'Unk';
+		} else {
+			value = prefix + majority + '-' + minority;
+		}
+		return value;
+	}
 
 	if (typeof height !== 'undefined') {
 		if (height === 'screen') {
@@ -348,10 +362,15 @@ function drawGraph(target, chartType, axisType, height, maxDoS, breakout) {
 
 	xScaleCat = new Plottable.Scales.Category(); // set switch for time or category time
 	xScaleCat.outerPadding(0.9);
+	// ensure correct order by loading dates in
+	xScaleCat.domain(workingJSON.map(function (d) {
+		return parseDate(d.date_filed);
+	}));
 	xScaleTime = new Plottable.Scales.Time();
 	yScale = new Plottable.Scales.Category();
 	if (chartMode === 'dos') {
-		yScale.domain(d3.range(1, d3.max(distribution) + 2).reverse());
+		// yScale.domain(d3.range(1, d3.max(distribution) + 2).reverse());
+		yScale.domain(d3.range(0, 100));
 	} else {
 		yScale.domain([
 			'L5-4',
@@ -369,7 +388,7 @@ function drawGraph(target, chartType, axisType, height, maxDoS, breakout) {
 	yScale.outerPadding(0.9);
 
 	sizeScale = new Plottable.Scales.ModifiedLog();
-	sizeScale.range([5, 50]);
+	sizeScale.range([10, 50]);
 	colorScale = new Plottable.Scales.Color();
 
 	function filter(source, compare) {
@@ -429,39 +448,27 @@ function drawGraph(target, chartType, axisType, height, maxDoS, breakout) {
 		xGrid = xScaleTime;
 	}
 	yGrid = new Plottable.Scales.Linear()
-		.domain([0, d3.max(distribution) + 2]);
-		// .range([yAxis.height(), 0]);
+		.domain([0, 100]);
 
 	grid = new Plottable.Components.Gridlines(xGrid, yGrid);
 
 	plot = new Plottable.Components.Group();
 	plot.append(grid);
 
-	function dosYSpread(d) {
-		var value = 0;
-
-		if (d.count === 1 || d.count === caseCount) {
-			value = d3.max(distribution) + 1;
-		} else {
-			value = distribution[(d.count - 2) % flagSize];
-		}
-		return value;
-	}
-
-	function spaethYSpread(d) {
-		var minority = d.votes_minority,
-			majority = String(9 - Number(minority)), // d.votes_majority,
-			decision_direction = ddlu[d.decision_direction],
-			prefix = (majority === '9') ? 'N' : decision_direction,
-			value = '';
-
-		if (minority === '-1') {
-			value = 'Unk';
-		} else {
-			value = prefix + majority + '-' + minority;
-		}
-		return value;
-	}
+	connections = new Plottable.Plots.Line()
+		.x(function (d) {
+			return parseDate(d.x);
+		}, (xAxisMode === 'cat') ? xScaleCat : xScaleTime)
+		.y(function (d) {
+			return d.y;
+		}, yScale)
+		.attr('stroke', function (d) {
+			return colorScale.scale(d.c);
+		})
+		.attr('opacity', function (d) {
+			return d.o;
+		});
+	plot.append(connections);
 
 	cases = new Plottable.Plots.Scatter()
 		.addDataset(new Plottable.Dataset(workingJSON))
@@ -493,54 +500,23 @@ function drawGraph(target, chartType, axisType, height, maxDoS, breakout) {
 			return colorScale.scale((chartMode === 'dos')
 				? d.order
 				: ddlul[d.decision_direction]);
-		});
-	plot.append(cases);
-
-	connections = new Plottable.Plots.Line()
-		.x(function (d) {
-			return parseDate(d.x);
-		}, (xAxisMode === 'cat') ? xScaleCat : xScaleTime)
-		.y(function (d) {
-			return d.y;
-		}, yScale)
-		.attr('stroke', function (d) {
-			return colorScale.scale(d.c);
 		})
-		.attr('opacity', function (d) {
-			return d.o;
-		});
-	plot.append(connections);
-
-	labels = new Plottable.Plots.Rectangle()
-		.addDataset(new Plottable.Dataset(workingJSON))
-		.x(function (d) {
-			return parseDate(d.date_filed);
-		}, (xAxisMode === 'cat') ? xScaleCat : xScaleTime)
-		.y(function (d) {
-			return (chartMode === 'dos') ? dosYSpread(d) : spaethYSpread(d);
-		}, yScale)
-		.attr('fill', 'rgba(0, 0, 0, 0)')
-		.attr('stroke-width', 0)
 		.labelsEnabled(function () {
 			return true;
 		})
 		.label(function (d) {
-			return d.case_name_short;
+			return (d.case_name_short) ? d.case_name_short : d.case_name;
 		});
-	plot.append(labels);
+	plot.append(cases);
 
-	if (chartMode === 'dos') {
-		yAxis.formatter(function () {
-			return '';
+	function calcConnections() {
+		connections.datasets().forEach(function (set) {
+			connections.removeDataset(set)
 		});
 		workingJSON.forEach(function (cluster) {
 			point = {};
 			point.date_filed = cluster.date_filed;
-			if (cluster.count === 1 || cluster.count === caseCount) {
-				point.count = d3.max(distribution) + 1;
-			} else {
-				point.count = distribution[(cluster.count - 2) % flagSize];
-			}
+			point.count = dosYSpread(cluster);
 			point.order = cluster.order;
 			coords[cluster.id] = point;
 		});
@@ -568,6 +544,14 @@ function drawGraph(target, chartType, axisType, height, maxDoS, breakout) {
 				}
 			}
 		});
+	}
+
+
+	if (chartMode === 'dos') {
+		yAxis.formatter(function () {
+			return '';
+		});
+		calcConnections();
 	} else {
 		if (chartMode === 'genealogy') {
 
@@ -681,10 +665,10 @@ function drawGraph(target, chartType, axisType, height, maxDoS, breakout) {
 	}
 
 	table = [
-		[null, null, legend],
-		[yLabel, yAxis, plot],
-		[null, null, (xAxisMode === 'cat') ? xAxisCat : xAxisTime],
-		[null, null, xLabel]
+		[null, null, legend, null],
+		[yLabel, yAxis, plot, null],
+		[null, null, (xAxisMode === 'cat') ? xAxisCat : xAxisTime, null],
+		[null, null, xLabel, null]
 	];
 
 	chart = new Plottable.Components.Table(table);
@@ -753,38 +737,83 @@ function drawGraph(target, chartType, axisType, height, maxDoS, breakout) {
 		// caseHoverText.text(defaultCaseHoverText);
 		caseHoverGroup.style('visibility', 'hidden');
 	});
-	caseHover.attachTo(cases);
+	// caseHover.attachTo(cases);
 
-	caseClick = new Plottable.Interactions.Click();
+	if (mode === 'view') {
+		caseClick = new Plottable.Interactions.Click();
+		caseClick.onClick(function (c) {
+			var datum = null,
+				nearestEntity = null,
+				cpd = null;
 
-	caseClick.onClick(function (c) {
-		var datum = null,
-			nearestEntity = null,
-			cpd = null;
+			if (typeof cases.entityNearest === 'function') {
+				nearestEntity = cases.entityNearest(c);
 
-		if (typeof cases.entityNearest === 'function') {
-			nearestEntity = cases.entityNearest(c);
-
-			if (nearestEntity !== null) {
-				datum = nearestEntity.datum;
-			}
-		} else {
-			cpd = cases.getClosestPlotData(c);
-			if (cpd.data.length > 0) {
-				datum = cpd.data[0];
-			}
-		}
-		if (datum !== null) {
-			if (breakout === 'blank' || controlDown) {
-				// handle this side differently in order to break out of embed
-				window.open('https://www.courtlistener.com' + datum.absolute_url, '_blank');
+				if (nearestEntity !== null) {
+					datum = nearestEntity.datum;
+				}
 			} else {
-				window.location.assign(datum.absolute_url);
+				cpd = cases.getClosestPlotData(c);
+				if (cpd.data.length > 0) {
+					datum = cpd.data[0];
+				}
 			}
-		}
-	});
+			if (datum !== null) {
+				if (breakout === 'blank' || controlDown) {
+					// handle this side differently in order to break out of embed
+					window.open('https://www.courtlistener.com' + datum.absolute_url, '_blank');
+				} else {
+					window.location.assign(datum.absolute_url);
+				}
+			}
+		});
+		caseClick.attachTo(cases);
+	}
 
-	caseClick.attachTo(cases);
+	if (mode === 'edit') {
+		caseDrag = new Plottable.Interactions.Drag();
+
+		caseDrag.onDragStart(function (c) {
+			var datum = null,
+				nearestEntity = null,
+				cpd = null;
+
+			if (typeof cases.entityNearest === 'function') {
+				nearestEntity = cases.entityNearest(c);
+
+				if (nearestEntity !== null) {
+					datum = nearestEntity.datum;
+				}
+			} else {
+				cpd = cases.getClosestPlotData(c);
+				if (cpd.data.length > 0) {
+					datum = cpd.data[0];
+				}
+			}
+			if (datum !== null) {
+				dragTarget = datum;
+			}
+		});
+
+
+// http://plottablejs.org/examples/datasets/
+// http://plottablejs.org/examples/spacerace/
+
+		caseDrag.onDrag(function (c, b) {
+			// console.log(b.y, Math.round(100 * b.y / cases.height(), 0));
+			dragTarget.y = Math.round(100 * b.y / cases.height(), 0);
+			cases.redraw();
+		});
+
+		caseDrag.onDragEnd(function (c, b) {
+			// console.log('end', 100 * b.y / cases.height(), dragTarget.case_name_short);
+			dragTarget.y = Math.round(100 * b.y / cases.height(), 0);
+			calcConnections();
+			chart.redraw();
+		});
+
+		caseDrag.attachTo(cases);
+	}
 
 	keys = new Plottable.Interactions.Key();
 	keys.onKeyPress(17, function () {
@@ -963,7 +992,8 @@ $(document).ready(function () {
 	var settings = {
 			'type': 'dos',
 			'xaxis': 'cat',
-			'dos': 3
+			'dos': 3,
+			'mode': 'view'
 		},
 		args = {},
 		chartTarget = '#chart',
@@ -1047,7 +1077,8 @@ $(document).ready(function () {
 	}
 
 	function scdbLink(s) {
-		return '<a href="http://supremecourtdatabase.org/analysisCaseDetail.php?cid=' + s + '">' + s + '</a>'
+		return '<a href="http://supremecourtdatabase.org/analysisCaseDetail.php?cid='
+		+ s + '" target="_blank">' + s + '</a>'
 	}
 
 	// opinions_cited array of number or
@@ -1087,7 +1118,7 @@ $(document).ready(function () {
 			// 	maxDoS -- maximum degree of separation to show, is this only DoS
 			// )
 
-		used = drawGraph(chartTarget, chartType, axisType, heightType, maxDoS, breakout);
+		used = drawGraph(chartTarget, chartType, axisType, heightType, maxDoS, breakout, params.mode);
 		$(caseCountTarget).text(used.length);
 		citationTable(tableTarget, used,
 			[
@@ -1139,6 +1170,14 @@ $(document).ready(function () {
 		updateUrl(settings);
 		trigger(settings);
 	});
+	$('#editMode1, #editMode2').change(function () {
+		settings.mode = $('#editMode1:checked, #editMode2:checked').val();
+		trigger(settings);
+	});
 	trigger(settings);
+
+	// if we have a single set of data set up trigger
+	// if we have multiple data map and call for them
+	// if we are in edit mode
 
 });
