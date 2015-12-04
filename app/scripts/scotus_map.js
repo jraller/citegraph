@@ -761,9 +761,9 @@ function drawGraph(target, chartType, axisType, height, maxDoS, breakout, mode) 
 		// caseHoverText.text(defaultCaseHoverText);
 		caseHoverGroup.style('visibility', 'hidden');
 	});
-	// caseHover.attachTo(cases);
 
 	if (mode === 'view') {
+		caseHover.attachTo(cases);
 		caseClick = new Plottable.Interactions.Click();
 		caseClick.onClick(function (c) {
 			var datum = null,
