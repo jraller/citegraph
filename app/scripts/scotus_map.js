@@ -925,6 +925,8 @@ function casesMetadata(data) {
 	dodInfo
 		.text(dissent.d.toFixed(2) + ' for ' + dissent.c + ' cases of ' + data.length);
 
+	dodMeter.html('');
+
 	meter = dodMeter.append('svg')
 		.attr('height', 40)
 		.append('g')
