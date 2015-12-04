@@ -990,12 +990,21 @@ function casesMetadata(data) {
 			.attr('x1', (i * 25) + 10)
 			.attr('y1', 20)
 			.attr('x2', (i * 25) + 10)
-			.attr('y2', 10);
+			.attr('y2', 11);
 		meter.append('text')
 			.attr('x', (i * 25) + 10)
 			.attr('y', 35)
 			.text((9 - i) + '-' + i);
 	}
+
+	meter.append('text')
+			.attr('x', 10)
+			.attr('y', 9)
+			.text('0');
+	meter.append('text')
+			.attr('x', 109)
+			.attr('y', 9)
+			.text('1');
 
 	meter.append('path')
 		.attr('fill', 'red')
