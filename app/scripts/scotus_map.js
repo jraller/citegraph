@@ -925,11 +925,11 @@ function citationTable(target, data, columns) {
 
 /**
  * [casesMetadata description]
- * @param  {[type]} target [description]
  * @param  {[type]} data   [description]
  */
-function casesMetadata(target, data) {
-	var div = d3.select(target).append('div'),
+function casesMetadata(data) {
+	var dodInfo = d3.select('#dod-info'),
+		dodMeter = d3.select('#dod-chart'),
 		meter = '',
 		dissent = 0,
 		i = 0;
@@ -951,13 +951,12 @@ function casesMetadata(target, data) {
 
 	dissent = degreeOfDissent(data);
 
-	div.append('h2')
-		.text('Metadata for ' + data[data.length - 1].case_name + ' to ' + data[0].case_name);
+	dodInfo
+		.text(dissent.d.toFixed(2) + ' for ' + dissent.c + ' cases of ' + data.length);
 
-	div.append('p')
-		.text('Degree of Dissent: ' + dissent.d.toFixed(2) + ' for ' + dissent.c + ' cases of ' + data.length);
+	dodMeter.html('');
 
-	meter = div.append('svg')
+	meter = dodMeter.append('svg')
 		.attr('height', 40)
 		.append('g')
 		.attr('stroke', 'black')
@@ -998,7 +997,6 @@ $(document).ready(function () {
 		args = {},
 		chartTarget = '#chart',
 		tableTarget = '#case-table',
-		metadataTarget = '#case-metadata',
 		caseCountTarget = '#case-count';
 
 	// Read a page's GET URL variables and return them as an associative array.
@@ -1108,7 +1106,6 @@ $(document).ready(function () {
 		citationJSON = JSON.parse(JSON.stringify(opinions));
 		d3.select(chartTarget).select('svg').remove();
 		d3.select(tableTarget).select('table').remove();
-		d3.select(metadataTarget).html('');
 
 			// drawGraph (
 			// 	target -- where to draw it
@@ -1136,7 +1133,7 @@ $(document).ready(function () {
 				// {s: '', l: 'Provision'}
 			]
 		);
-		casesMetadata(metadataTarget, used);
+		casesMetadata(used);
 	}
 
 	// get url search parameters
