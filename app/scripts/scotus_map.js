@@ -633,6 +633,15 @@ function drawGraph(target, chartType, axisType, height, maxDoS, breakout, mode) 
 
 				for (item in cluster.sub_opinions[0].opinions_cited) {
 					if (cluster.sub_opinions[0].opinions_cited.hasOwnProperty(item)) {
+						if (! workingJSON[JSONIndex[item].num].hasOwnProperty('visited') &&
+							cluster.decision_direction === workingJSON[JSONIndex[item].num].decision_direction) {
+							cluster.sub_opinions[0].opinions_cited[item].opacity = 1;
+							workingJSON[JSONIndex[item].num].visited = true;
+						}
+					}
+				}
+				for (item in cluster.sub_opinions[0].opinions_cited) {
+					if (cluster.sub_opinions[0].opinions_cited.hasOwnProperty(item)) {
 						if (! workingJSON[JSONIndex[item].num].hasOwnProperty('visited')) {
 							cluster.sub_opinions[0].opinions_cited[item].opacity = 1;
 							workingJSON[JSONIndex[item].num].visited = true;
