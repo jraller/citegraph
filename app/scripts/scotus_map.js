@@ -500,13 +500,13 @@ function drawGraph(target, chartType, axisType, height, maxDoS, breakout, mode) 
 			return colorScale.scale((chartMode === 'dos')
 				? d.order
 				: ddlul[d.decision_direction]);
-		})
-		.labelsEnabled(function () {
-			return true;
-		})
-		.label(function (d) {
-			return (d.case_name_short) ? d.case_name_short : d.case_name;
 		});
+		// .labelsEnabled(function () {
+		// 	return true;
+		// })
+		// .label(function (d) {
+		// 	return (d.case_name_short) ? d.case_name_short : d.case_name;
+		// });
 	plot.append(cases);
 
 	function calcConnections() {
