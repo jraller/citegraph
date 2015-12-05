@@ -50,7 +50,7 @@ var citationJSON = {},
 function drawGraph(target, chartType, axisType, height, maxDoS, breakout, mode) {
 	var chartMode = (typeof chartType !== 'undefined') ? chartType : 'dos',
 		xAxisMode = (typeof axisType !== 'undefined') ? axisType : 'cat',
-		heightValue = '400px', // default, height is processed below
+		heightValue = '600px', // default, height is processed below
 		parseDate = d3.time.format('%Y-%m-%d').parse, // to parse dates in the JSON into d3 dates
 		chartWidth = $(target).width(), // the width of the enclosing div
 		xDate = d3.time.format('%b-%Y'), // to format date for display
@@ -699,10 +699,25 @@ function drawGraph(target, chartType, axisType, height, maxDoS, breakout, mode) 
 
 	chart.renderTo('#coverageChart');
 
+	d3.select('body')
+		.append('svg')
+		.append('defs')
+		.html('<filter id="whitefade">' +
+			'<feFlood flood-color="white" result="base"/>' +
+			'<feMorphology result="bigger" in="SourceGraphic" operator="dilate" radius="5"/>' +
+			'<feColorMatrix result="mask" in="bigger" type="matrix"' +
+				'values="0 0 0 0 0 ' +
+						'0 0 0 0 0 ' +
+						'0 0 0 0 0 ' +
+						'0 0 0 1 0"/>' +
+			'<feComposite result="drop" in="base" in2="mask" operator="in" />' +
+			'<feGaussianBlur result="blur" in="drop" stdDeviation="2" />' +
+			'<feBlend in="SourceGraphic" in2="blur" mode="normal" />' +
+		'</filter>');
+
 	window.addEventListener('resize', function () {
 		chart.redraw();
 	});
-
 
 	caseHover = new Plottable.Interactions.Pointer();
 
