@@ -46,7 +46,7 @@ var controlDown = false;
  * @param {boolean} breakout controls if case links open in new window
  * @return {object} a new version of the source data containing only utilized information
  */
-function drawGraph(target, opinions, chartType, axisType, height, maxDoS, breakout, mode, unique) {
+function drawGraph(target, opinions, chartType, axisType, height, maxDoS, breakout, mode, galleryId) {
 	var citationJSON = JSON.parse(JSON.stringify(opinions)),
 		chartMode = (typeof chartType !== 'undefined') ? chartType : 'dos',
 		xAxisMode = (typeof axisType !== 'undefined') ? axisType : 'cat',
@@ -357,7 +357,7 @@ function drawGraph(target, opinions, chartType, axisType, height, maxDoS, breako
 
 	d3.select(target)
 		.append('svg')
-		.attr('id', 'coverageChart' + unique)
+		.attr('id', 'coverageChart' + galleryId)
 		.attr('height', heightValue);
 
 	xScaleCat = new Plottable.Scales.Category(); // set switch for time or category time
@@ -688,183 +688,191 @@ function drawGraph(target, opinions, chartType, axisType, height, maxDoS, breako
 		});
 	}
 
-	table = [
-		[null, null, legend, null],
-		[yLabel, yAxis, plot, null],
-		[null, null, (xAxisMode === 'cat') ? xAxisCat : xAxisTime, null],
-		[null, null, xLabel, null]
-	];
+	if (galleryId === '') {
+		table = [
+			[null, null, legend, null],
+			[yLabel, yAxis, plot, null],
+			[null, null, (xAxisMode === 'cat') ? xAxisCat : xAxisTime, null],
+			[null, null, xLabel, null]
+		];
+	} else {
+		table = [[plot]];
+	}
 
 	chart = new Plottable.Components.Table(table);
 
-	chart.renderTo('#coverageChart' + unique);
+	chart.renderTo('#coverageChart' + galleryId);
 
-	d3.select('body')
-		.append('svg')
-		.append('defs')
-		.html('<filter id="whitefade">' +
-			'<feFlood flood-color="white" result="base"/>' +
-			'<feMorphology result="bigger" in="SourceGraphic" operator="dilate" radius="5"/>' +
-			'<feColorMatrix result="mask" in="bigger" type="matrix"' +
-				'values="0 0 0 0 0 ' +
-						'0 0 0 0 0 ' +
-						'0 0 0 0 0 ' +
-						'0 0 0 0.85 0"/>' +
-			'<feComposite result="drop" in="base" in2="mask" operator="in" />' +
-			'<feGaussianBlur result="blur" in="drop" stdDeviation="2" />' +
-			'<feBlend in="SourceGraphic" in2="blur" mode="normal" />' +
-		'</filter>');
+	if (d3.select('#whitefade').length === 1) {
+		d3.select('body')
+			.append('svg')
+			.append('defs')
+			.html('<filter id="whitefade">' +
+				'<feFlood flood-color="white" result="base"/>' +
+				'<feMorphology result="bigger" in="SourceGraphic" operator="dilate" radius="5"/>' +
+				'<feColorMatrix result="mask" in="bigger" type="matrix"' +
+					'values="0 0 0 0 0 ' +
+							'0 0 0 0 0 ' +
+							'0 0 0 0 0 ' +
+							'0 0 0 0.85 0"/>' +
+				'<feComposite result="drop" in="base" in2="mask" operator="in" />' +
+				'<feGaussianBlur result="blur" in="drop" stdDeviation="2" />' +
+				'<feBlend in="SourceGraphic" in2="blur" mode="normal" />' +
+			'</filter>');
+	}
 
 	window.addEventListener('resize', function () {
 		chart.redraw();
 	});
 
-	caseHover = new Plottable.Interactions.Pointer();
+	if (galleryId === '') {
 
-	caseHoverGroup = cases
-		.foreground()
-		.append('g')
-		.attr('transform', 'translate(0,0)')
-		.style('visibility', 'hidden');
-	caseHoverGroup
-		.append('circle')
-		.attr({
-			'stroke': 'black',
-			'fill': 'none',
-			'r': 15,
-			'cx': 0,
-			'cy': 0
+		caseHover = new Plottable.Interactions.Pointer();
+
+		caseHoverGroup = cases
+			.foreground()
+			.append('g')
+			.attr('transform', 'translate(0,0)')
+			.style('visibility', 'hidden');
+		caseHoverGroup
+			.append('circle')
+			.attr({
+				'stroke': 'black',
+				'fill': 'none',
+				'r': 15,
+				'cx': 0,
+				'cy': 0
+			});
+		// caseHoverText = caseHoverGroup
+		// 	.append('text')
+		// 	.attr('text-anchor', 'middle')
+		// 	.attr('transform', 'translate(0,0)')
+		// 	.text(defaultCaseHoverText);
+
+		caseHover.onPointerMove(function (p) {
+			var datum = null,
+				position = null,
+				nearestEntity = null,
+				cpd = null;
+
+			if (typeof cases.entityNearest === 'function') {
+				nearestEntity = cases.entityNearest(p);
+				if (nearestEntity !== null) {
+					datum = nearestEntity.datum;
+					position = nearestEntity.position;
+				}
+			} else {
+				cpd = cases.getClosestPlotData(p);
+				if (cpd.data.length > 0) {
+					datum = cpd.data[0];
+					position = cpd.pixelPoints[0];
+				}
+			}
+			if (datum !== null) {
+				// caseHoverText.text(datum.case_name_short);
+				caseHoverGroup
+					.attr('transform', 'translate(' + position.x + ',' + position.y + ')')
+					.style('visibility', 'visible')
+					.select('circle')
+					.attr('r', d3.max([5, sizeScale.scale(datum.citation_count) / 2]));
+			} else {
+				// caseHoverText.text(defaultCaseHoverText);
+				caseHoverGroup.style('visibility', 'hidden');
+			}
 		});
-	// caseHoverText = caseHoverGroup
-	// 	.append('text')
-	// 	.attr('text-anchor', 'middle')
-	// 	.attr('transform', 'translate(0,0)')
-	// 	.text(defaultCaseHoverText);
-
-	caseHover.onPointerMove(function (p) {
-		var datum = null,
-			position = null,
-			nearestEntity = null,
-			cpd = null;
-
-		if (typeof cases.entityNearest === 'function') {
-			nearestEntity = cases.entityNearest(p);
-			if (nearestEntity !== null) {
-				datum = nearestEntity.datum;
-				position = nearestEntity.position;
-			}
-		} else {
-			cpd = cases.getClosestPlotData(p);
-			if (cpd.data.length > 0) {
-				datum = cpd.data[0];
-				position = cpd.pixelPoints[0];
-			}
-		}
-		if (datum !== null) {
-			// caseHoverText.text(datum.case_name_short);
-			caseHoverGroup
-				.attr('transform', 'translate(' + position.x + ',' + position.y + ')')
-				.style('visibility', 'visible')
-				.select('circle')
-				.attr('r', d3.max([5, sizeScale.scale(datum.citation_count) / 2]));
-		} else {
+		caseHover.onPointerExit(function () {
 			// caseHoverText.text(defaultCaseHoverText);
 			caseHoverGroup.style('visibility', 'hidden');
-		}
-	});
-	caseHover.onPointerExit(function () {
-		// caseHoverText.text(defaultCaseHoverText);
-		caseHoverGroup.style('visibility', 'hidden');
-	});
+		});
 
-	if (mode === 'view') {
-		caseHover.attachTo(cases);
-		caseClick = new Plottable.Interactions.Click();
-		caseClick.onClick(function (c) {
-			var datum = null,
-				nearestEntity = null,
-				cpd = null;
+		if (mode === 'view') {
+			caseHover.attachTo(cases);
+			caseClick = new Plottable.Interactions.Click();
+			caseClick.onClick(function (c) {
+				var datum = null,
+					nearestEntity = null,
+					cpd = null;
 
-			if (typeof cases.entityNearest === 'function') {
-				nearestEntity = cases.entityNearest(c);
+				if (typeof cases.entityNearest === 'function') {
+					nearestEntity = cases.entityNearest(c);
 
-				if (nearestEntity !== null) {
-					datum = nearestEntity.datum;
-				}
-			} else {
-				cpd = cases.getClosestPlotData(c);
-				if (cpd.data.length > 0) {
-					datum = cpd.data[0];
-				}
-			}
-			if (datum !== null) {
-				if (breakout === 'blank' || controlDown) {
-					// handle this side differently in order to break out of embed
-					window.open('https://www.courtlistener.com' + datum.absolute_url, '_blank');
+					if (nearestEntity !== null) {
+						datum = nearestEntity.datum;
+					}
 				} else {
-					window.location.assign(datum.absolute_url);
+					cpd = cases.getClosestPlotData(c);
+					if (cpd.data.length > 0) {
+						datum = cpd.data[0];
+					}
 				}
-			}
+				if (datum !== null) {
+					if (breakout === 'blank' || controlDown) {
+						// handle this side differently in order to break out of embed
+						window.open('https://www.courtlistener.com' + datum.absolute_url, '_blank');
+					} else {
+						window.location.assign(datum.absolute_url);
+					}
+				}
+			});
+			caseClick.attachTo(cases);
+		}
+
+		if (mode === 'edit') {
+			caseDrag = new Plottable.Interactions.Drag();
+
+			caseDrag.onDragStart(function (c) {
+				var datum = null,
+					nearestEntity = null,
+					cpd = null;
+
+				if (typeof cases.entityNearest === 'function') {
+					nearestEntity = cases.entityNearest(c);
+
+					if (nearestEntity !== null) {
+						datum = nearestEntity.datum;
+					}
+				} else {
+					cpd = cases.getClosestPlotData(c);
+					if (cpd.data.length > 0) {
+						datum = cpd.data[0];
+					}
+				}
+				if (datum !== null) {
+					dragTarget = datum;
+				}
+			});
+
+
+	// http://plottablejs.org/examples/datasets/
+	// http://plottablejs.org/examples/spacerace/
+
+			caseDrag.onDrag(function (c, b) {
+				// console.log(b.y, Math.round(100 * b.y / cases.height(), 0));
+				dragTarget.y = Math.round(100 * b.y / cases.height(), 0);
+				cases.redraw();
+			});
+
+			caseDrag.onDragEnd(function (c, b) {
+				// console.log('end', 100 * b.y / cases.height(), dragTarget.case_name_short);
+				dragTarget.y = Math.round(100 * b.y / cases.height(), 0);
+				calcConnections();
+				chart.redraw();
+			});
+
+			caseDrag.attachTo(cases);
+		}
+
+		keys = new Plottable.Interactions.Key();
+		keys.onKeyPress(17, function () {
+			controlDown = true;
 		});
-		caseClick.attachTo(cases);
+		keys.onKeyRelease(17, function () {
+			controlDown = false;
+		});
+		keys.attachTo(cases);
+
+		return workingJSON;
 	}
-
-	if (mode === 'edit') {
-		caseDrag = new Plottable.Interactions.Drag();
-
-		caseDrag.onDragStart(function (c) {
-			var datum = null,
-				nearestEntity = null,
-				cpd = null;
-
-			if (typeof cases.entityNearest === 'function') {
-				nearestEntity = cases.entityNearest(c);
-
-				if (nearestEntity !== null) {
-					datum = nearestEntity.datum;
-				}
-			} else {
-				cpd = cases.getClosestPlotData(c);
-				if (cpd.data.length > 0) {
-					datum = cpd.data[0];
-				}
-			}
-			if (datum !== null) {
-				dragTarget = datum;
-			}
-		});
-
-
-// http://plottablejs.org/examples/datasets/
-// http://plottablejs.org/examples/spacerace/
-
-		caseDrag.onDrag(function (c, b) {
-			// console.log(b.y, Math.round(100 * b.y / cases.height(), 0));
-			dragTarget.y = Math.round(100 * b.y / cases.height(), 0);
-			cases.redraw();
-		});
-
-		caseDrag.onDragEnd(function (c, b) {
-			// console.log('end', 100 * b.y / cases.height(), dragTarget.case_name_short);
-			dragTarget.y = Math.round(100 * b.y / cases.height(), 0);
-			calcConnections();
-			chart.redraw();
-		});
-
-		caseDrag.attachTo(cases);
-	}
-
-	keys = new Plottable.Interactions.Key();
-	keys.onKeyPress(17, function () {
-		controlDown = true;
-	});
-	keys.onKeyRelease(17, function () {
-		controlDown = false;
-	});
-	keys.attachTo(cases);
-
-	return workingJSON;
-
 }
 
 function citationTable(target, data, columns) {
@@ -1227,7 +1235,7 @@ $(document).ready(function () {
 			if (opinions.hasOwnProperty(item)) {
 				chartTarget = '#chart-' + item.toString();
 
-				console.log(drawGraph(chartTarget, opinions[item], 'dos', 'cat', '400', 3, null, 'view', item));
+				drawGraph(chartTarget, opinions[item], 'dos', 'cat', '300', 3, null, 'view', item);
 			}
 		}
 	}
