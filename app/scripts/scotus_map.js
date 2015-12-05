@@ -34,8 +34,7 @@ below the plot add a table with:
 
 'use strict';
 
-var citationJSON = {},
-	controlDown = false;
+var controlDown = false;
 
 /**
  * [drawGraph description]
@@ -47,8 +46,9 @@ var citationJSON = {},
  * @param {boolean} breakout controls if case links open in new window
  * @return {object} a new version of the source data containing only utilized information
  */
-function drawGraph(target, chartType, axisType, height, maxDoS, breakout, mode) {
-	var chartMode = (typeof chartType !== 'undefined') ? chartType : 'dos',
+function drawGraph(target, opinions, chartType, axisType, height, maxDoS, breakout, mode, unique) {
+	var citationJSON = JSON.parse(JSON.stringify(opinions)),
+		chartMode = (typeof chartType !== 'undefined') ? chartType : 'dos',
 		xAxisMode = (typeof axisType !== 'undefined') ? axisType : 'cat',
 		heightValue = '600px', // default, height is processed below
 		parseDate = d3.time.format('%Y-%m-%d').parse, // to parse dates in the JSON into d3 dates
@@ -357,7 +357,7 @@ function drawGraph(target, chartType, axisType, height, maxDoS, breakout, mode) 
 
 	d3.select(target)
 		.append('svg')
-		.attr('id', 'coverageChart')
+		.attr('id', 'coverageChart' + unique)
 		.attr('height', heightValue);
 
 	xScaleCat = new Plottable.Scales.Category(); // set switch for time or category time
@@ -697,7 +697,7 @@ function drawGraph(target, chartType, axisType, height, maxDoS, breakout, mode) 
 
 	chart = new Plottable.Components.Table(table);
 
-	chart.renderTo('#coverageChart');
+	chart.renderTo('#coverageChart' + unique);
 
 	d3.select('body')
 		.append('svg')
@@ -709,7 +709,7 @@ function drawGraph(target, chartType, axisType, height, maxDoS, breakout, mode) 
 				'values="0 0 0 0 0 ' +
 						'0 0 0 0 0 ' +
 						'0 0 0 0 0 ' +
-						'0 0 0 1 0"/>' +
+						'0 0 0 0.85 0"/>' +
 			'<feComposite result="drop" in="base" in2="mask" operator="in" />' +
 			'<feGaussianBlur result="blur" in="drop" stdDeviation="2" />' +
 			'<feBlend in="SourceGraphic" in2="blur" mode="normal" />' +
@@ -1045,7 +1045,8 @@ $(document).ready(function () {
 		args = {},
 		chartTarget = '#chart',
 		tableTarget = '#case-table',
-		caseCountTarget = '#case-count';
+		caseCountTarget = '#case-count',
+		item = {};
 
 	// Read a page's GET URL variables and return them as an associative array.
 	function getUrlVars() {
@@ -1151,7 +1152,6 @@ $(document).ready(function () {
 			used = {};
 
 		// citationJSON = json;
-		citationJSON = JSON.parse(JSON.stringify(opinions));
 		d3.select(chartTarget).select('svg').remove();
 		d3.select(tableTarget).select('table').remove();
 
@@ -1163,7 +1163,7 @@ $(document).ready(function () {
 			// 	maxDoS -- maximum degree of separation to show, is this only DoS
 			// )
 
-		used = drawGraph(chartTarget, chartType, axisType, heightType, maxDoS, breakout, params.mode);
+		used = drawGraph(chartTarget, opinions, chartType, axisType, heightType, maxDoS, breakout, params.mode, '');
 		$(caseCountTarget).text(used.length);
 		citationTable(tableTarget, used,
 			[
@@ -1190,36 +1190,48 @@ $(document).ready(function () {
 	// merge settings and args
 	$.extend(settings, args);
 
-	$('#chartTypeSelect').val(settings.type);
-	$('#axisTypeSelect').val(settings.xaxis);
-	$('#degreesOfSeparationSelect').val(settings.dos);
+	if (opinions.hasOwnProperty('opinion_clusters')) {
+		// do one
+		$('#chartTypeSelect').val(settings.type);
+		$('#axisTypeSelect').val(settings.xaxis);
+		$('#degreesOfSeparationSelect').val(settings.dos);
 
+		// unwrap dataSourceSelect for courtlistener
+		// on select JSON in the data and then call drawGraph()
+		$('#chartTypeSelect').change(function () {
+			settings.type = $('#chartTypeSelect').val();
+			updateUrl(settings);
+			trigger(settings);
+		});
+		$('#axisTypeSelect').change(function () {
+			settings.xaxis = $('#axisTypeSelect').val();
+			updateUrl(settings);
+			trigger(settings);
+		});
+		$('#heightTypeSelect').change(function () {
+			trigger(settings);
+		});
+		$('#degreesOfSeparationSelect').change(function () {
+			settings.dos = $('#degreesOfSeparationSelect').val();
+			updateUrl(settings);
+			trigger(settings);
+		});
+		$('#editMode1, #editMode2').change(function () {
+			settings.mode = $('#editMode1:checked, #editMode2:checked').val();
+			trigger(settings);
+		});
+		trigger(settings);
+	} else {
+		// gallery
+		for (item in opinions) {
+			if (opinions.hasOwnProperty(item)) {
+				chartTarget = '#chart-' + item.toString();
 
-	// unwrap dataSourceSelect for courtlistener
-	// on select JSON in the data and then call drawGraph()
-	$('#chartTypeSelect').change(function () {
-		settings.type = $('#chartTypeSelect').val();
-		updateUrl(settings);
-		trigger(settings);
-	});
-	$('#axisTypeSelect').change(function () {
-		settings.xaxis = $('#axisTypeSelect').val();
-		updateUrl(settings);
-		trigger(settings);
-	});
-	$('#heightTypeSelect').change(function () {
-		trigger(settings);
-	});
-	$('#degreesOfSeparationSelect').change(function () {
-		settings.dos = $('#degreesOfSeparationSelect').val();
-		updateUrl(settings);
-		trigger(settings);
-	});
-	$('#editMode1, #editMode2').change(function () {
-		settings.mode = $('#editMode1:checked, #editMode2:checked').val();
-		trigger(settings);
-	});
-	trigger(settings);
+				console.log(drawGraph(chartTarget, opinions[item], 'dos', 'cat', '400', 3, null, 'view', item));
+			}
+		}
+	}
+
 
 	// if we have a single set of data set up trigger
 	// if we have multiple data map and call for them
