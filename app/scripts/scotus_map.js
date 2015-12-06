@@ -251,7 +251,7 @@ function drawGraph(target, opinions, chartType, axisType, height, maxDoS, breako
 	 */
 	function calculateDoS() {
 		var link = {},
-			index = 1,
+			i = 1,
 			thisDegree = 0;
 
 		traverse(caseCount - 1, caseCount - 1, 0);
@@ -263,7 +263,7 @@ function drawGraph(target, opinions, chartType, axisType, height, maxDoS, breako
 			} else {
 				cluster.order = cluster.travFwd + cluster.travRev - 1;
 			}
-			if (index === 1 || index === caseCount) {
+			if (i === 1 || i === caseCount) {
 				cluster.order = degrees[0];
 			} else {
 				thisDegree = cluster.order;
@@ -275,7 +275,7 @@ function drawGraph(target, opinions, chartType, axisType, height, maxDoS, breako
 				}
 				cluster.order = degrees[thisDegree];
 			}
-			cluster.count = index++;
+			cluster.count = i++;
 		});
 		for (link in links) {
 			if (links.hasOwnProperty(link)) {
@@ -419,13 +419,13 @@ function drawGraph(target, opinions, chartType, axisType, height, maxDoS, breako
 
 	function filter(source, compare) {
 		var array = [],
-			index = 0,
+			i = 0,
 			sl = source.length,
 			cl = compare.length;
 
-		for (index = 0; index < sl; index++) {
-			if (index < cl && compare[index] > 0) {
-				array.push(source[index]);
+		for (i = 0; i < sl; i++) {
+			if (i < cl && compare[i] > 0) {
+				array.push(source[i]);
 			}
 		}
 		return array;
@@ -538,7 +538,7 @@ function drawGraph(target, opinions, chartType, axisType, height, maxDoS, breako
 
 	function calcConnections() {
 		connections.datasets().forEach(function (set) {
-			connections.removeDataset(set)
+			connections.removeDataset(set);
 		});
 		workingJSON.forEach(function (cluster) {
 			point = {};
@@ -645,6 +645,7 @@ function drawGraph(target, opinions, chartType, axisType, height, maxDoS, breako
 					cluster.sub_opinions[0].opinions_cited[recentIndex].opacity = 1;
 					workingJSON[JSONIndex[recentIndex].num].visited = true;
 				}
+				// end case may not be able to branch to op direction?
 				if ((recentOpIndex !== 0 && recentIndex === 0) || cluster.count === caseCount && recentOpIndex !== 0) {
 					cluster.sub_opinions[0].opinions_cited[recentOpIndex].opacity = 1;
 					workingJSON[JSONIndex[recentOpIndex].num].visited = true;
@@ -895,9 +896,9 @@ function drawGraph(target, opinions, chartType, axisType, height, maxDoS, breako
 			controlDown = false;
 		});
 		keys.attachTo(cases);
-
-		return workingJSON;
 	}
+
+	return workingJSON;
 }
 
 function citationTable(target, data, columns) {
@@ -995,36 +996,43 @@ function citationTable(target, data, columns) {
 	return table;
 }
 
+function degreeOfDissent(cases) {
+	var dods = [];
+
+	cases.forEach(function (c) {
+		var minority = c.votes_minority;
+
+		if (minority.toString() !== '-1') {
+			dods.push(minority * 0.25);
+		}
+	});
+
+	return {'d': (d3.sum(dods) / dods.length),
+		'c': dods.length,
+		'l': dods.length};
+}
+
+function attachDoDInfo(target, dissent) {
+	d3.select(target)
+		.text(dissent.d.toFixed(2) +
+			' for ' + dissent.c +
+			' cases of ' + dissent.l);
+}
+
 /**
  * [casesMetadata description]
  * @param  {[type]} data   [description]
  */
 function casesMetadata(data) {
-	var dodInfo = d3.select('#dod-info'),
+	var dodInfo = '#dod-info',
 		dodMeter = d3.select('#dod-chart'),
 		meter = '',
 		dissent = 0,
 		i = 0;
 
-	function degreeOfDissent(cases) {
-		var dods = [];
-
-		cases.forEach(function (c) {
-			var minority = c.votes_minority;
-
-			if (minority.toString() !== '-1') {
-				dods.push(minority * 0.25);
-			}
-		});
-
-		return {'d': (d3.sum(dods) / dods.length),
-			'c': dods.length};
-	}
-
 	dissent = degreeOfDissent(data);
 
-	dodInfo
-		.text(dissent.d.toFixed(2) + ' for ' + dissent.c + ' cases of ' + data.length);
+	attachDoDInfo(dodInfo, dissent);
 
 	dodMeter.html('');
 
@@ -1079,7 +1087,9 @@ $(document).ready(function () {
 		chartTarget = '#chart',
 		tableTarget = '#case-table',
 		caseCountTarget = '#case-count',
-		item = {};
+		item = {},
+		used = {},
+		dissent = {};
 
 	// Read a page's GET URL variables and return them as an associative array.
 	function getUrlVars() {
@@ -1131,9 +1141,9 @@ $(document).ready(function () {
 	 * @param  {string} s value to format
 	 * @return {string} html formatted string
 	 */
-	function bold(s) {
-		return '<strong>' + s + '</strong>';
-	}
+	// function bold(s) {
+	// 	return '<strong>' + s + '</strong>';
+	// }
 
 	function formatSplit(s) {
 		var r = 'no data';
@@ -1157,8 +1167,8 @@ $(document).ready(function () {
 	}
 
 	function scdbLink(s) {
-		return '<a href="http://supremecourtdatabase.org/analysisCaseDetail.php?cid='
-		+ s + '" target="_blank">' + s + '</a>'
+		return '<a href="http://supremecourtdatabase.org/analysisCaseDetail.php?cid=' +
+		s + '" target="_blank">' + s + '</a>'
 	}
 
 	// opinions_cited array of number or
@@ -1181,8 +1191,7 @@ $(document).ready(function () {
 			axisType = params.xaxis,
 			heightType = $('#heightTypeSelect').val(),
 			maxDoS = params.dos,
-			breakout = params.target,
-			used = {};
+			breakout = params.target;
 
 		// citationJSON = json;
 		d3.select(chartTarget).select('svg').remove();
@@ -1261,7 +1270,10 @@ $(document).ready(function () {
 				chartTarget = '#chart-' + item.toString();
 				// if settigns are embedded in the JSON then use them rather than defaults
 				var rand = ['dos', 'spaeth', 'genealogy'][Math.floor(Math.random() * 3)];
-				drawGraph(chartTarget, opinions[item], rand, 'cat', '300', 3, null, 'view', item);
+
+				used = drawGraph(chartTarget, opinions[item], rand, 'cat', '300', 3, null, 'view', item);
+				dissent = degreeOfDissent(used);
+				attachDoDInfo('#dod-info-' + item.toString(), dissent);
 			}
 		}
 	}
