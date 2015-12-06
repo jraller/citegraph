@@ -641,11 +641,11 @@ function drawGraph(target, opinions, chartType, axisType, height, maxDoS, breako
 						}
 					}
 				}
-				if (recentIndex !== 0 || cluster.count === caseCount) {
+				if (recentIndex !== 0) {
 					cluster.sub_opinions[0].opinions_cited[recentIndex].opacity = 1;
 					workingJSON[JSONIndex[recentIndex].num].visited = true;
 				}
-				if ((recentOpIndex !== 0  && recentIndex === 0) || cluster.count === caseCount) {
+				if ((recentOpIndex !== 0 && recentIndex === 0) || cluster.count === caseCount && recentOpIndex !== 0) {
 					cluster.sub_opinions[0].opinions_cited[recentOpIndex].opacity = 1;
 					workingJSON[JSONIndex[recentOpIndex].num].visited = true;
 				}
