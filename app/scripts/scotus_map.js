@@ -14,11 +14,14 @@ Look at using d3 maps and sets instead of some of the other datatypes:
 
 create a chart with:
 	aspect ratio, and have aspect ratio tied to vertical offset patterns
-	max displayed Degrees of Separation
+		width is fill, height is still a work in progress
+	max displayed Degrees of Separation (not for Spaeth and Genealogy)
 	an unlabeled y axis
 		vertical spacing moving from math based to table selected
 		oldest case low, newest case high to show building on foundation?
-	a category x axis that contains times in order, but not a timeline
+			currently both at middle
+	a category x axis that contains times in order
+		or a timeline
 	grid
 	legend
 	scatterplot
@@ -36,14 +39,20 @@ below the plot add a table with:
 
 var controlDown = false;
 
+// rewrite the drawGraph call to use fewer parameters: opinions, settings {target, type, axis, height, DoS, mode}
+// breakout seems to be something that can be left behind?
+
 /**
  * [drawGraph description]
  * @param {string} target id of target HTML element to draw the chart in
+ * @param {object} opinions the JSON object containing the data to work with
  * @param {string} chartType defaults to dos (Degrees of Separation), also [spaeth, genealogy]
  * @param {string} axisType controls X axis formatting as category or timeline
  * @param {string} height [description]
  * @param {integer} maxDoS a maximum degree of separation to show
  * @param {boolean} breakout controls if case links open in new window
+ * @param {string} mode view or edit mode
+ * @param {string} galleryId if in gallery mode is id of which chart to draw
  * @return {object} a new version of the source data containing only utilized information
  */
 function drawGraph(target, opinions, chartType, axisType, height, maxDoS, breakout, mode, galleryId) {
@@ -286,19 +295,21 @@ function drawGraph(target, opinions, chartType, axisType, height, maxDoS, breako
 
 		// filter out cases that have higher DoS
 		workingJSON = citationJSON.opinion_clusters.filter(function (cluster) {
-			return degrees.indexOf(cluster.order) < max;
+			return (chartType === 'dos') ? degrees.indexOf(cluster.order) < max : true;
 		});
 		// renumber the remaining cases
 		workingJSON.forEach(function (cluster) {
 			cluster.count = c++;
 		});
 		// get the count of the remaining cases
-		caseCount = workingJSON.length;
+		caseCount = c - 1;
 		// remove links that have higher DoS
-		for (link in links) {
-			if (links.hasOwnProperty(link)) {
-				if (degrees.indexOf(links[link].d) >= max) {
-					delete links[link];
+		if (chartType === 'dos') {
+			for (link in links) {
+				if (links.hasOwnProperty(link)) {
+					if (degrees.indexOf(links[link].d) >= max) {
+						delete links[link];
+					}
 				}
 			}
 		}
@@ -314,19 +325,16 @@ function drawGraph(target, opinions, chartType, axisType, height, maxDoS, breako
 
 	trimJSON(maxDoS);
 
-	// hard code distributions for Friday
-	// rewrite to use modulus and take aspect ratio into account
-	// distribution = [2, 10, 5, 13, 16];
-
-	distribution = [];
-
-	distribution.push(50); // first at 50
-	for (index = 0; index < caseCount - 2; index++) {
-		// need better numbers here
-		offset += [68, 77, 55, 37, 42, 21, 62][index % 7];
-		distribution.push((offset % 91) + 5);
+	if (chartType === 'dos') {
+		distribution = [];
+		distribution.push(50); // first at 50
+		for (index = 0; index < caseCount - 2; index++) {
+			// need better numbers here
+			offset += [68, 77, 55, 37, 42, 21, 62][index % 7];
+			distribution.push((offset % 91) + 5);
+		}
+		distribution.push(50); // last at 50
 	}
-	distribution.push(50); // last at 50
 
 	function dosYSpread(d) {
 		return (d.y) ? d.y : distribution[d.count - 1];
@@ -355,6 +363,7 @@ function drawGraph(target, opinions, chartType, axisType, height, maxDoS, breako
 		}
 	}
 
+	// cleaner to retain var for this and use it later on?
 	d3.select(target)
 		.append('svg')
 		.attr('id', 'coverageChart' + galleryId)
@@ -368,9 +377,13 @@ function drawGraph(target, opinions, chartType, axisType, height, maxDoS, breako
 	}));
 	xScaleTime = new Plottable.Scales.Time();
 	yScale = new Plottable.Scales.Category();
+	yAxis = new Plottable.Axes.Category(yScale, 'left');
 	if (chartMode === 'dos') {
 		// yScale.domain(d3.range(1, d3.max(distribution) + 2).reverse());
 		yScale.domain(d3.range(0, 100));
+		yAxis.formatter(function () {
+			return '';
+		});
 	} else {
 		yScale.domain([
 			'L5-4',
@@ -384,11 +397,24 @@ function drawGraph(target, opinions, chartType, axisType, height, maxDoS, breako
 			'C5-4',
 			'Unk'
 		]);
+		yAxis.formatter(function (d) {
+			var value = d;
+
+			if (value !== 'Unk') {
+				value = value.slice(1);
+			}
+			return value;
+		});
 	}
 	yScale.outerPadding(0.9);
 
 	sizeScale = new Plottable.Scales.ModifiedLog();
-	sizeScale.range([10, 50]);
+	// this should be done by formula later?
+	if (heightValue === '300px') {
+		sizeScale.range([10, 25]);
+	} else {
+		sizeScale.range([10, 50]);
+	}
 	colorScale = new Plottable.Scales.Color();
 
 	function filter(source, compare) {
@@ -427,8 +453,6 @@ function drawGraph(target, opinions, chartType, axisType, height, maxDoS, breako
 	} else {
 		xAxisCat.tickLabelAngle(-90);
 	}
-
-	yAxis = new Plottable.Axes.Category(yScale, 'left');
 
 	label = 'Time';
 	label += (xAxisMode === 'cat') ? ' as Category' : 'line';
@@ -501,13 +525,15 @@ function drawGraph(target, opinions, chartType, axisType, height, maxDoS, breako
 				? d.order
 				: ddlul[d.decision_direction]);
 		})
-		.attr('opacity', 1)
-		.labelsEnabled(function () {
+		.attr('opacity', 1);
+	if (galleryId === '') {
+		cases.labelsEnabled(function () {
 			return true;
 		})
 		.label(function (d) {
 			return (d.case_name_short) ? d.case_name_short : d.case_name;
 		});
+	}
 	plot.append(cases);
 
 	function calcConnections() {
@@ -549,9 +575,6 @@ function drawGraph(target, opinions, chartType, axisType, height, maxDoS, breako
 
 
 	if (chartMode === 'dos') {
-		yAxis.formatter(function () {
-			return '';
-		});
 		calcConnections();
 	} else {
 		if (chartMode === 'genealogy') {
@@ -695,8 +718,10 @@ function drawGraph(target, opinions, chartType, axisType, height, maxDoS, breako
 			[null, null, (xAxisMode === 'cat') ? xAxisCat : xAxisTime, null],
 			[null, null, xLabel, null]
 		];
-	} else {
+	} else if (chartType === 'dos') {
 		table = [[plot]];
+	} else {
+		table = [[yLabel, yAxis, plot]];
 	}
 
 	chart = new Plottable.Components.Table(table);
@@ -1234,8 +1259,9 @@ $(document).ready(function () {
 		for (item in opinions) {
 			if (opinions.hasOwnProperty(item)) {
 				chartTarget = '#chart-' + item.toString();
-
-				drawGraph(chartTarget, opinions[item], 'dos', 'cat', '300', 3, null, 'view', item);
+				// if settigns are embedded in the JSON then use them rather than defaults
+				var rand = ['dos', 'spaeth', 'genealogy'][Math.floor(Math.random() * 3)];
+				drawGraph(chartTarget, opinions[item], rand, 'cat', '300', 3, null, 'view', item);
 			}
 		}
 	}
