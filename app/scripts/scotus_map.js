@@ -732,6 +732,9 @@ function drawGraph(target, opinions, chartType, axisType, height, maxDoS, breako
 	if (d3.select('#whitefade').length === 1) {
 		d3.select('body')
 			.append('svg')
+			.attr('xmlns', 'http://www.w3.org/2000/svg')
+			.attr('height', '0')
+			.attr('width', '0')
 			.append('defs')
 			.html('<filter id="whitefade">' +
 				'<feFlood flood-color="white" result="base"/>' +
