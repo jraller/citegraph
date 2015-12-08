@@ -729,27 +729,6 @@ function drawGraph(target, opinions, chartType, axisType, height, maxDoS, breako
 
 	chart.renderTo('#coverageChart' + galleryId);
 
-	if (d3.select('#whitefade').length === 1) {
-		d3.select('body')
-			.append('svg')
-			.attr('xmlns', 'http://www.w3.org/2000/svg')
-			.attr('height', '0')
-			.attr('width', '0')
-			.append('defs')
-			.html('<filter id="whitefade">' +
-				'<feFlood flood-color="white" result="base"/>' +
-				'<feMorphology result="bigger" in="SourceGraphic" operator="dilate" radius="5"/>' +
-				'<feColorMatrix result="mask" in="bigger" type="matrix"' +
-					'values="0 0 0 0 0 ' +
-							'0 0 0 0 0 ' +
-							'0 0 0 0 0 ' +
-							'0 0 0 0.85 0"/>' +
-				'<feComposite result="drop" in="base" in2="mask" operator="in" />' +
-				'<feGaussianBlur result="blur" in="drop" stdDeviation="2" />' +
-				'<feBlend in="SourceGraphic" in2="blur" mode="normal" />' +
-			'</filter>');
-	}
-
 	window.addEventListener('resize', function () {
 		chart.redraw();
 	});
