@@ -1150,7 +1150,8 @@ $(document).ready(function () {
 
 	function scdbLink(s) {
 		return '<a href="http://supremecourtdatabase.org/analysisCaseDetail.php?cid=' +
-		s + '" target="_blank">' + s + '</a>'
+		s + '" target="_blank">' + s + '</a>' +
+		'<i class="gray fa fa-external-link"></i>';
 	}
 
 	// opinions_cited array of number or
