@@ -103,7 +103,7 @@ function drawGraph(target, opinions, chartType, axisType, height, maxDoS, breako
 		// x axis
 		xAxisCat = {}, // the x axis category
 		xAxisTime = {}, // the x axis timeline
-		xLabel = {}, // label for the x axis
+		// xLabel = {}, // label for the x axis
 		// chart interactions
 		caseHover = {}, // interaction behavior
 		// defaultCaseHoverText = '',
@@ -450,10 +450,10 @@ function drawGraph(target, opinions, chartType, axisType, height, maxDoS, breako
 		xAxisCat.tickLabelAngle(-90);
 	}
 
-	label = 'Time';
-	label += (xAxisMode === 'cat') ? ' as Category' : 'line';
+	// label = 'Time';
+	// label += (xAxisMode === 'cat') ? ' as Category' : 'line';
 
-	xLabel = new Plottable.Components.AxisLabel(label, 0);
+	// xLabel = new Plottable.Components.AxisLabel(label, 0);
 
 	label = (chartMode === 'dos') ? 'Random' : 'Conservative  ⟵  ⟶  Liberal';
 
@@ -723,8 +723,8 @@ function drawGraph(target, opinions, chartType, axisType, height, maxDoS, breako
 		table = [
 			[null, null, legend, null],
 			[yLabel, yAxis, plot, null],
-			[null, null, (xAxisMode === 'cat') ? xAxisCat : xAxisTime, null],
-			[null, null, xLabel, null]
+			[null, null, (xAxisMode === 'cat') ? xAxisCat : xAxisTime, null]//,
+			// [null, null, xLabel, null]
 		];
 	} else if (chartType === 'dos') {
 		table = [[plot]];
