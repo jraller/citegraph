@@ -408,7 +408,7 @@ function drawGraph(target, opinions, chartType, axisType, height, maxDoS, breako
 	}
 	yScale.outerPadding(0.9);
 
-	sizeScale = new Plottable.Scales.ModifiedLog();
+	sizeScale = new Plottable.Scales.Linear();
 	// this should be done by formula later?
 	sizeScale.range([10, Math.max(10, parseInt(heightValue.slice(0, heightValue.length - 2), 10) / 12)]);
 	colorScale = new Plottable.Scales.Color();
@@ -490,6 +490,26 @@ function drawGraph(target, opinions, chartType, axisType, height, maxDoS, breako
 		});
 	plot.append(connections);
 
+	/**
+	 * Scales objects such that it treats the last differently
+	 * in order to make most recent case visible when it has no citations
+	 * @param  {object} obj where to extract citation_count
+	 * @param  {integer} i  which number is this?
+	 * @return {integer}    area adjusted value
+	 */
+	function scalePlot(cites, i) {
+		var value = 0,
+			domain = [];
+
+		if (i === caseCount - 1 && cites === 0) {
+			domain = sizeScale.domain();
+			value = (domain[0] + domain[1]) / 2; // set the most recent case size to half
+		} else {
+			value = cites;
+		}
+		return Math.sqrt(value / Math.PI);
+	}
+
 	cases = new Plottable.Plots.Scatter()
 		.addDataset(new Plottable.Dataset(workingJSON))
 		.addClass('caseScatter')
@@ -500,16 +520,7 @@ function drawGraph(target, opinions, chartType, axisType, height, maxDoS, breako
 			return (chartMode === 'dos') ? dosYSpread(d) : spaethYSpread(d);
 		}, yScale)
 		.size(function (d, i) {
-			var value = 0,
-				domain = [];
-
-			if (i === caseCount - 1) {
-				domain = sizeScale.domain();
-				value = (domain[0] + domain[1]) / 2; // set the most recent case size to half
-			} else {
-				value = d.citation_count;
-			}
-			return value;
+			return scalePlot(d.citation_count, i);
 		}, sizeScale)
 		.attr('stroke', function (d) {
 			return colorScale.scale((chartMode === 'dos')
@@ -778,7 +789,7 @@ function drawGraph(target, opinions, chartType, axisType, height, maxDoS, breako
 					.attr('transform', 'translate(' + position.x + ',' + position.y + ')')
 					.style('visibility', 'visible')
 					.select('circle')
-					.attr('r', d3.max([5, sizeScale.scale(datum.citation_count) / 2]));
+					.attr('r', sizeScale.scale(scalePlot(datum.citation_count, datum.count - 1)) / 2);
 			} else {
 				// caseHoverText.text(defaultCaseHoverText);
 				caseHoverGroup.style('visibility', 'hidden');
