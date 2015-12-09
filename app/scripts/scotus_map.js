@@ -410,11 +410,7 @@ function drawGraph(target, opinions, chartType, axisType, height, maxDoS, breako
 
 	sizeScale = new Plottable.Scales.ModifiedLog();
 	// this should be done by formula later?
-	if (heightValue === '300px') {
-		sizeScale.range([10, 25]);
-	} else {
-		sizeScale.range([10, 50]);
-	}
+	sizeScale.range([10, Math.max(10, parseInt(heightValue.slice(0, heightValue.length - 2), 10) / 12)]);
 	colorScale = new Plottable.Scales.Color();
 
 	function filter(source, compare) {
@@ -1071,7 +1067,8 @@ $(document).ready(function () {
 		caseCountTarget = '#case-count',
 		item = {},
 		used = {},
-		dissent = {};
+		dissent = {},
+		height = '';
 
 	// Read a page's GET URL variables and return them as an associative array.
 	function getUrlVars() {
@@ -1254,7 +1251,13 @@ $(document).ready(function () {
 				// if settigns are embedded in the JSON then use them rather than defaults
 				var rand = ['dos', 'spaeth', 'genealogy'][Math.floor(Math.random() * 3)];
 
-				used = drawGraph(chartTarget, opinions[item], rand, 'cat', '300', 3, null, 'view', item);
+				//if date-height use that instead of default
+				height = $('#chart-' + item).data('height');
+				if (typeof height === 'undefined') {
+					height = '300';
+				}
+
+				used = drawGraph(chartTarget, opinions[item], rand, 'cat', height, 3, null, 'view', item);
 				dissent = degreeOfDissent(used);
 				attachDoDInfo('#dod-info-' + item.toString(), dissent);
 			}
