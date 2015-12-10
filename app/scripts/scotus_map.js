@@ -1,6 +1,18 @@
 /* global $, document, d3, Plottable, embedUrl, opinions*/
 
 /*
+
+1. Labels: On Firefox, Rightmost node.
+D. Spaeth respecting DoS.
+1. Orphan nodes?
+D. Finish genealogy (and disable its drop down)?
+1. New tab on click (not on swipe)
+1. SCDB links in table have issue when no value for SCDB in JSON.
+1. Drop random.
+
+ */
+
+/*
 For drawing the degrees of separation graph.
 Given a set of citations in JSON
 	and a DoS for the chart, as in don't show fourth for a third degree chart
@@ -295,7 +307,7 @@ function drawGraph(target, opinions, chartType, axisType, height, maxDoS, breako
 
 		// filter out cases that have higher DoS
 		workingJSON = citationJSON.opinion_clusters.filter(function (cluster) {
-			return (chartType === 'dos') ? degrees.indexOf(cluster.order) < max : true;
+			return (chartType !== 'genealogy') ? degrees.indexOf(cluster.order) < max : true;
 		});
 		// renumber the remaining cases
 		workingJSON.forEach(function (cluster) {
@@ -1079,7 +1091,8 @@ $(document).ready(function () {
 		item = {},
 		used = {},
 		dissent = {},
-		height = '';
+		height = '',
+		type = '';
 
 	// Read a page's GET URL variables and return them as an associative array.
 	function getUrlVars() {
@@ -1157,9 +1170,14 @@ $(document).ready(function () {
 	}
 
 	function scdbLink(s) {
-		return '<a href="http://supremecourtdatabase.org/analysisCaseDetail.php?cid=' +
-		s + '" target="_blank">' + s + '</a>' +
-		'&nbsp;<i class="gray fa fa-external-link"></i>';
+		var value = '';
+
+		if (s !== '') {
+			value = '<a href="http://supremecourtdatabase.org/analysisCaseDetail.php?cid=' +
+				s + '" target="_blank">' + s + '</a>' +
+				'&nbsp;<i class="gray fa fa-external-link"></i>';
+		}
+		return value;
 	}
 
 	// opinions_cited array of number or
@@ -1223,6 +1241,15 @@ $(document).ready(function () {
 	// merge settings and args
 	$.extend(settings, args);
 
+	function setDosEnable() {
+		if (settings.type === 'genealogy') {
+			$('#degreesOfSeparationSelect').prop('disabled', true);
+		} else {
+			$('#degreesOfSeparationSelect').prop('disabled', false);
+		}
+	}
+	setDosEnable();
+
 	if (opinions.hasOwnProperty('opinion_clusters')) {
 		// do one
 		$('#chartTypeSelect').val(settings.type);
@@ -1233,6 +1260,7 @@ $(document).ready(function () {
 		// on select JSON in the data and then call drawGraph()
 		$('#chartTypeSelect').change(function () {
 			settings.type = $('#chartTypeSelect').val();
+			setDosEnable();
 			updateUrl(settings);
 			trigger(settings);
 		});
@@ -1260,7 +1288,7 @@ $(document).ready(function () {
 			if (opinions.hasOwnProperty(item)) {
 				chartTarget = '#chart-' + item.toString();
 				// if settigns are embedded in the JSON then use them rather than defaults
-				var rand = ['dos', 'spaeth', 'genealogy'][Math.floor(Math.random() * 3)];
+				type = ['dos', 'spaeth', 'genealogy'][item % 3];
 
 				//if date-height use that instead of default
 				height = $('#chart-' + item).data('height');
@@ -1268,7 +1296,7 @@ $(document).ready(function () {
 					height = '300';
 				}
 
-				used = drawGraph(chartTarget, opinions[item], rand, 'cat', height, 3, null, 'view', item);
+				used = drawGraph(chartTarget, opinions[item], type, 'cat', height, 3, null, 'view', item);
 				dissent = degreeOfDissent(used);
 				attachDoDInfo('#dod-info-' + item.toString(), dissent);
 			}
