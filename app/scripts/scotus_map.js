@@ -1170,7 +1170,7 @@ $(document).ready(function () {
 	}
 
 	function scdbLink(s) {
-		var value = '';
+		var value = 'no data';
 
 		if (s !== '') {
 			value = '<a href="http://supremecourtdatabase.org/analysisCaseDetail.php?cid=' +
