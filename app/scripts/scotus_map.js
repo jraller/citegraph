@@ -1,44 +1,15 @@
 /* global $, document, d3, Plottable, embedUrl, opinions*/
 
 /*
-For drawing the degrees of separation graph.
-Given a set of citations in JSON
-	and a DoS for the chart, as in don't show fourth for a third degree chart
-sort them and pre-parse in order to build the network
-	Degree of Separation starts at 1 not zero.
-	opinions have a degree of separation ranging from endpoint
-	connections have a degree of separation that is independant of the DoS of their endpoints
-
 Look at using d3 maps and sets instead of some of the other datatypes:
 	https://github.com/mbostock/d3/wiki/Arrays
-
-create a chart with:
-	aspect ratio, and have aspect ratio tied to vertical offset patterns
-		width is fill, height is still a work in progress
-	max displayed Degrees of Separation (not for Spaeth and Genealogy)
-	an unlabeled y axis
-		vertical spacing moving from math based to table selected
-		oldest case low, newest case high to show building on foundation?
-			currently both at middle
-	a category x axis that contains times in order
-		or a timeline
-	grid
-	legend
-	scatterplot
-		size by number of citations (not in graph, but total)
-		color by degrees of separation
-	a collection of line plots
-		color by degrees of separation for that segment
-below the plot add a table with:
-	case name as link to case
-	citation count
-	date filed
  */
 
 'use strict';
 
-// rewrite the drawGraph call to use fewer parameters: opinions, settings {target, type, axis, height, DoS, mode}
-// breakout seems to be something that can be left behind?
+// rewrite the drawGraph call to use fewer parameters:
+// opinions, settings {target, type, axis, height, DoS, mode}
+// maybe target as first level param?
 
 /**
  * [drawGraph description]
@@ -53,7 +24,7 @@ below the plot add a table with:
  * @return {object} a new version of the source data containing only utilized information
  */
 function drawGraph(target, opinions, chartType, axisType, height, maxDoS, mode, galleryId) {
-	var citationJSON = JSON.parse(JSON.stringify(opinions)),
+	var citationJSON = JSON.parse(JSON.stringify(opinions)), // make a copy
 		chartMode = (typeof chartType !== 'undefined') ? chartType : 'dos',
 		xAxisMode = (typeof axisType !== 'undefined') ? axisType : 'cat',
 		heightValue = '600px', // default, height is processed below
@@ -111,9 +82,15 @@ function drawGraph(target, opinions, chartType, axisType, height, maxDoS, mode, 
 		dragTarget = null;
 
 	/**
-	 * [prepJSON description]
+	 * organization and indexing of the supplied JSON
 	 */
 	function prepJSON() {
+
+		/**
+		 * return a count of the citation object
+		 * @param  {object} obj citation collection
+		 * @return {integer}    the number of citations
+		 */
 		function citations(obj) {
 			var size = 0,
 				key = '';
@@ -125,7 +102,7 @@ function drawGraph(target, opinions, chartType, axisType, height, maxDoS, mode, 
 			}
 			return size;
 		}
-		// sort by date_filed
+		// sort by date_filed, break ties so that opinion with no cites comes first
 		citationJSON.opinion_clusters.sort(function (a, b) {
 			if (parseDate(a.date_filed) > parseDate(b.date_filed)) {
 				return 1;
@@ -173,6 +150,12 @@ function drawGraph(target, opinions, chartType, axisType, height, maxDoS, mode, 
 		});
 	}
 
+	/**
+	 * [linkName description]
+	 * @param  {string} a case id
+	 * @param  {string} b case id
+	 * @return {string}   ordered case ids combined with lower first
+	 */
 	function linkName(a, b) {
 		var name = '';
 
@@ -284,6 +267,10 @@ function drawGraph(target, opinions, chartType, axisType, height, maxDoS, mode, 
 		}
 	}
 
+	/**
+	 * trim the workingJSON so that it includes cases that are under the DoS limit
+	 * @param  {integer} limit [description]
+	 */
 	function trimJSON(limit) {
 		var max = parseInt(limit, 10),
 			link = {},
@@ -315,12 +302,14 @@ function drawGraph(target, opinions, chartType, axisType, height, maxDoS, mode, 
 
 	prepJSON();
 
+	// will get set to final in trimJSON
 	caseCount = citationJSON.opinion_clusters.length;
 
 	calculateDoS();
 
 	trimJSON(maxDoS);
 
+	// build vertical separation for dos chart
 	if (chartType === 'dos') {
 		distribution = [];
 		distribution.push(50); // first at 50
@@ -332,10 +321,20 @@ function drawGraph(target, opinions, chartType, axisType, height, maxDoS, mode, 
 		distribution.push(50); // last at 50
 	}
 
+	/**
+	 * [dosYSpread description]
+	 * @param  {object} d case
+	 * @return {integer}   the vertical distribution for that case
+	 */
 	function dosYSpread(d) {
 		return (d.y) ? d.y : distribution[d.count - 1];
 	}
 
+	/**
+	 * [spaethYSpread description]
+	 * @param  {object} d case
+	 * @return {integer}   the vertical distribution for that case
+	 */
 	function spaethYSpread(d) {
 		var minority = d.votes_minority,
 			majority = String(9 - Number(minority)), // d.votes_majority,
@@ -351,6 +350,7 @@ function drawGraph(target, opinions, chartType, axisType, height, maxDoS, mode, 
 		return value;
 	}
 
+	// set height of chart based on settings
 	if (typeof height !== 'undefined') {
 		if (height === 'screen') {
 			heightValue = $(window).height();
@@ -374,6 +374,7 @@ function drawGraph(target, opinions, chartType, axisType, height, maxDoS, mode, 
 	xScaleTime = new Plottable.Scales.Time();
 	yScale = new Plottable.Scales.Category();
 	yAxis = new Plottable.Axes.Category(yScale, 'left');
+
 	if (chartMode === 'dos') {
 		// yScale.domain(d3.range(1, d3.max(distribution) + 2).reverse());
 		yScale.domain(d3.range(0, 100));
@@ -402,13 +403,19 @@ function drawGraph(target, opinions, chartType, axisType, height, maxDoS, mode, 
 			return value;
 		});
 	}
-	yScale.outerPadding(0.9);
 
+	yScale.outerPadding(0.9);
 	sizeScale = new Plottable.Scales.Linear();
 	// this should be done by formula later?
 	sizeScale.range([10, Math.max(10, parseInt(heightValue.slice(0, heightValue.length - 2), 10) / 12)]);
 	colorScale = new Plottable.Scales.Color();
 
+	/**
+	 * [filter description]
+	 * @param  {array} source  [description]
+	 * @param  {array} compare [description]
+	 * @return {array}         [description]
+	 */
 	function filter(source, compare) {
 		var array = [],
 			i = 0,
@@ -489,7 +496,7 @@ function drawGraph(target, opinions, chartType, axisType, height, maxDoS, mode, 
 	/**
 	 * Scales objects such that it treats the last differently
 	 * in order to make most recent case visible when it has no citations
-	 * @param  {object} obj where to extract citation_count
+	 * @param  {object} cites where to extract citation_count
 	 * @param  {integer} i  which number is this?
 	 * @return {integer}    area adjusted value
 	 */
@@ -539,10 +546,15 @@ function drawGraph(target, opinions, chartType, axisType, height, maxDoS, mode, 
 	}
 	plot.append(cases);
 
+	/**
+	 * [calcConnections description]
+	 */
 	function calcConnections() {
+		// empty any old data
 		connections.datasets().forEach(function (set) {
 			connections.removeDataset(set);
 		});
+		// generate index
 		workingJSON.forEach(function (cluster) {
 			point = {};
 			point.date_filed = cluster.date_filed;
@@ -550,6 +562,7 @@ function drawGraph(target, opinions, chartType, axisType, height, maxDoS, mode, 
 			point.order = cluster.order;
 			coords[cluster.id] = point;
 		});
+		// build new connections
 		workingJSON.forEach(function (cluster) {
 			var item = '',
 				name = '',
@@ -583,7 +596,6 @@ function drawGraph(target, opinions, chartType, axisType, height, maxDoS, mode, 
 		if (chartMode === 'genealogy') {
 
 /*
-
 1.	Start with all of the cases from the bacon map and sort them in chronological order.
 
 2.	Starting with the most recent case and working your way back to the oldest case:
@@ -610,11 +622,7 @@ function drawGraph(target, opinions, chartType, axisType, height, maxDoS, mode, 
 
 7.	Add the citations to the appropriate strands (conservative/liberal/unknown) based on the decision direction of
 	the citing case.
-
 */
-
-			// console.log(workingJSON);
-			// console.log(JSONIndex);
 
 			workingJSON.forEach(function (cluster) {
 				var item = {},
@@ -623,14 +631,9 @@ function drawGraph(target, opinions, chartType, axisType, height, maxDoS, mode, 
 					recentOp = parseDate('1500-01-01'),
 					recentOpIndex = 0;
 
-// expand this to handle all of the logic above.
-// make sure that if the mode is genealogy that maxDos is ignored from the start
 				for (item in cluster.sub_opinions[0].opinions_cited) {
 					if (cluster.sub_opinions[0].opinions_cited.hasOwnProperty(item)) {
 						cluster.sub_opinions[0].opinions_cited[item].opacity = 0.15;
-						// console.log(cluster.decision_direction, ddlu[cluster.decision_direction], JSONIndex[item].num);
-
-						// console.log(recent, parseDate(workingJSON[JSONIndex[item].num].date_filed));
 						if (typeof workingJSON[JSONIndex[item].num] !== 'undefined') {
 							if (cluster.decision_direction === workingJSON[JSONIndex[item].num].decision_direction) {
 								if (recent < parseDate(workingJSON[JSONIndex[item].num].date_filed)) {
@@ -676,9 +679,8 @@ function drawGraph(target, opinions, chartType, axisType, height, maxDoS, mode, 
 					}
 				}
 			});
-
-
 		}
+		// spaeth and genealogy
 		workingJSON.forEach(function (cluster) {
 			var minority = cluster.votes_minority,
 				majority = String(9 - parseInt(minority, 10)),
@@ -715,6 +717,7 @@ function drawGraph(target, opinions, chartType, axisType, height, maxDoS, mode, 
 		});
 	}
 
+	// if we are not in gallery mode
 	if (galleryId === '') {
 		table = [
 			[null, null, legend, null],
@@ -722,9 +725,9 @@ function drawGraph(target, opinions, chartType, axisType, height, maxDoS, mode, 
 			[null, null, (xAxisMode === 'cat') ? xAxisCat : xAxisTime, null]//,
 			// [null, null, xLabel, null]
 		];
-	} else if (chartType === 'dos') {
+	} else if (chartType === 'dos') { // gallery dos mode
 		table = [[plot]];
-	} else {
+	} else { // gallery spaeth and genealogy mode
 		table = [[yLabel, yAxis, plot]];
 	}
 
@@ -848,7 +851,6 @@ function drawGraph(target, opinions, chartType, axisType, height, maxDoS, mode, 
 				}
 			});
 
-
 	// http://plottablejs.org/examples/datasets/
 	// http://plottablejs.org/examples/spacerace/
 
@@ -872,6 +874,12 @@ function drawGraph(target, opinions, chartType, axisType, height, maxDoS, mode, 
 	return workingJSON;
 }
 
+/**
+ * [citationTable description]
+ * @param  {string} target  [description]
+ * @param  {object} data    [description]
+ * @param  {array} columns [description]
+ */
 function citationTable(target, data, columns) {
 	var table = d3.select(target).append('div').attr('class', 'table-responsive').append('table'),
 		thead = table.append('thead'),
@@ -967,6 +975,11 @@ function citationTable(target, data, columns) {
 	return table;
 }
 
+/**
+ * [degreeOfDissent description]
+ * @param  {object} cases [description]
+ * @return {object}       containing degree of dissent, number of cases used, and total number of cases
+ */
 function degreeOfDissent(cases) {
 	var dods = [];
 
@@ -980,9 +993,14 @@ function degreeOfDissent(cases) {
 
 	return {'d': (d3.sum(dods) / dods.length),
 		'c': dods.length,
-		'l': dods.length};
+		'l': cases.length};
 }
 
+/**
+ * [attachDoDInfo description]
+ * @param  {string} target  [description]
+ * @param  {object} dissent [description]
+ */
 function attachDoDInfo(target, dissent) {
 	d3.select(target)
 		.text(dissent.d.toFixed(2) +
@@ -1047,6 +1065,9 @@ function casesMetadata(data) {
 		.attr('d', 'M' + ((dissent.d * 100) + 10) + ' 18 l -10 -10 l 20 0 z');
 }
 
+/**
+ * [description]
+ */
 $(document).ready(function () {
 	var settings = {
 			'type': 'dos',
@@ -1150,28 +1171,19 @@ $(document).ready(function () {
 		return value;
 	}
 
-	// opinions_cited array of number or
-	// array of object of name by cite number with dictionary of values
-	// {"112331": {"opacity": 1}}
-
-	// redraw on screen resize - chart only, not table?
-
-	// dos legend build order
-
-	// switch to hash and move vars outside
-	// type = chartType [spread, spaeth, gene]
-	// xaxis = axisType [cat, time]
-	// dos = maxDos [integer 1->]
-	// if target = _blank then open links in new tab?
-	//
-	// controls update url without adding to history
+	/**
+	 * [trigger description]
+	 * @param  {object} params [description]
+	 */
 	function trigger(params) {
 		var chartType = params.type,
 			axisType = params.xaxis,
 			heightType = $('#heightTypeSelect').val(),
 			maxDoS = params.dos;
 
-		// citationJSON = json;
+		// type = chartType [spread, spaeth, gene]
+		// xaxis = axisType [cat, time]
+		// dos = maxDos [integer 1->]
 		d3.select(chartTarget).select('svg').remove();
 		d3.select(tableTarget).select('table').remove();
 
@@ -1271,10 +1283,4 @@ $(document).ready(function () {
 			}
 		}
 	}
-
-
-	// if we have a single set of data set up trigger
-	// if we have multiple data map and call for them
-	// if we are in edit mode
-
 });
