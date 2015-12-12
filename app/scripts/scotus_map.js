@@ -4,11 +4,11 @@
 
 1. Labels: On Firefox, Rightmost node.
 D. Spaeth respecting DoS.
-1. Orphan nodes?
+?. Orphan nodes?
 D. Finish genealogy (and disable its drop down)?
 1. New tab on click (not on swipe)
-1. SCDB links in table have issue when no value for SCDB in JSON.
-1. Drop random.
+D. SCDB links in table have issue when no value for SCDB in JSON.
+D. Drop random.
 
  */
 
@@ -62,12 +62,11 @@ var controlDown = false;
  * @param {string} axisType controls X axis formatting as category or timeline
  * @param {string} height [description]
  * @param {integer} maxDoS a maximum degree of separation to show
- * @param {boolean} breakout controls if case links open in new window
  * @param {string} mode view or edit mode
  * @param {string} galleryId if in gallery mode is id of which chart to draw
  * @return {object} a new version of the source data containing only utilized information
  */
-function drawGraph(target, opinions, chartType, axisType, height, maxDoS, breakout, mode, galleryId) {
+function drawGraph(target, opinions, chartType, axisType, height, maxDoS, mode, galleryId) {
 	var citationJSON = JSON.parse(JSON.stringify(opinions)),
 		chartMode = (typeof chartType !== 'undefined') ? chartType : 'dos',
 		xAxisMode = (typeof axisType !== 'undefined') ? axisType : 'cat',
@@ -812,7 +811,7 @@ function drawGraph(target, opinions, chartType, axisType, height, maxDoS, breako
 			caseHoverGroup.style('visibility', 'hidden');
 		});
 
-		if (mode === 'view') {
+		if (mode === 'view' && galleryId === '') {
 			caseHover.attachTo(cases);
 			caseClick = new Plottable.Interactions.Click();
 			caseClick.onClick(function (c) {
@@ -833,12 +832,7 @@ function drawGraph(target, opinions, chartType, axisType, height, maxDoS, breako
 					}
 				}
 				if (datum !== null) {
-					if (breakout === 'blank' || controlDown) {
-						// handle this side differently in order to break out of embed
-						window.open('https://www.courtlistener.com' + datum.absolute_url, '_blank');
-					} else {
-						window.location.assign(datum.absolute_url);
-					}
+					window.open('https://www.courtlistener.com' + datum.absolute_url, '_blank');
 				}
 			});
 			caseClick.attachTo(cases);
@@ -1199,8 +1193,7 @@ $(document).ready(function () {
 		var chartType = params.type,
 			axisType = params.xaxis,
 			heightType = $('#heightTypeSelect').val(),
-			maxDoS = params.dos,
-			breakout = params.target;
+			maxDoS = params.dos;
 
 		// citationJSON = json;
 		d3.select(chartTarget).select('svg').remove();
@@ -1214,7 +1207,7 @@ $(document).ready(function () {
 			// 	maxDoS -- maximum degree of separation to show, is this only DoS
 			// )
 
-		used = drawGraph(chartTarget, opinions, chartType, axisType, heightType, maxDoS, breakout, params.mode, '');
+		used = drawGraph(chartTarget, opinions, chartType, axisType, heightType, maxDoS, params.mode, '');
 		$(caseCountTarget).text(used.length);
 		citationTable(tableTarget, used,
 			[
@@ -1296,7 +1289,7 @@ $(document).ready(function () {
 					height = '300';
 				}
 
-				used = drawGraph(chartTarget, opinions[item], type, 'cat', height, 3, null, 'view', item);
+				used = drawGraph(chartTarget, opinions[item], type, 'cat', height, 3, 'view', item);
 				dissent = degreeOfDissent(used);
 				attachDoDInfo('#dod-info-' + item.toString(), dissent);
 			}
