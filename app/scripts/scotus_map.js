@@ -1,18 +1,6 @@
 /* global $, document, d3, Plottable, embedUrl, opinions*/
 
 /*
-
-1. Labels: On Firefox, Rightmost node.
-D. Spaeth respecting DoS.
-?. Orphan nodes?
-D. Finish genealogy (and disable its drop down)?
-1. New tab on click (not on swipe)
-D. SCDB links in table have issue when no value for SCDB in JSON.
-D. Drop random.
-
- */
-
-/*
 For drawing the degrees of separation graph.
 Given a set of citations in JSON
 	and a DoS for the chart, as in don't show fourth for a third degree chart
@@ -48,8 +36,6 @@ below the plot add a table with:
  */
 
 'use strict';
-
-var controlDown = false;
 
 // rewrite the drawGraph call to use fewer parameters: opinions, settings {target, type, axis, height, DoS, mode}
 // breakout seems to be something that can be left behind?
@@ -122,8 +108,7 @@ function drawGraph(target, opinions, chartType, axisType, height, maxDoS, mode, 
 		caseHoverGroup = {}, // reference to the hover show object
 		caseClick = {}, // interaction behavior
 		caseDrag = {},
-		dragTarget = null,
-		keys = {};
+		dragTarget = null;
 
 	/**
 	 * [prepJSON description]
@@ -882,15 +867,6 @@ function drawGraph(target, opinions, chartType, axisType, height, maxDoS, mode, 
 
 			caseDrag.attachTo(cases);
 		}
-
-		keys = new Plottable.Interactions.Key();
-		keys.onKeyPress(17, function () {
-			controlDown = true;
-		});
-		keys.onKeyRelease(17, function () {
-			controlDown = false;
-		});
-		keys.attachTo(cases);
 	}
 
 	return workingJSON;
