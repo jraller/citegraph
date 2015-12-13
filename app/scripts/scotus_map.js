@@ -490,7 +490,7 @@ function drawGraph(target, opinions, chartType, axisType, height, maxDoS, mode, 
 			return colorScale.scale(d.c);
 		})
 		.attr('opacity', function (d) {
-			return d.o * 0.75; // drop all by a percent
+			return d.o * ((chartType !== 'genealogy') ? 0.5 : 0.9); // drop all by a percent
 		});
 	plot.append(connections);
 
@@ -575,6 +575,9 @@ function drawGraph(target, opinions, chartType, axisType, height, maxDoS, mode, 
 					name = linkName(cluster.id, item);
 					color = 'unk';
 					opacity = cluster.sub_opinions[0].opinions_cited[item].opacity;
+					if (typeof opacity === 'undefined') {
+						opacity = 1;
+					}
 					if (typeof links[name] !== 'undefined') {
 						// replace the following if with the limiter to control greatest DoS connector shown
 						if (typeof links[name].d !== 'undefined') {
@@ -705,6 +708,9 @@ function drawGraph(target, opinions, chartType, axisType, height, maxDoS, mode, 
 			for (item in cluster.sub_opinions[0].opinions_cited) {
 				if (cluster.sub_opinions[0].opinions_cited.hasOwnProperty(item)) {
 					opacity = cluster.sub_opinions[0].opinions_cited[item].opacity;
+					if (typeof opacity === 'undefined') {
+						opacity = 1;
+					}
 					// badly formed data can result in coords[item] being undefined, check for this
 					if (typeof coords[item] !== 'undefined') {
 						connections.addDataset(new Plottable.Dataset([
@@ -820,6 +826,7 @@ function drawGraph(target, opinions, chartType, axisType, height, maxDoS, mode, 
 					}
 				}
 				if (datum !== null) {
+					// check distance from event to node before treating it like a click
 					window.open('https://www.courtlistener.com' + datum.absolute_url, '_blank');
 				}
 			});
