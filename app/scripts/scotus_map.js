@@ -476,6 +476,7 @@ function drawGraph(target, opinions, chartType, axisType, height, maxDoS, mode, 
 	grid = new Plottable.Components.Gridlines(xGrid, yGrid);
 
 	plot = new Plottable.Components.Group();
+
 	plot.append(grid);
 
 	connections = new Plottable.Plots.Line()
@@ -489,7 +490,7 @@ function drawGraph(target, opinions, chartType, axisType, height, maxDoS, mode, 
 			return colorScale.scale(d.c);
 		})
 		.attr('opacity', function (d) {
-			return d.o;
+			return d.o * 0.75; // drop all by a percent
 		});
 	plot.append(connections);
 
@@ -588,7 +589,6 @@ function drawGraph(target, opinions, chartType, axisType, height, maxDoS, mode, 
 			}
 		});
 	}
-
 
 	if (chartMode === 'dos') {
 		calcConnections();
