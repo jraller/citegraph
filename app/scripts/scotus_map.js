@@ -27,7 +27,7 @@ function drawGraph(target, opinions, chartType, axisType, height, maxDoS, mode, 
 	var citationJSON = JSON.parse(JSON.stringify(opinions)), // make a copy
 		chartMode = (typeof chartType !== 'undefined') ? chartType : 'dos',
 		xAxisMode = (typeof axisType !== 'undefined') ? axisType : 'cat',
-		heightValue = '600px', // default, height is processed below
+		heightValue = height + 'px', // default, height is processed below
 		parseDate = d3.time.format('%Y-%m-%d').parse, // to parse dates in the JSON into d3 dates
 		chartWidth = $(target).width(), // the width of the enclosing div
 		xDate = d3.time.format('%b-%Y'), // to format date for display
@@ -350,15 +350,6 @@ function drawGraph(target, opinions, chartType, axisType, height, maxDoS, mode, 
 		return value;
 	}
 
-	// set height of chart based on settings
-	if (typeof height !== 'undefined') {
-		if (height === 'screen') {
-			heightValue = $(window).height();
-		} else {
-			heightValue = height + 'px';
-		}
-	}
-
 	// cleaner to retain var for this and use it later on?
 	d3.select(target)
 		.append('svg')
@@ -407,7 +398,7 @@ function drawGraph(target, opinions, chartType, axisType, height, maxDoS, mode, 
 	yScale.outerPadding(0.9);
 	sizeScale = new Plottable.Scales.Linear();
 	// this should be done by formula later?
-	sizeScale.range([10, Math.max(10, parseInt(heightValue.slice(0, heightValue.length - 2), 10) / 12)]);
+	sizeScale.range([10, Math.max(10, height / 12)]);
 	colorScale = new Plottable.Scales.Color();
 
 	/**
@@ -1089,7 +1080,7 @@ $(document).ready(function () {
 		item = {},
 		used = {},
 		dissent = {},
-		height = '',
+		height = 0,
 		type = '';
 
 	// Read a page's GET URL variables and return them as an associative array.
@@ -1179,15 +1170,49 @@ $(document).ready(function () {
 	}
 
 	/**
+	 * [setHeight description]
+	 * @param {string} target [description]
+	 * @param {boolean} full   [description]
+	 * @returns {integer} [description]
+	 */
+	function setHeight(target, full) {
+		var h = 0,
+			v = 0,
+			w = 0;
+
+		v = $(target).data('height');
+		if (typeof v !== 'undefined') {
+			// if data is set on target then use data-height
+			h = v;
+		} else if (typeof settings.height !== 'undefined') {
+			// if url settings contain height use that
+			h = settings.height;
+		}
+		// if height is either 'fullscreen' or in ratio format
+		if (h === 'screen') {
+			h = $(window).height();
+		}
+		if (typeof h === 'string' && h.indexOf(':') !== -1) {
+			w = $(target).width();
+			h = (w / h.split(':')[0]) * h.split(':')[1];
+		}
+		if (h === 0) {
+			// if none of these use defaults based on full
+			h = (full) ? 600 : 300;
+		}
+		return h;
+	}
+
+	/**
 	 * [trigger description]
 	 * @param  {object} params [description]
 	 */
 	function trigger(params) {
 		var chartType = params.type,
 			axisType = params.xaxis,
-			heightType = $('#heightTypeSelect').val(),
 			maxDoS = params.dos;
 
+		height = setHeight(chartTarget, true);
 		// type = chartType [spread, spaeth, gene]
 		// xaxis = axisType [cat, time]
 		// dos = maxDos [integer 1->]
@@ -1202,7 +1227,7 @@ $(document).ready(function () {
 			// 	maxDoS -- maximum degree of separation to show, is this only DoS
 			// )
 
-		used = drawGraph(chartTarget, opinions, chartType, axisType, heightType, maxDoS, params.mode, '');
+		used = drawGraph(chartTarget, opinions, chartType, axisType, height, maxDoS, params.mode, '');
 		$(caseCountTarget).text(used.length);
 		citationTable(tableTarget, used,
 			[
@@ -1242,6 +1267,7 @@ $(document).ready(function () {
 		// do one
 		$('#chartTypeSelect').val(settings.type);
 		$('#axisTypeSelect').val(settings.xaxis);
+		$('#heightTypeSelect').val(settings.height);
 		$('#degreesOfSeparationSelect').val(settings.dos);
 
 		// unwrap dataSourceSelect for courtlistener
@@ -1258,6 +1284,8 @@ $(document).ready(function () {
 			trigger(settings);
 		});
 		$('#heightTypeSelect').change(function () {
+			settings.height = $('#heightTypeSelect').val(),
+			updateUrl(settings);
 			trigger(settings);
 		});
 		$('#degreesOfSeparationSelect').change(function () {
@@ -1278,11 +1306,7 @@ $(document).ready(function () {
 				// if settigns are embedded in the JSON then use them rather than defaults
 				type = ['dos', 'spaeth', 'genealogy'][item % 3];
 
-				//if date-height use that instead of default
-				height = $('#chart-' + item).data('height');
-				if (typeof height === 'undefined') {
-					height = '300';
-				}
+				height = setHeight(chartTarget, false);
 
 				used = drawGraph(chartTarget, opinions[item], type, 'cat', height, 3, 'view', item);
 				dissent = degreeOfDissent(used);
