@@ -800,25 +800,10 @@ function drawGraph(target, opinions, chartType, axisType, height, maxDoS, mode, 
 			caseHover.attachTo(cases);
 			caseClick = new Plottable.Interactions.Click();
 			caseClick.onClick(function (c) {
-				var datum = null,
-					nearestEntity = null,
-					cpd = null;
+				var entity = cases.entitiesAt(c)[0];
 
-				if (typeof cases.entityNearest === 'function') {
-					nearestEntity = cases.entityNearest(c);
-
-					if (nearestEntity !== null) {
-						datum = nearestEntity.datum;
-					}
-				} else {
-					cpd = cases.getClosestPlotData(c);
-					if (cpd.data.length > 0) {
-						datum = cpd.data[0];
-					}
-				}
-				if (datum !== null) {
-					// check distance from event to node before treating it like a click
-					window.open('https://www.courtlistener.com' + datum.absolute_url, '_blank');
+				if (entity) {
+					window.open('https://www.courtlistener.com' + entity.absolute_url, '_blank');
 				}
 			});
 			caseClick.attachTo(cases);
