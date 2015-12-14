@@ -803,6 +803,7 @@ function drawGraph(target, opinions, chartType, axisType, height, maxDoS, mode, 
 				var entity = cases.entitiesAt(c)[0];
 
 				if (entity) {
+					console.log('entity', entity);
 					window.open('https://www.courtlistener.com' + entity.absolute_url, '_blank');
 				}
 			});
