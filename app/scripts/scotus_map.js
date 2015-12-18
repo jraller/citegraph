@@ -298,8 +298,12 @@ function drawGraph(target, opinions, chartType, axisType, height, maxDoS, mode, 
 		}
 	}
 
-	// start of process
 
+	if (! $(target).length) { // if the target isn't on the page stop now
+		return [];
+	}
+
+	// start of process
 	prepJSON();
 
 	// will get set to final in trimJSON
@@ -373,18 +377,32 @@ function drawGraph(target, opinions, chartType, axisType, height, maxDoS, mode, 
 			return '';
 		});
 	} else {
-		yScale.domain([
-			'L5-4',
-			'L6-3',
-			'L7-2',
-			'L8-1',
-			'N9-0',
-			'C8-1',
-			'C7-2',
-			'C6-3',
-			'C5-4',
-			'Unk'
-		]);
+		if (ddc[3] > 0 || ddc[4] > 0) { // then we have an unknown or unspecifiable
+			yScale.domain([
+				'L5-4',
+				'L6-3',
+				'L7-2',
+				'L8-1',
+				'N9-0',
+				'C8-1',
+				'C7-2',
+				'C6-3',
+				'C5-4',
+				'Unk'
+			]);
+		} else {
+			yScale.domain([
+				'L5-4',
+				'L6-3',
+				'L7-2',
+				'L8-1',
+				'N9-0',
+				'C8-1',
+				'C7-2',
+				'C6-3',
+				'C5-4'
+			]);
+		}
 		yAxis.formatter(function (d) {
 			var value = d;
 
@@ -457,12 +475,16 @@ function drawGraph(target, opinions, chartType, axisType, height, maxDoS, mode, 
 
 	if (xAxisMode === 'cat') {
 		xGrid = new Plottable.Scales.Linear()
-			.domain([0, caseCount]);
+			.domain([0, caseCount])
+			.tickGenerator(function () {
+				return d3.range(0, caseCount + 1, 1);
+			});
 	} else {
 		xGrid = xScaleTime;
 	}
+
 	yGrid = new Plottable.Scales.Linear()
-		.domain([0, 100]);
+		.domain([0, 100]); // handle dos and non dos
 
 	grid = new Plottable.Components.Gridlines(xGrid, yGrid);
 
@@ -862,6 +884,7 @@ function drawGraph(target, opinions, chartType, axisType, height, maxDoS, mode, 
  * @param  {string} target  [description]
  * @param  {object} data    [description]
  * @param  {array} columns [description]
+ * @returns {string} [description]
  */
 function citationTable(target, data, columns) {
 	var table = d3.select(target).append('div').attr('class', 'table-responsive').append('table'),
@@ -1002,50 +1025,52 @@ function casesMetadata(data) {
 		dissent = 0,
 		i = 0;
 
-	dissent = degreeOfDissent(data);
+	if (data.length) { // if there are cases
+		dissent = degreeOfDissent(data);
 
-	attachDoDInfo(dodInfo, dissent);
+		attachDoDInfo(dodInfo, dissent);
 
-	dodMeter.html('');
+		dodMeter.html('');
 
-	meter = dodMeter.append('svg')
-		.attr('height', 40)
-		.append('g')
-		.attr('stroke', 'black')
-		.attr('font-family', 'Arial')
-		.attr('font-size', 12)
-		.attr('text-anchor', 'middle');
+		meter = dodMeter.append('svg')
+			.attr('height', 40)
+			.append('g')
+			.attr('stroke', 'black')
+			.attr('font-family', 'Arial')
+			.attr('font-size', 12)
+			.attr('text-anchor', 'middle');
 
-	meter.append('line') // base
-		.attr('x1', 10)
-		.attr('y1', 20)
-		.attr('x2', 110)
-		.attr('y2', 20);
-
-	for (i = 0; i < 5; i++) {
-		meter.append('line')
-			.attr('x1', (i * 25) + 10)
+		meter.append('line') // base
+			.attr('x1', 10)
 			.attr('y1', 20)
-			.attr('x2', (i * 25) + 10)
-			.attr('y2', 11);
+			.attr('x2', 110)
+			.attr('y2', 20);
+
+		for (i = 0; i < 5; i++) {
+			meter.append('line')
+				.attr('x1', (i * 25) + 10)
+				.attr('y1', 20)
+				.attr('x2', (i * 25) + 10)
+				.attr('y2', 11);
+			meter.append('text')
+				.attr('x', (i * 25) + 10)
+				.attr('y', 35)
+				.text((9 - i) + '-' + i);
+		}
+
 		meter.append('text')
-			.attr('x', (i * 25) + 10)
-			.attr('y', 35)
-			.text((9 - i) + '-' + i);
+				.attr('x', 10)
+				.attr('y', 9)
+				.text('0');
+		meter.append('text')
+				.attr('x', 109)
+				.attr('y', 9)
+				.text('1');
+
+		meter.append('path')
+			.attr('fill', 'red')
+			.attr('d', 'M' + ((dissent.d * 100) + 10) + ' 18 l -10 -10 l 20 0 z');
 	}
-
-	meter.append('text')
-			.attr('x', 10)
-			.attr('y', 9)
-			.text('0');
-	meter.append('text')
-			.attr('x', 109)
-			.attr('y', 9)
-			.text('1');
-
-	meter.append('path')
-		.attr('fill', 'red')
-		.attr('d', 'M' + ((dissent.d * 100) + 10) + ' 18 l -10 -10 l 20 0 z');
 }
 
 /**
@@ -1269,7 +1294,7 @@ $(document).ready(function () {
 			trigger(settings);
 		});
 		$('#heightTypeSelect').change(function () {
-			settings.height = $('#heightTypeSelect').val(),
+			settings.height = $('#heightTypeSelect').val();
 			updateUrl(settings);
 			trigger(settings);
 		});
