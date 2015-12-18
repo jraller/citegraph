@@ -415,7 +415,6 @@ function drawGraph(target, opinions, chartType, axisType, height, maxDoS, mode, 
 
 	yScale.outerPadding(0.9);
 	sizeScale = new Plottable.Scales.Linear();
-	// this should be done by formula later?
 	sizeScale.range([10, Math.max(10, height / 12)]);
 	colorScale = new Plottable.Scales.Color();
 
@@ -462,11 +461,6 @@ function drawGraph(target, opinions, chartType, axisType, height, maxDoS, mode, 
 		xAxisCat.tickLabelAngle(-90);
 	}
 
-	// label = 'Time';
-	// label += (xAxisMode === 'cat') ? ' as Category' : 'line';
-
-	// xLabel = new Plottable.Components.AxisLabel(label, 0);
-
 	label = (chartMode === 'dos') ? 'Random' : 'Conservative  ⟵  ⟶  Liberal';
 
 	yLabel = new Plottable.Components.AxisLabel(label, -90);
@@ -483,8 +477,14 @@ function drawGraph(target, opinions, chartType, axisType, height, maxDoS, mode, 
 		xGrid = xScaleTime;
 	}
 
-	yGrid = new Plottable.Scales.Linear()
-		.domain([0, 100]); // handle dos and non dos
+	yGrid = new Plottable.Scales.Linear();
+	if (chartMode === 'dos') {
+		yGrid.domain([0, 100]); // handle dos and non dos
+	} else if (ddc[3] > 0 || ddc[4] > 0) { // there is an 'Unk' category
+		yGrid.domain([0, 11]);
+	} else {
+		yGrid.domain([0, 10]);
+	}
 
 	grid = new Plottable.Components.Gridlines(xGrid, yGrid);
 
@@ -1102,7 +1102,6 @@ $(document).ready(function () {
 
 		for (i = 0; i < hashes.length; i++) {
 			hash = hashes[i].split('=');
-//			vars.push(hash[0]);
 			vars[hash[0]] = hash[1];
 		}
 		return vars;
