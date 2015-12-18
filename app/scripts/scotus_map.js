@@ -1117,7 +1117,7 @@ $(document).ready(function () {
 			embedPost = '" frameborder="0" allowfullscreen></iframe>';
 
 		for (key in payload) {
-			if (payload.hasOwnProperty(key)) {
+			if (payload.hasOwnProperty(key) && key !== 'mode') {
 				params += ((count === 0) ? '?' : '&') + key + '=' + payload[key];
 				count++;
 			}
