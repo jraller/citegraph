@@ -1,0 +1,241 @@
+{
+	"meta": {
+		"donate": "Please consider donating to support more projects from Free Law Project",
+		"version": 1.1
+	},
+	"opinion_clusters": [
+		{
+			"scdb_id": "2003-075",
+			"absolute_url": "/opinion/136990/hiibel-v-sixth-judicial-dist-court-of-nev-humboldt/",
+			"sub_opinions": [
+				{
+					"type": "combined",
+					"opinions_cited": {
+						"134724": {
+							"opacitiy": 1
+						}
+					}
+				}
+			],
+			"votes_minority": 4,
+			"decision_direction": 1,
+			"citation_count": 2,
+			"votes_majority": 5,
+			"date_filed": "2004-06-21",
+			"case_name_short": "Hiibel",
+			"case_name": "Hiibel v. Sixth Judicial Dist. Court of Nev., Humboldt Cty.",
+			"id": 136990
+		},
+		{
+			"scdb_id": "2008-078",
+			"absolute_url": "/opinion/145853/melendez-diaz-v-massachusetts/",
+			"sub_opinions": [
+				{
+					"type": "combined",
+					"opinions_cited": {
+						"145781": {
+							"opacitiy": 1
+						},
+						"134724": {
+							"opacitiy": 1
+						},
+						"145641": {
+							"opacitiy": 1
+						},
+						"145795": {
+							"opacitiy": 1
+						}
+					}
+				}
+			],
+			"votes_minority": 4,
+			"decision_direction": 2,
+			"citation_count": 1,
+			"votes_majority": 5,
+			"date_filed": "2009-06-25",
+			"case_name_short": "Melendez-Diaz",
+			"case_name": "Melendez-Diaz v. Massachusetts",
+			"id": 145853
+		},
+		{
+			"scdb_id": "2014-049",
+			"absolute_url": "/opinion/2809764/ohio-v-clark/",
+			"sub_opinions": [
+				{
+					"type": "combined",
+					"opinions_cited": {
+						"145781": {
+							"opacitiy": 1
+						},
+						"205606": {
+							"opacitiy": 1
+						},
+						"134724": {
+							"opacitiy": 1
+						},
+						"145641": {
+							"opacitiy": 1
+						},
+						"145853": {
+							"opacitiy": 1
+						}
+					}
+				}
+			],
+			"votes_minority": 0,
+			"decision_direction": 1,
+			"citation_count": 0,
+			"votes_majority": 9,
+			"date_filed": "2015-06-18",
+			"case_name_short": "",
+			"case_name": "Ohio v. Clark",
+			"id": 2809764
+		},
+		{
+			"scdb_id": "2005-086",
+			"absolute_url": "/opinion/145625/hamdan-v-rumsfeld/",
+			"sub_opinions": [
+				{
+					"type": "combined",
+					"opinions_cited": {
+						"134724": {
+							"opacitiy": 1
+						}
+					}
+				}
+			],
+			"votes_minority": 3,
+			"decision_direction": 2,
+			"citation_count": 1,
+			"votes_majority": 5,
+			"date_filed": "2006-06-29",
+			"case_name_short": "Hamdan",
+			"case_name": "Hamdan v. Rumsfeld",
+			"id": 145625
+		},
+		{
+			"scdb_id": "2007-067",
+			"absolute_url": "/opinion/145781/giles-v-california/",
+			"sub_opinions": [
+				{
+					"type": "combined",
+					"opinions_cited": {
+						"134724": {
+							"opacitiy": 1
+						},
+						"145641": {
+							"opacitiy": 1
+						}
+					}
+				}
+			],
+			"votes_minority": 3,
+			"decision_direction": 1,
+			"citation_count": 3,
+			"votes_majority": 6,
+			"date_filed": "2008-06-25",
+			"case_name_short": "Giles",
+			"case_name": "Giles v. California",
+			"id": 145781
+		},
+		{
+			"scdb_id": "2005-070",
+			"absolute_url": "/opinion/145641/davis-v-washington/",
+			"sub_opinions": [
+				{
+					"type": "combined",
+					"opinions_cited": {
+						"134724": {
+							"opacitiy": 1
+						},
+						"136990": {
+							"opacitiy": 1
+						}
+					}
+				}
+			],
+			"votes_minority": 0,
+			"decision_direction": 1,
+			"citation_count": 4,
+			"votes_majority": 9,
+			"date_filed": "2006-06-19",
+			"case_name_short": "Davis",
+			"case_name": "Davis v. Washington",
+			"id": 145641
+		},
+		{
+			"scdb_id": "",
+			"absolute_url": "/opinion/205606/michigan-v-bryant/",
+			"sub_opinions": [
+				{
+					"type": "combined",
+					"opinions_cited": {
+						"145781": {
+							"opacitiy": 1
+						},
+						"134724": {
+							"opacitiy": 1
+						},
+						"145641": {
+							"opacitiy": 1
+						},
+						"136990": {
+							"opacitiy": 1
+						}
+					}
+				}
+			],
+			"votes_minority": null,
+			"decision_direction": null,
+			"citation_count": 1,
+			"votes_majority": null,
+			"date_filed": "2011-02-28",
+			"case_name_short": "Bryant",
+			"case_name": "Michigan v. Bryant",
+			"id": 205606
+		},
+		{
+			"scdb_id": "2003-040",
+			"absolute_url": "/opinion/134724/crawford-v-washington/",
+			"sub_opinions": [
+				{
+					"type": "combined",
+					"opinions_cited": {}
+				}
+			],
+			"votes_minority": 0,
+			"decision_direction": 2,
+			"citation_count": 8,
+			"votes_majority": 9,
+			"date_filed": "2004-03-08",
+			"case_name_short": "Crawford",
+			"case_name": "Crawford v. Washington",
+			"id": 134724
+		},
+		{
+			"scdb_id": "2007-053",
+			"absolute_url": "/opinion/145795/boumediene-v-bush/",
+			"sub_opinions": [
+				{
+					"type": "combined",
+					"opinions_cited": {
+						"134724": {
+							"opacitiy": 1
+						},
+						"145625": {
+							"opacitiy": 1
+						}
+					}
+				}
+			],
+			"votes_minority": 4,
+			"decision_direction": 2,
+			"citation_count": 1,
+			"votes_majority": 5,
+			"date_filed": "2008-06-12",
+			"case_name_short": "Boumediene",
+			"case_name": "Boumediene v. Bush",
+			"id": 145795
+		}
+	]
+}

@@ -54,6 +54,8 @@
 								<option selected="true" value="400">fixed 400</option>
 								<option value="600">fixed 600</option>
 								<option value="screen">full screen</option>
+								<option value="4:3">ratio 4:3</option>
+								<option value="16:9">ratio 16:9</option>
 							</select>
 						</div>
 						<div class="form-group col-md-3">
@@ -74,9 +76,23 @@
 								<option value="tog_to_marsh">ToG to Marsh</option>
 								<option value="King_to_Rabinowitz">King to Rabinowitz</option>
 								<option value="Master_Mass_Incarceration_Lib">Master Mass Incarceration Lib</option>
-								<option value="null">Error Checking</option>
 								<option value="roe">Roe</option>
+								<option value="null">Error Checking</option>
+								<option value="crawford">crawford</option>
+								<option value="flagburn">flagburn</option>
 							</select>
+						</div>
+						<div class="col-md-4">
+							<div class="radio">
+								<label class="radio-inline">
+									<input type="radio" name="editMode" id="editMode1" value="view" checked="checked">
+									View
+								</label>
+								<label class="radio-inline">
+									<input type="radio" name="editMode" id="editMode2" value="edit">
+									Edit
+								</label>
+							</div>
 						</div>
 					</div>
 				</form>
@@ -84,7 +100,10 @@
 				<hr>
 				<p><span id="case-count"></span> cases</p>
 				<hr>
-				<div id="case-metadata"></div>
+				<div id="case-metadata">
+					<span id="dod-info"></span>
+					<div id="dod-chart"></div>
+				</div>
 				<hr>
 				<div id="case-table"></div>
 			</div>
@@ -93,12 +112,33 @@
 			<p><a href="/index.html">Back</a></p>
 		</div>
 	</div>
+	<svg xmlns="http://www.w3.org/2000/svg" width="0" height="0">
+	    <defs>
+	        <filter id="whitefade">
+	            <feFlood flood-color="white" result="base"></feFlood>
+	            <feMorphology result="bigger" in="SourceGraphic" operator="dilate"
+	                          radius="5"></feMorphology>
+	            <feColorMatrix result="mask" in="bigger" type="matrix"
+	                           values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.85 0"></feColorMatrix>
+	            <feComposite result="drop" in="base" in2="mask"
+	                         operator="in"></feComposite>
+	            <feGaussianBlur result="blur" in="drop"
+	                            stdDeviation="2"></feGaussianBlur>
+	            <feBlend in="SourceGraphic" in2="blur" mode="normal"></feBlend>
+	        </filter>
+
+	        <filter id="blur" x="0" y="0">
+	            <feGaussianBlur in="SourceGraphic" stdDeviation="1"/>
+	        </filter>
+	    </defs>
+	</svg>
 	<!-- build:js(.) scripts/vendor.js -->
 	<!-- bower:js -->
 	<script src="/bower_components/jquery/dist/jquery.js"></script>
 	<script src="/bower_components/d3/d3.js"></script>
 	<script src="/bower_components/svg-typewriter/svgtypewriter.js"></script>
 	<script src="/bower_components/plottable/plottable.js"></script>
+	<!-- <script src="http://localhost:9999/plottable.js"></script> -->
 	<!-- endbower -->
 	<!-- endbuild -->
 	<!-- build:js(.) scripts/plugins.js -->

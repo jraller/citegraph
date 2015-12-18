@@ -1,0 +1,388 @@
+{
+	"meta": {
+		"donate": "Please consider donating to support more projects from Free Law Project",
+		"version": 1.1
+	},
+	"opinion_clusters": [
+		{
+			"votes_minority": 3,
+			"decision_direction": 2,
+			"case_name": "Bose Corp. v. Consumers Union of United States, Inc.",
+			"case_name_short": "",
+			"scdb_id": "1983-085",
+			"id": 111164,
+			"date_filed": "1984-04-30",
+			"sub_opinions": [
+				{
+					"type": "combined",
+					"opinions_cited": {
+						"107900": {
+							"opacitiy": 1
+						}
+					}
+				}
+			],
+			"citation_count": 1,
+			"votes_majority": 6,
+			"absolute_url": "/opinion/111164/bose-corp-v-consumers-union-of-united-states-inc/"
+		},
+		{
+			"votes_minority": 3,
+			"decision_direction": 2,
+			"case_name": "Boos v. Barry",
+			"case_name_short": "Boos",
+			"scdb_id": "1987-051",
+			"id": 112027,
+			"date_filed": "1988-03-22",
+			"sub_opinions": [
+				{
+					"type": "combined",
+					"opinions_cited": {
+						"112011": {
+							"opacitiy": 1
+						},
+						"108492": {
+							"opacitiy": 1
+						},
+						"108597": {
+							"opacitiy": 1
+						},
+						"108598": {
+							"opacitiy": 1
+						}
+					}
+				}
+			],
+			"citation_count": 1,
+			"votes_majority": 5,
+			"absolute_url": "/opinion/112027/boos-v-barry/"
+		},
+		{
+			"votes_minority": 4,
+			"decision_direction": 2,
+			"case_name": "Street v. New York",
+			"case_name_short": "Street",
+			"scdb_id": "1968-080",
+			"id": 107900,
+			"date_filed": "1969-04-21",
+			"sub_opinions": [
+				{
+					"type": "combined",
+					"opinions_cited": {}
+				}
+			],
+			"citation_count": 12,
+			"votes_majority": 5,
+			"absolute_url": "/opinion/107900/street-v-new-york/"
+		},
+		{
+			"votes_minority": 0,
+			"decision_direction": 2,
+			"case_name": "Bachellar v. Maryland",
+			"case_name_short": "Bachellar",
+			"scdb_id": "1969-076",
+			"id": 108119,
+			"date_filed": "1970-04-20",
+			"sub_opinions": [
+				{
+					"type": "combined",
+					"opinions_cited": {
+						"107900": {
+							"opacitiy": 1
+						}
+					}
+				}
+			],
+			"citation_count": 1,
+			"votes_majority": 8,
+			"absolute_url": "/opinion/108119/bachellar-v-maryland/"
+		},
+		{
+			"votes_minority": 0,
+			"decision_direction": 2,
+			"case_name": "Grayned v. City of Rockford",
+			"case_name_short": "Grayned",
+			"scdb_id": "1971-162",
+			"id": 108598,
+			"date_filed": "1972-06-26",
+			"sub_opinions": [
+				{
+					"type": "combined",
+					"opinions_cited": {
+						"107900": {
+							"opacitiy": 1
+						}
+					}
+				}
+			],
+			"citation_count": 2,
+			"votes_majority": 9,
+			"absolute_url": "/opinion/108598/grayned-v-city-of-rockford/"
+		},
+		{
+			"votes_minority": 0,
+			"decision_direction": 2,
+			"case_name": "Police Dept. of Chicago v. Mosley",
+			"case_name_short": "Mosley",
+			"scdb_id": "1971-161",
+			"id": 108597,
+			"date_filed": "1972-06-26",
+			"sub_opinions": [
+				{
+					"type": "combined",
+					"opinions_cited": {
+						"107900": {
+							"opacitiy": 1
+						}
+					}
+				}
+			],
+			"citation_count": 2,
+			"votes_majority": 9,
+			"absolute_url": "/opinion/108597/police-dept-of-chicago-v-mosley/"
+		},
+		{
+			"votes_minority": 4,
+			"decision_direction": 2,
+			"case_name": "Texas v. Johnson",
+			"case_name_short": "",
+			"scdb_id": "1988-124",
+			"id": 112304,
+			"date_filed": "1989-06-21",
+			"sub_opinions": [
+				{
+					"type": "combined",
+					"opinions_cited": {
+						"109505": {
+							"opacitiy": 1
+						},
+						"109092": {
+							"opacitiy": 1
+						},
+						"108348": {
+							"opacitiy": 1
+						},
+						"107900": {
+							"opacitiy": 1
+						},
+						"112011": {
+							"opacitiy": 1
+						},
+						"108597": {
+							"opacitiy": 1
+						},
+						"108598": {
+							"opacitiy": 1
+						},
+						"108119": {
+							"opacitiy": 1
+						},
+						"108988": {
+							"opacitiy": 1
+						}
+					}
+				}
+			],
+			"citation_count": 1,
+			"votes_majority": 5,
+			"absolute_url": "/opinion/112304/texas-v-johnson/"
+		},
+		{
+			"votes_minority": 2,
+			"decision_direction": 2,
+			"case_name": "Gooding v. Wilson",
+			"case_name_short": "Gooding",
+			"scdb_id": "1971-082",
+			"id": 108492,
+			"date_filed": "1972-03-23",
+			"sub_opinions": [
+				{
+					"type": "combined",
+					"opinions_cited": {
+						"107900": {
+							"opacitiy": 1
+						}
+					}
+				}
+			],
+			"citation_count": 1,
+			"votes_majority": 5,
+			"absolute_url": "/opinion/108492/gooding-v-wilson/"
+		},
+		{
+			"votes_minority": 0,
+			"decision_direction": 2,
+			"case_name": "Hustler Magazine, Inc. v. Falwell",
+			"case_name_short": "Falwell",
+			"scdb_id": "1987-035",
+			"id": 112011,
+			"date_filed": "1988-02-24",
+			"sub_opinions": [
+				{
+					"type": "combined",
+					"opinions_cited": {
+						"107900": {
+							"opacitiy": 1
+						},
+						"111164": {
+							"opacitiy": 1
+						}
+					}
+				}
+			],
+			"citation_count": 3,
+			"votes_majority": 8,
+			"absolute_url": "/opinion/112011/hustler-magazine-inc-v-falwell/"
+		},
+		{
+			"votes_minority": 3,
+			"decision_direction": 2,
+			"case_name": "Smith v. Goguen",
+			"case_name_short": "Goguen",
+			"scdb_id": "1973-075",
+			"id": 108988,
+			"date_filed": "1974-03-25",
+			"sub_opinions": [
+				{
+					"type": "combined",
+					"opinions_cited": {
+						"107900": {
+							"opacitiy": 1
+						}
+					}
+				}
+			],
+			"citation_count": 2,
+			"votes_majority": 6,
+			"absolute_url": "/opinion/108988/smith-v-goguen/"
+		},
+		{
+			"votes_minority": 4,
+			"decision_direction": 2,
+			"case_name": "Cohen v. California",
+			"case_name_short": "Cohen",
+			"scdb_id": "1970-121",
+			"id": 108360,
+			"date_filed": "1971-06-07",
+			"sub_opinions": [
+				{
+					"type": "combined",
+					"opinions_cited": {
+						"107900": {
+							"opacitiy": 1
+						}
+					}
+				}
+			],
+			"citation_count": 2,
+			"votes_majority": 5,
+			"absolute_url": "/opinion/108360/cohen-v-california/"
+		},
+		{
+			"votes_minority": 4,
+			"decision_direction": 2,
+			"case_name": "Coates v. Cincinnati",
+			"case_name_short": "Coates",
+			"scdb_id": "1970-113",
+			"id": 108348,
+			"date_filed": "1971-06-01",
+			"sub_opinions": [
+				{
+					"type": "combined",
+					"opinions_cited": {
+						"107900": {
+							"opacitiy": 1
+						}
+					}
+				}
+			],
+			"citation_count": 1,
+			"votes_majority": 5,
+			"absolute_url": "/opinion/108348/coates-v-cincinnati/"
+		},
+		{
+			"votes_minority": 4,
+			"decision_direction": 2,
+			"case_name": "United States v. Eichman",
+			"case_name_short": "Eichman",
+			"scdb_id": "1989-103",
+			"id": 112453,
+			"date_filed": "1990-06-11",
+			"sub_opinions": [
+				{
+					"type": "combined",
+					"opinions_cited": {
+						"108360": {
+							"opacitiy": 1
+						},
+						"112304": {
+							"opacitiy": 1
+						},
+						"112011": {
+							"opacitiy": 1
+						},
+						"112027": {
+							"opacitiy": 1
+						},
+						"109092": {
+							"opacitiy": 1
+						}
+					}
+				}
+			],
+			"citation_count": 0,
+			"votes_majority": 5,
+			"absolute_url": "/opinion/112453/united-states-v-eichman/"
+		},
+		{
+			"votes_minority": 3,
+			"decision_direction": 2,
+			"case_name": "Spence v. Washington",
+			"case_name_short": "Spence",
+			"scdb_id": "1973-163",
+			"id": 109092,
+			"date_filed": "1974-06-25",
+			"sub_opinions": [
+				{
+					"type": "combined",
+					"opinions_cited": {
+						"108360": {
+							"opacitiy": 1
+						},
+						"108988": {
+							"opacitiy": 1
+						},
+						"107900": {
+							"opacitiy": 1
+						}
+					}
+				}
+			],
+			"citation_count": 2,
+			"votes_majority": 6,
+			"absolute_url": "/opinion/109092/spence-v-washington/"
+		},
+		{
+			"votes_minority": 4,
+			"decision_direction": 1,
+			"case_name": "Young v. American Mini Theatres, Inc.",
+			"case_name_short": "Young",
+			"scdb_id": "1975-146",
+			"id": 109505,
+			"date_filed": "1976-10-04",
+			"sub_opinions": [
+				{
+					"type": "combined",
+					"opinions_cited": {
+						"107900": {
+							"opacitiy": 1
+						}
+					}
+				}
+			],
+			"citation_count": 1,
+			"votes_majority": 5,
+			"absolute_url": "/opinion/109505/young-v-american-mini-theatres-inc/"
+		}
+	]
+}
