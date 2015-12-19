@@ -1,11 +1,10 @@
 /* global $, document, d3, Plottable, embedUrl, opinions*/
+'use strict';
 
 /*
 Look at using d3 maps and sets instead of some of the other datatypes:
 	https://github.com/mbostock/d3/wiki/Arrays
  */
-
-'use strict';
 
 // rewrite the drawGraph call to use fewer parameters:
 // opinions, settings {target, type, axis, height, DoS, mode}
@@ -24,22 +23,20 @@ Look at using d3 maps and sets instead of some of the other datatypes:
  * @return {object} a new version of the source data containing only utilized information
  */
 function drawGraph(target, opinions, chartType, axisType, height, maxDoS, mode, galleryId) {
-	var citationJSON = JSON.parse(JSON.stringify(opinions)), // make a copy
+	var workingJSON = JSON.parse(JSON.stringify(opinions)), // make a modifiable copy to retain original
 		chartMode = (typeof chartType !== 'undefined') ? chartType : 'dos',
 		xAxisMode = (typeof axisType !== 'undefined') ? axisType : 'cat',
-		heightValue = height + 'px', // default, height is processed below
-		parseDate = d3.time.format('%Y-%m-%d').parse, // to parse dates in the JSON into d3 dates
 		chartWidth = $(target).width(), // the width of the enclosing div
+		heightPx = height + 'px', // default, height is processed below
+		parseDate = d3.time.format('%Y-%m-%d').parse, // to parse dates in the JSON into d3 dates
 		xDate = d3.time.format('%b-%Y'), // to format date for display
 		// data structures
-		workingJSON = [],
-		links = {}, // used to hold DoS for connectors
 		coords = {}, // object to hold extracted coordinates keyed by case id
 		point = {}, // a point within coords
-		JSONIndex = {},
-		JSONCount = 0,
+		links = {}, // used to hold DoS for connectors
+		JSONIndex = {}, // a quick index to speed up data access
 		caseCount = 0, // number of opinions
-		maxDegree = 0,
+		maxDegree = 0, // the maximum degree of separation encountered
 		label = '',
 		//scales
 		xScaleCat = {}, // the scaling function for x in category mode
@@ -50,11 +47,11 @@ function drawGraph(target, opinions, chartType, axisType, height, maxDoS, mode, 
 		//constants
 		degrees = ['first', 'second', 'third', 'fourth', 'fifth', 'sixth', 'seventh', 'eighth', 'ninth', 'distant'],
 		ddlu = ['N', 'C', 'L', 'U'], // from http://scdb.wustl.edu/documentation.php?var=decisionDirection
-		ddlul = ['Neutral', 'Conservative', 'Liberal', 'Unspecifiable', 'Unknown'],
-		ddc = [0, 0, 0, 0, 0],
-		offset = 0,
-		index = 0,
+		ddlul = ['Neutral', 'Conservative', 'Liberal', 'Unspecifiable', 'Unknown'], // Decision Direction lookup long
+		ddc = [0, 0, 0, 0, 0], // decision direction count encountered
 		distribution = [], // will hold the correctly sized vertical distribution pattern
+		offset = 0, // used for making 'random' y distribution
+		index = 0,
 		// chart parts
 		chart = {}, // the chart itself
 		table = [], // holds the structure of the chart
@@ -78,8 +75,25 @@ function drawGraph(target, opinions, chartType, axisType, height, maxDoS, mode, 
 		// caseHoverText = {}, // reference to the text in the object shown when hovering
 		caseHoverGroup = {}, // reference to the hover show object
 		caseClick = {}, // interaction behavior
-		caseDrag = {},
+		caseDrag = {}, // used in edit mode
 		dragTarget = null;
+
+	/**
+	 * standardize the name structure for links to avoid duplication
+	 * @param  {string} a case id
+	 * @param  {string} b case id
+	 * @return {string}   ordered case ids combined with lower first
+	 */
+	function linkName(a, b) {
+		var name = '';
+
+		if (a < b) {
+			name = a + ':' + b;
+		} else {
+			name = b + ':' + a;
+		}
+		return name;
+	}
 
 	/**
 	 * organization and indexing of the supplied JSON
@@ -102,8 +116,9 @@ function drawGraph(target, opinions, chartType, axisType, height, maxDoS, mode, 
 			}
 			return size;
 		}
+
 		// sort by date_filed, break ties so that opinion with no cites comes first
-		citationJSON.opinion_clusters.sort(function (a, b) {
+		workingJSON.opinion_clusters.sort(function (a, b) {
 			if (parseDate(a.date_filed) > parseDate(b.date_filed)) {
 				return 1;
 			}
@@ -120,11 +135,12 @@ function drawGraph(target, opinions, chartType, axisType, height, maxDoS, mode, 
 			return 0;
 		});
 		// build index
-		citationJSON.opinion_clusters.forEach(function (cluster) {
+		workingJSON.opinion_clusters.forEach(function (cluster) {
 			point = {};
-			point.num = JSONCount++;
+			point.num = caseCount++;
 			point.citedBy = [];
 			JSONIndex[cluster.id] = point;
+			// while iterating handle null values in JSON
 			if (cluster.decision_direction === null) {
 				cluster.decision_direction = '4';
 			}
@@ -134,10 +150,11 @@ function drawGraph(target, opinions, chartType, axisType, height, maxDoS, mode, 
 			if (cluster.votes_minority === null) {
 				cluster.votes_minority = '-1';
 			}
+			// also count decision directions encountered (allows us to avoid showing unused labels)
 			ddc[cluster.decision_direction]++;
 		});
 		// add cited by others in JSON to each
-		citationJSON.opinion_clusters.forEach(function (cluster) {
+		workingJSON.opinion_clusters.forEach(function (cluster) {
 			var item = '';
 
 			for (item in cluster.sub_opinions[0].opinions_cited) {
@@ -151,36 +168,19 @@ function drawGraph(target, opinions, chartType, axisType, height, maxDoS, mode, 
 	}
 
 	/**
-	 * [linkName description]
-	 * @param  {string} a case id
-	 * @param  {string} b case id
-	 * @return {string}   ordered case ids combined with lower first
-	 */
-	function linkName(a, b) {
-		var name = '';
-
-		if (a < b) {
-			name = a + ':' + b;
-		} else {
-			name = b + ':' + a;
-		}
-		return name;
-	}
-
-	/**
 	 * [traverse description]
 	 * @param {integer} nodeid index in JSON for current node
 	 * @param {integer} last previous node id
 	 * @param {integer} depth how far from newest case
 	 */
 	function traverse(nodeid, last, depth) {
-		var order = citationJSON.opinion_clusters[nodeid].travRev,
+		var order = workingJSON.opinion_clusters[nodeid].travRev,
 			linkId = '',
 			item = '';
 
 		// for any iteration that is traversing between two points
 		if (nodeid !== last) {
-			linkId = linkName(citationJSON.opinion_clusters[nodeid].id, citationJSON.opinion_clusters[last].id);
+			linkId = linkName(workingJSON.opinion_clusters[nodeid].id, workingJSON.opinion_clusters[last].id);
 			if (! links.hasOwnProperty(linkId)) {
 				links[linkId] = {dr: depth};
 			} else if (typeof links[linkId].dr === 'undefined' || links[linkId].dr > depth) {
@@ -190,9 +190,9 @@ function drawGraph(target, opinions, chartType, axisType, height, maxDoS, mode, 
 		// branch and follow all children this direction
 		if (typeof order === 'undefined' || order > depth) {
 			// if this is our first time getting here or we found a shorter path
-			citationJSON.opinion_clusters[nodeid].travRev = depth; // record the new shorter distance
-			for (item in citationJSON.opinion_clusters[nodeid].sub_opinions[0].opinions_cited) {
-				if (citationJSON.opinion_clusters[nodeid].sub_opinions[0].opinions_cited.hasOwnProperty(item)) {
+			workingJSON.opinion_clusters[nodeid].travRev = depth; // record the new shorter distance
+			for (item in workingJSON.opinion_clusters[nodeid].sub_opinions[0].opinions_cited) {
+				if (workingJSON.opinion_clusters[nodeid].sub_opinions[0].opinions_cited.hasOwnProperty(item)) {
 					traverse(JSONIndex[item].num, nodeid, depth + 1);
 				}
 			}
@@ -206,11 +206,11 @@ function drawGraph(target, opinions, chartType, axisType, height, maxDoS, mode, 
 	 * @param {integer} depth how far from newest case
 	 */
 	function traverseBack(nodeid, last, depth) {
-		var order = citationJSON.opinion_clusters[nodeid].travFwd,
+		var order = workingJSON.opinion_clusters[nodeid].travFwd,
 			linkId = '';
 
 		if (nodeid !== last) {
-			linkId = linkName(citationJSON.opinion_clusters[nodeid].id, citationJSON.opinion_clusters[last].id);
+			linkId = linkName(workingJSON.opinion_clusters[nodeid].id, workingJSON.opinion_clusters[last].id);
 			if (! links.hasOwnProperty(linkId)) {
 				links[linkId] = {df: depth};
 			} else if (typeof links[linkId].df === 'undefined' || links[linkId].df > depth) {
@@ -218,8 +218,8 @@ function drawGraph(target, opinions, chartType, axisType, height, maxDoS, mode, 
 			}
 		}
 		if (typeof order === 'undefined' || order > depth) {
-			citationJSON.opinion_clusters[nodeid].travFwd = depth;
-			JSONIndex[citationJSON.opinion_clusters[nodeid].id].citedBy.forEach(function (item) {
+			workingJSON.opinion_clusters[nodeid].travFwd = depth;
+			JSONIndex[workingJSON.opinion_clusters[nodeid].id].citedBy.forEach(function (item) {
 				traverseBack(JSONIndex[item].num, nodeid, depth + 1);
 			});
 		}
@@ -236,7 +236,7 @@ function drawGraph(target, opinions, chartType, axisType, height, maxDoS, mode, 
 		traverse(caseCount - 1, caseCount - 1, 0);
 		traverseBack(0, 0, 0);
 
-		citationJSON.opinion_clusters.forEach(function (cluster) {
+		workingJSON.opinion_clusters.forEach(function (cluster) {
 			if (cluster.travFwd === 0 || cluster.travRev === 0) {
 				cluster.order = 0;
 			} else {
@@ -277,7 +277,7 @@ function drawGraph(target, opinions, chartType, axisType, height, maxDoS, mode, 
 			c = 1;
 
 		// filter out cases that have higher DoS
-		workingJSON = citationJSON.opinion_clusters.filter(function (cluster) {
+		workingJSON = workingJSON.opinion_clusters.filter(function (cluster) {
 			return (chartType !== 'genealogy') ? degrees.indexOf(cluster.order) < max : true;
 		});
 		// renumber the remaining cases
@@ -298,7 +298,6 @@ function drawGraph(target, opinions, chartType, axisType, height, maxDoS, mode, 
 		}
 	}
 
-
 	if (! $(target).length) { // if the target isn't on the page stop now
 		return [];
 	}
@@ -307,11 +306,19 @@ function drawGraph(target, opinions, chartType, axisType, height, maxDoS, mode, 
 	prepJSON();
 
 	// will get set to final in trimJSON
-	caseCount = citationJSON.opinion_clusters.length;
+	caseCount = workingJSON.opinion_clusters.length;
 
+	// calculate DoS for nodes and links
 	calculateDoS();
 
+	// now that DoS is calculated use that to remove distant nodes and links
 	trimJSON(maxDoS);
+
+	// cleaner to retain var for this and use it later on?
+	d3.select(target)
+		.append('svg')
+		.attr('id', 'scotus-chart-' + galleryId)
+		.attr('height', heightPx);
 
 	// build vertical separation for dos chart
 	if (chartType === 'dos') {
@@ -326,7 +333,8 @@ function drawGraph(target, opinions, chartType, axisType, height, maxDoS, mode, 
 	}
 
 	/**
-	 * [dosYSpread description]
+	 * if we have a set y value use it, otherwise use the distribution
+	 * this allows us to respect edits and untangle the DoS network
 	 * @param  {object} d case
 	 * @return {integer}   the vertical distribution for that case
 	 */
@@ -354,15 +362,10 @@ function drawGraph(target, opinions, chartType, axisType, height, maxDoS, mode, 
 		return value;
 	}
 
-	// cleaner to retain var for this and use it later on?
-	d3.select(target)
-		.append('svg')
-		.attr('id', 'coverageChart' + galleryId)
-		.attr('height', heightValue);
-
 	xScaleCat = new Plottable.Scales.Category(); // set switch for time or category time
 	xScaleCat.outerPadding(0.9);
 	// ensure correct order by loading dates in
+	// preloading these allows us to draw connections before drawing nodes
 	xScaleCat.domain(workingJSON.map(function (d) {
 		return parseDate(d.date_filed);
 	}));
@@ -371,11 +374,13 @@ function drawGraph(target, opinions, chartType, axisType, height, maxDoS, mode, 
 	yAxis = new Plottable.Axes.Category(yScale, 'left');
 
 	if (chartMode === 'dos') {
-		// yScale.domain(d3.range(1, d3.max(distribution) + 2).reverse());
 		yScale.domain(d3.range(0, 100));
-		yAxis.formatter(function () {
-			return '';
-		});
+		yAxis.innerTickLength(0)
+			.endTickLength(0)
+			.formatter(function () {
+				return '';
+			})
+			.annotationsEnabled(true);
 	} else {
 		if (ddc[3] > 0 || ddc[4] > 0) { // then we have an unknown or unspecifiable
 			yScale.domain([
@@ -439,10 +444,16 @@ function drawGraph(target, opinions, chartType, axisType, height, maxDoS, mode, 
 	}
 
 	if (chartMode === 'dos') {
-		colorScale.domain(degrees.slice(0, maxDoS));
+		colorScale.domain(degrees.slice(0, d3.min([maxDoS, maxDegree + 1])));
 	} else {
 		colorScale.domain(filter(ddlul, ddc));
-		colorScale.range(filter(['purple', 'red', 'blue', 'green', 'orange'], ddc));
+		colorScale.range(filter([
+			'purple',
+			'red',
+			'blue',
+			'green',
+			'orange'
+		], ddc));
 	}
 
 	xAxisCat = new Plottable.Axes.Category(xScaleCat, 'bottom');
@@ -540,14 +551,10 @@ function drawGraph(target, opinions, chartType, axisType, height, maxDoS, mode, 
 			return scalePlot(d.citation_count, i);
 		}, sizeScale)
 		.attr('stroke', function (d) {
-			return colorScale.scale((chartMode === 'dos')
-				? d.order
-				: ddlul[d.decision_direction]);
+			return colorScale.scale((chartMode === 'dos') ? d.order : ddlul[d.decision_direction]);
 		})
 		.attr('fill', function (d) {
-			return colorScale.scale((chartMode === 'dos')
-				? d.order
-				: ddlul[d.decision_direction]);
+			return colorScale.scale((chartMode === 'dos') ? d.order : ddlul[d.decision_direction]);
 		})
 		.attr('opacity', 1);
 	if (galleryId === '') {
@@ -555,7 +562,7 @@ function drawGraph(target, opinions, chartType, axisType, height, maxDoS, mode, 
 			return true;
 		})
 		.label(function (d) {
-			return (d.case_name_short) ? d.case_name_short : d.case_name;
+			return (d.case_name_short) ? d.case_name_short : d.case_name; //.split(' ')[0]
 		});
 	}
 	plot.append(cases);
@@ -752,7 +759,7 @@ function drawGraph(target, opinions, chartType, axisType, height, maxDoS, mode, 
 
 	chart = new Plottable.Components.Table(table);
 
-	chart.renderTo('#coverageChart' + galleryId);
+	chart.renderTo('#scotus-chart-' + galleryId);
 
 	window.addEventListener('resize', function () {
 		chart.redraw();
@@ -831,7 +838,7 @@ function drawGraph(target, opinions, chartType, axisType, height, maxDoS, mode, 
 			caseClick.attachTo(cases);
 		}
 
-		if (mode === 'edit') {
+		if (mode === 'edit' && chartType === 'dos') {
 			caseDrag = new Plottable.Interactions.Drag();
 
 			caseDrag.onDragStart(function (c) {
