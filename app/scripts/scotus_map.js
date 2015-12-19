@@ -379,8 +379,7 @@ function drawGraph(target, opinions, chartType, axisType, height, maxDoS, mode, 
 			.endTickLength(0)
 			.formatter(function () {
 				return '';
-			})
-			.annotationsEnabled(true);
+			});
 	} else {
 		if (ddc[3] > 0 || ddc[4] > 0) { // then we have an unknown or unspecifiable
 			yScale.domain([
