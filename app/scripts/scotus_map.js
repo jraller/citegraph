@@ -51,6 +51,16 @@ function drawGraph(target, opinions, chartType, axisType, height, maxDoS, mode, 
 		ddc = [0, 0, 0, 0, 0], // decision direction count encountered
 		distribution = [], // will hold the correctly sized vertical distribution pattern
 		offset = 0, // used for making 'random' y distribution
+		spaethLabels = ['L5-4',
+				'L6-3',
+				'L7-2',
+				'L8-1',
+				'N9-0',
+				'C8-1',
+				'C7-2',
+				'C6-3',
+				'C5-4',
+				'Unk'],
 		index = 0,
 		// chart parts
 		chart = {}, // the chart itself
@@ -382,32 +392,10 @@ function drawGraph(target, opinions, chartType, axisType, height, maxDoS, mode, 
 			})
 			.tickLabelPadding(0);
 	} else {
-		if (ddc[3] > 0 || ddc[4] > 0) { // then we have an unknown or unspecifiable
-			yScale.domain([
-				'L5-4',
-				'L6-3',
-				'L7-2',
-				'L8-1',
-				'N9-0',
-				'C8-1',
-				'C7-2',
-				'C6-3',
-				'C5-4',
-				'Unk'
-			]);
-		} else {
-			yScale.domain([
-				'L5-4',
-				'L6-3',
-				'L7-2',
-				'L8-1',
-				'N9-0',
-				'C8-1',
-				'C7-2',
-				'C6-3',
-				'C5-4'
-			]);
+		if (ddc[3] === 0 && ddc[4] === 0) { // there are no unknown or unspecifiable
+			spaethLabels.pop();
 		}
+		yScale.domain(spaethLabels);
 		yAxis.formatter(function (d) {
 			var value = d;
 
