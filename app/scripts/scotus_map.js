@@ -489,9 +489,9 @@ function drawGraph(target, opinions, chartType, axisType, height, maxDoS, mode, 
 		yGrid.domain([0, 10]);
 	}
 
-	grid = new Plottable.Components.Gridlines(xGrid, yGrid);
-
 	plot = new Plottable.Components.Group();
+
+	grid = new Plottable.Components.Gridlines(xGrid, yGrid);
 
 	plot.append(grid);
 
