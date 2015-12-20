@@ -393,14 +393,14 @@ function drawGraph(target, opinions, chartType, axisType, height, maxDoS, mode, 
 			.tickLabelPadding(0);
 	} else {
 		if (ddc[3] === 0 && ddc[4] === 0) { // there are no unknown or unspecifiable
-			spaethLabels.pop();
+			spaethLabels.pop(); // get rid of 'Unk'
 		}
 		yScale.domain(spaethLabels);
 		yAxis.formatter(function (d) {
 			var value = d;
 
 			if (value !== 'Unk') {
-				value = value.slice(1);
+				value = value.slice(1); // remove leading letter
 			}
 			return value;
 		});
@@ -478,7 +478,11 @@ function drawGraph(target, opinions, chartType, axisType, height, maxDoS, mode, 
 
 	yGrid = new Plottable.Scales.Linear();
 	if (chartMode === 'dos') {
-		yGrid.domain([0, 100]); // handle dos and non dos
+		yGrid.domain([0, 100])
+			.tickGenerator(function () {
+				return [0, 100];
+			}); // handle dos and non dos
+
 	} else if (ddc[3] > 0 || ddc[4] > 0) { // there is an 'Unk' category
 		yGrid.domain([0, 11]);
 	} else {
