@@ -874,7 +874,11 @@ function drawGraph(target, opinions, chartType, axisType, height, maxDoS, mode, 
 			caseDrag.attachTo(cases);
 		}
 	}
-
+	// the following bit of extremely odd looking code is in place to counter
+	// a behavior seen with IE when it is used in place on the production system
+	// that does not appear in dev. The bug causes in IE portions of the chart to
+	// not be visible.
+	$('svg').css('line-height', $('svg').css('line-height'));
 	return workingJSON;
 }
 
