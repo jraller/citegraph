@@ -454,7 +454,7 @@ function drawGraph(target, opinions, chartType, axisType, height, maxDoS, mode, 
 	});
 
 	// change label angle when it gets too tight to read
-	if (chartWidth / caseCount > 50) {
+	if (chartWidth / caseCount > 45) { // 50 was too high
 		xAxisCat.tickLabelAngle(0);
 	} else {
 		xAxisCat.tickLabelAngle(-90);
